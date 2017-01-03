@@ -1,27 +1,23 @@
-#' Coef TMB Analysis
+#' Coef JAGS Analysis
 #'
-#' Coefficients for a TMB analysis.
+#' Coefficients for a JAGS analysis.
 #'
-#'  Permitted values for terms are 'fixed',
-#' 'random' and 'adreport'.
+#'  Permitted values for terms are 'fixed' and 'random'.
 #'
 #' The \code{statistic} is the z value.
-#' The \code{p.value} is \code{Pr(>|z^2|)}.
-#' The (95\%) \code{lower} and \code{upper} confidence intervals are
-#' the \code{estimate} +/- 1.96 * \code{std.error}.
 #'
-#' @param object The tmb_analysis object.
+#' @param object The jmb_analysis object.
 #' @param terms A string of the type of terms to get the coefficients for.
 #' @param scalar_only A flag indicating whether to only return scalar terms.
 #' @param constant_included A flag indicating whether to include constant terms.
 #' @param conf_level A number specifying the confidence level. By default 0.95.
 #' @param ... Not used.
-#' @return A tidy tibble of the coeffcient terms.
+#' @return A tidy tibble of the coefficient terms.
 #' @export
-coef.tmb_analysis <- function(object, terms = "fixed", scalar_only = FALSE,
+coef.jmb_analysis <- function(object, terms = "fixed", scalar_only = FALSE,
                               constant_included = TRUE,
                               conf_level = 0.95, ...) {
-  check_vector(terms, c("^fixed$", "^random$", "^adreport$"), max_length = 1)
+  check_vector(terms, c("^fixed$", "^random$"), max_length = 1)
   check_flag(scalar_only)
   check_flag(constant_included)
   check_number(conf_level, c(0.5, 0.99))

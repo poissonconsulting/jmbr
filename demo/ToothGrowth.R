@@ -32,4 +32,6 @@ model <- model(code, monitor = "^b")
 
 analysis <- analyse(model, data = data)
 
+analysis <- reanalyse(analysis)
+
 coef(analysis)

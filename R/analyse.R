@@ -1,33 +1,36 @@
-jmb_chain <- function(inits, tempfile = tempfile, data, monitor, niters, nthin, quick = quick, quiet = quiet) {
-  nadapt <- niters / 10
-  if (quick) nadapt <- 0
-
+jmb_analyse_chain <- function(inits, tempfile = tempfile, data, monitor, nadapt, niters, nthin, quick, quiet) {
   if (quiet) {
-    suppressWarnings(jags <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
+    suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
   } else {
-    jags <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet)
+    jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet)
   }
 
-  update(jags, n.iter = niters/2, progress.bar = "none")
+  vars <- variable_names(jags_model, data, monitor)
 
-  vars <- variable_names(jags, data, monitor)
+  if (!quick) {
+    niters <- niters / 2
+    update(jags_model, n.iter = niters, progress.bar = "none")
+  }
 
- samples <- rjags::jags.samples(model = jags, variable.names = vars, n.iter = niters/2, thin = nthin, progress.bar = "none")
+  jags_samples <- rjags::jags.samples(model = jags_model, variable.names = vars, n.iter = niters, thin = nthin, progress.bar = "none")
 
-  list(samples, jags)
+  list(jags_model = jags_model, jags_samples = jags_samples)
 }
 
-jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
+jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
+
   timer <- timer::Timer$new()
   timer$start()
 
-  niters <- model$niters
   nchains <- 4L
-  nthin <- niters * nchains / 2000 * 2
+  niters <- model$niters
+  nadapt <- niters / 10
+  nthin <- niters * nchains / (2000 * 2)
 
   if (quick) {
-    niters <- 10
     nchains <- 2L
+    niters <- 10
+    nadapt <- 0
     nthin <- 1L
   }
 
@@ -37,15 +40,13 @@ jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
-  monitor <- model$monitor
+  fun <- ifelse(parallel, purrr::pmap, purrr::map)
 
-  if (!parallel) {
-    jags <- purrr::map(inits, jmb_chain, tempfile = tempfile, data = data, monitor = monitor, niters = niters, nthin = nthin, quick = quick, quiet = quiet)
-  } else
-    jags <- purrr::pmap(inits, jmb_chain, tempfile = tempfile, data = data, monitor = monitor, niters = niters, nthin = nthin, quick = quick, quiet = quiet)
+  jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data, monitor = model$monitor,
+                     nadapt = nadapt, niters = niters, nthin = nthin,
+                     quick = quick, quiet = quiet)
 
-
-  obj %<>% c(inits = list(inits), jags = list(jags), duration = timer$elapsed())
+  obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), nadapt = nadapt, niters = niters, duration = timer$elapsed())
   class(obj) <- c("jmb_analysis", "mb_analysis")
   obj
 }
@@ -81,10 +82,10 @@ analyse.jmb_model <- function(model, data, drop = character(0),
   rjags::load.module("bugs", quiet = quiet)
 
   if (is.data.frame(data)) {
-    return(jmb_analysis(data = data, model = model, tempfile = tempfile,
-                        quick = quick, quiet = quiet, parallel = parallel))
+    return(jmb_analyse(data = data, model = model, tempfile = tempfile,
+                       quick = quick, quiet = quiet, parallel = parallel))
   }
 
-  lapply(data, jmb_analysis, model = model, tempfile = tempfile,
+  lapply(data, jmb_analyse, model = model, tempfile = tempfile,
          quick = quick, quiet = quiet, parallel = parallel)
 }
