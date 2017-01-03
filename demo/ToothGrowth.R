@@ -30,6 +30,7 @@ code <- mb_code(template)
 model <- model(code)
 
 analysis <- analyse(model, data = data)
+
 coef(analysis)
 logLik(analysis)
 nterms(analysis)

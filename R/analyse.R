@@ -1,16 +1,16 @@
-jmb_analysis <- function(data, model, quick, quiet, parallel) {
+jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
+  nchains <- 4L
+  if (quick) nchains <- 2L
+
   timer <- timer::Timer$new()
   timer$start()
 
   obj <- list(model = model, data = data)
 
   data %<>% mbr::modify_data(model = model)
-#
-#   inits <- inits(data, model$gen_inits, model$random_effects)
-#
-#   if (any(names(inits) %in% c("fixed", "primary", "random", "report", "adreport", "all")))
-#     error("parameters cannot be named 'fixed', 'primary', 'random', 'report', 'adreport' or 'all'")
-#
+
+  inits <- inits(data, model$gen_inits, nchains = nchains)
+
 #   map <- map(inits)
 #
 #   inits %<>% lapply(function(x) {x[is.na(x)] <- 0; x})
@@ -24,7 +24,7 @@ jmb_analysis <- function(data, model, quick, quiet, parallel) {
 #   sd <- TMB::sdreport(ad_fun)
 #   report <- ad_fun$report()
 
-#  obj %<>% c(inits = list(inits), map = list(map), ad_fun = list(ad_fun), opt = list(opt),
+  obj %<>% c(inits = list(inits)) #, map = list(map), ad_fun = list(ad_fun), opt = list(opt),
 #             sd = list(sd), report = list(report), duration = timer$elapsed())
   class(obj) <- c("jmb_analysis", "mb_analysis")
   obj
@@ -60,9 +60,14 @@ analyse.jmb_model <- function(model, data, drop = character(0),
 
   model %<>% drop_parameters(parameters = drop)
 
+  tempfile <- tempfile(fileext = ".bug")
+  write(template(model), file = tempfile)
+
   if (is.data.frame(data)) {
-    return(jmb_analysis(data = data, model = model, quick = quick, quiet = quiet, parallel = parallel))
+    return(jmb_analysis(data = data, model = model, tempfile = tempfile,
+                        quick = quick, quiet = quiet, parallel = parallel))
   }
 
-  lapply(data, tmb_analysis, model = model, quick = quick, quiet = quiet, parallel = parallel)
+  lapply(data, tmb_analysis, model = model, tempfile = tempfile,
+         quick = quick, quiet = quiet, parallel = parallel)
 }
