@@ -1,5 +1,5 @@
 inits <- function(data, gen_inits, nchains) {
-  rngs <- parallel.seeds("base::BaseRNG", nchains)
+  rngs <- rjags::parallel.seeds("base::BaseRNG", nchains)
 
   if (identical(gen_inits(data), list())) return(rngs)
 

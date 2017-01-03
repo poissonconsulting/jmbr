@@ -28,13 +28,8 @@ model{
 # perform last analysis using jmbr
 code <- mb_code(template)
 
-model <- model(code)
+model <- model(code, monitor = "^b")
 
 analysis <- analyse(model, data = data)
 
 coef(analysis)
-logLik(analysis)
-nterms(analysis)
-
-IC(analysis, n = Inf)
-stopifnot(all.equal(IC(analysis, n = Inf), AIC(mod)))
