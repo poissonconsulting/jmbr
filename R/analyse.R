@@ -1,18 +1,26 @@
+jmb_chain <- function (inits, tempfile = tempfile, data, niters, quick = quick, quiet = quiet) {
+  nadapt <- 100L
+  if (quick) nadapt <- 0L
+
+  jags <- jags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet)
+
+  jags %<>% update(progress.bar = "none")
+
+  if (n.burnin > 0)
+    update(jags, n.iter = n.burnin)
+}
+
 jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
   timer <- timer::Timer$new()
   timer$start()
 
   niters <- model$niters
   nchains <- 4L
-  nadapt <- 100L
 
   if (quick) {
     niters <- 1L
     nchains <- 2L
-    nadapt <- 0L
   }
-
-  rngs <- rjags::parallel.seeds("base::BaseRNG", nchains)
 
   obj <- list(model = model, data = data)
 
@@ -20,7 +28,10 @@ jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
-  jags <- rjags::jags.model(tempfile, data, inits = inits, n.chains = nchains, n.adapt = nadapt, quiet = quiet)
+  if (!parallel) {
+    jags <- purrr::map(inits, jmb_chain, tempfile = tempfile, data, inits = inits, quick = quick, quiet = quiet)
+  } else
+    jags <- purrr::pmap(inits, jmb_chain, tempfile = tempfile, data, inits = inits, quick = quick, quiet = quiet)
 
 #
 #   opt <- do.call("optim", ad_fun)
