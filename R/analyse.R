@@ -1,9 +1,16 @@
 jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
-  nchains <- 4L
-  if (quick) nchains <- 2L
-
   timer <- timer::Timer$new()
   timer$start()
+
+  niters <- model$niters
+  nchains <- 4L
+  nadapt <- 100L
+
+  if (quick) {
+    niters <- 1L
+    nchains <- 2L
+    nadapt <- 0L
+  }
 
   obj <- list(model = model, data = data)
 
@@ -11,20 +18,15 @@ jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
-#   map <- map(inits)
-#
-#   inits %<>% lapply(function(x) {x[is.na(x)] <- 0; x})
-#
-#   ad_fun <- TMB::MakeADFun(data = data, inits, map = map,
-#                            random = names(model$random_effects),
-#                            DLL = basename(tempfile), silent = quiet)
+  jags <- rjags::jags.model(tempfile, data, inits = inits, n.chains = nchains, n.adapt = nadapt, quiet = quiet)
+
 #
 #   opt <- do.call("optim", ad_fun)
 #
 #   sd <- TMB::sdreport(ad_fun)
 #   report <- ad_fun$report()
 
-  obj %<>% c(inits = list(inits)) #, map = list(map), ad_fun = list(ad_fun), opt = list(opt),
+  obj %<>% c(inits = list(inits), jags = jags) #, map = list(map), ad_fun = list(ad_fun), opt = list(opt),
 #             sd = list(sd), report = list(report), duration = timer$elapsed())
   class(obj) <- c("jmb_analysis", "mb_analysis")
   obj

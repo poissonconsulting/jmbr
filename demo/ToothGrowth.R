@@ -20,7 +20,8 @@ model{
   slen ~ dunif(0, 10)
 
   for(i in 1:length(len)) {
-    len ~ dnorm(elen[i], slen^-2)
+    elen[i] <- bsupp[supp[i]]
+    len[i] ~ dnorm(elen[i], slen^-2)
   }
 }"
 
