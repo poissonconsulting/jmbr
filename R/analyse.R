@@ -12,6 +12,8 @@ jmb_analysis <- function(data, model, tempfile, quick, quiet, parallel) {
     nadapt <- 0L
   }
 
+  rngs <- rjags::parallel.seeds("base::BaseRNG", nchains)
+
   obj <- list(model = model, data = data)
 
   data %<>% mbr::modify_data(model = model)
