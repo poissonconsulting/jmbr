@@ -46,7 +46,12 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
                      nadapt = nadapt, niters = niters, nthin = nthin,
                      quick = quick, quiet = quiet)
 
-  obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), nadapt = nadapt, niters = niters, duration = timer$elapsed())
+  mcmcr <- lapply(jags_chains, function(x) x$jags_samples)
+  mcmcr %<>% lapply(mcmcr::as.mcmcr)
+  mcmcr %<>% purrr::reduce(mcmcr::combine_chains)
+
+  obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
+             nadapt = nadapt, niters = niters, duration = timer$elapsed())
   class(obj) <- c("jmb_analysis", "mb_analysis")
   obj
 }
