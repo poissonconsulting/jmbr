@@ -40,7 +40,7 @@ test_that("analyse", {
     prediction[i] <- bIntercept + bYear * Year[i] + bSite[Site[i]] + bSiteYear[Site[i], Year[i]]
 } "
 
-  model <- model(jags_template, monitor = "^(b|s)",
+  model <- model(jags_template, monitor = "^(b|log_s)",
                  random_effects = list(bSiteYear = c("Site", "Year")),
                  new_expr = new_expr)
 
@@ -64,7 +64,7 @@ test_that("analyse", {
 
   expect_identical(coef$term, c("bIntercept", "bSite[1]", "bSite[2]", "bSite[3]",
                                 "bSite[4]", "bSite[5]", "bSite[6]", "bYear",
-                                "sDensity", "sSiteYear"))
+                                "log_sDensity", "log_sSiteYear"))
 
   predict <- predict(analysis, new_data = new_data(data, "Site"))
 
