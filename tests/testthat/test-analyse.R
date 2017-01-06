@@ -52,7 +52,7 @@ test_that("analyse", {
   expect_identical(nchains(analysis), 4L)
   expect_identical(nsamples(analysis), 2000L)
 
-  convergence(analysis)
+  expect_equal(convergence(analysis), 1.00, tolerance = 1)
 
   expect_is(as.mcmcr(analysis), "mcmcr")
 
