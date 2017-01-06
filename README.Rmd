@@ -25,6 +25,44 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(jmbr)
+library(ggplot2)
+
+data <- datasets::ToothGrowth
+
+summary(lm(len ~ supp + dose , data = data))
+
+jags_template <- "
+  model{
+    bdose ~ dnorm(0, 5^-2)
+    for(i in 1:nsupp) {
+      bsupp[i] ~ dnorm(15, 10^-2)
+    }
+    slen ~ dunif(0, 10)
+
+    for(i in 1:length(supp)) {
+      elen[i] <- bsupp[supp[i]] + dose[i] * bdose
+      len[i] ~ dnorm(elen[i], slen^-2)
+    }
+  }
+"
+
+model <- model(mb_code(jags_template), monitor = "^b",
+               new_expr = "for(i in 1:length(supp)) prediction[i] <- bsupp[supp[i]] + dose[i] * bdose")
+
+analysis <- analyse(model, data = data)
+analysis <- reanalyse(analysis)
+
+convergence(analysis)
+coef(analysis)
+estimates(analysis)
+
+plot(analysis)
+
+len <- predict(analysis, new_data = unique(data[c("supp", "dose")]))
+
+ggplot(data = len, aes(x = dose, y = estimate)) +
+  facet_wrap(~supp) +
+  geom_pointrange(aes(ymin = lower, ymax = upper))
 
 ```
 

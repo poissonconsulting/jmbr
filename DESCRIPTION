@@ -1,34 +1,36 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9000
-Date: 2016-01-02
+Version: 0.0.0.9001
+Date: 2016-01-05
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE
 Depends:
     R (>= 3.3.1),
-    mbr (>= 0.0.0.9024),
-    stats,
+    mbr (>= 0.0.0.9025),
+    newdata (>= 0.0.0.9000)
 Imports:
     beepr,
     dplyr,
-    datacheckr,
+    datacheckr (>= 0.1.2),
     magrittr,
-    mcmcr (>= 0.0.0.9001),
+    mcmcr (>= 0.0.0.9003),
     plyr,
     purrr,
     pryr,
-    rescale,
+    rescale (>= 0.0.0.9000),
     rjags,
     stringr,
     tibble,
-    timer
+    timer (>= 0.0.1)
 Suggests:
+    ggplot2,
     testthat
 Remotes:
     poissonconsulting/datacheckr,
     poissonconsulting/mbr,
     poissonconsulting/mcmcr,
+    poissonconsulting/newdata,
     poissonconsulting/rescale,
     poissonconsulting/timer
 SystemRequirements: jags (>= 4.2.0)
