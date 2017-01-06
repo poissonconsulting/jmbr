@@ -41,7 +41,7 @@ reanalyse.jmb_analysis <- function(analysis,
   check_flag(quiet)
   check_flag(parallel)
   check_flag(beep)
-  check_unused(...)
+  
 
   if (beep) on.exit(beepr::beep())
 
