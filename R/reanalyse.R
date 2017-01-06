@@ -31,9 +31,9 @@ jmb_reanalyse <- function(analysis, quick, quiet, parallel) {
 
 #' @export
 reanalyse.jmb_analysis <- function(analysis,
+                                   parallel = getOption("mb.parallel", FALSE),
                                    quick = getOption("mb.quick", FALSE),
                                    quiet = getOption("mb.quiet", TRUE),
-                                   parallel = getOption("mb.parallel", FALSE),
                                    beep = getOption("mb.beep", TRUE),
                                    ...) {
 

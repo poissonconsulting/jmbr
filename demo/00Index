@@ -1,2 +1,2 @@
-tmbr          Run all demos (with ask = FALSE)
+jmbr          Run all demos (with ask = FALSE)
 ToothGrowth   ToothGrowth using TMB

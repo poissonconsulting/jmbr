@@ -1,3 +1,13 @@
+variable_names <- function(jags_model, data, monitor) {
+  vars <- stats::variable.names(jags_model)
+
+  vars <- vars[!vars %in% names(data)]
+  vars <- vars[grepl(monitor, vars, perl = TRUE)]
+
+  vars %<>% unique() %>% sort()
+  vars
+}
+
 jmb_analyse_chain <- function(inits, tempfile = tempfile, data, monitor, nadapt, niters, nthin, quick, quiet) {
   if (quiet) {
     suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
@@ -48,7 +58,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
 
   mcmcr <- lapply(jags_chains, function(x) x$jags_samples)
   mcmcr %<>% lapply(mcmcr::as.mcmcr)
-  mcmcr %<>% purrr::reduce(mcmcr::combine_chains)
+  mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
   obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
              nadapt = nadapt, niters = niters, duration = timer$elapsed())
@@ -58,9 +68,9 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
 
 #' @export
 analyse.jmb_model <- function(model, data, drop = character(0),
+                              parallel = getOption("mb.parallel", FALSE),
                               quick = getOption("mb.quick", FALSE),
                               quiet = getOption("mb.quiet", TRUE),
-                              parallel = getOption("mb.parallel", FALSE),
                               beep = getOption("mb.beep", TRUE),
                               ...) {
   if (is.data.frame(data)) {

@@ -2,6 +2,7 @@
 
 library(datasets)
 library(stats)
+library(mcmcr)
 
 # cleanup workspace
 rm(list = ls())
@@ -35,3 +36,5 @@ analysis <- analyse(model, data = data)
 analysis <- reanalyse(analysis)
 
 coef(analysis)
+estimates(analysis)
+nchains(analysis)

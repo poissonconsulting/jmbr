@@ -7,14 +7,14 @@ Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE
 Depends:
     R (>= 3.3.1),
-    mbr (>= 0.0.0.9023),
+    mbr (>= 0.0.0.9024),
     stats,
 Imports:
     beepr,
     dplyr,
     datacheckr,
     magrittr,
-    mcmcr,
+    mcmcr (>= 0.0.0.9001),
     plyr,
     purrr,
     pryr,
