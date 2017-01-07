@@ -71,6 +71,10 @@ test_that("analyse", {
                                 "bIntercept", "bYear",
                                 "log_sDensity", "log_sSiteYear"))
 
+  tidy <- tidy(analysis)
+  expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))
+  expect_identical(tidy$estimate, coef$estimate)
+
   predict <- predict(analysis, new_data = new_data(data, "Site"))
 
   expect_is(predict, "tbl")
