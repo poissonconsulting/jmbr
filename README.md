@@ -15,7 +15,6 @@ Demonstration
 
 ``` r
 library(ggplot2)
-library(magrittr)
 library(jmbr)
 #> Loading required package: mbr
 #> Loading required package: broom
@@ -57,7 +56,8 @@ for (i in 1:length(Pairs)) {
 
 model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
 
-analysis <- analyse(model, data = data) %>% reanalyse()
+analysis <- analyse(model, data = data)
+analysis <- reanalyse(analysis)
 
 plot(analysis)
 ```
@@ -75,11 +75,11 @@ tidy(analysis)
 #> # A tibble: 5 × 5
 #>              term    estimate  std.error   statistic p.value
 #> *           <chr>       <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.21875112 0.03885275 108.5648200  0.0005
-#> 2           beta1  1.17459477 0.06604093  17.8402572  0.0005
-#> 3           beta2  0.01823347 0.02698938   0.6800934  0.5250
-#> 4           beta3 -0.26341033 0.03411531  -7.7652317  0.0005
-#> 5 log_sDispersion -2.25449847 0.27639247  -8.2469455  0.0005
+#> 1           alpha  4.21748440 0.03946177 106.8589652  0.0005
+#> 2           beta1  1.18793417 0.06617626  18.0475643  0.0005
+#> 3           beta2  0.01777753 0.02777314   0.6595694  0.4960
+#> 4           beta3 -0.26891623 0.03436705  -7.9460382  0.0005
+#> 5 log_sDispersion -2.26675894 0.28366827  -8.0393583  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 

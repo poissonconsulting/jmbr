@@ -26,7 +26,6 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(ggplot2)
-library(magrittr)
 library(jmbr)
 
 options("mb.parallel" = TRUE)
@@ -59,7 +58,8 @@ for (i in 1:length(Pairs)) {
 
 model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
 
-analysis <- analyse(model, data = data) %>% reanalyse()
+analysis <- analyse(model, data = data)
+analysis <- reanalyse(analysis)
 
 plot(analysis)
 
