@@ -49,6 +49,9 @@ test_that("analyse", {
 
   analysis <- reanalyse(analysis, beep = FALSE)
 
+  expect_identical(parameters(analysis), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
+  expect_identical(parameters(analysis, fixed = FALSE), "bSiteYear")
+
   expect_identical(ngens(analysis), 2000L)
   expect_identical(nsims(analysis), 8000L)
 
