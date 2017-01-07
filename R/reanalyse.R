@@ -9,9 +9,9 @@ jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
 
-jmb_reanalyse <- function(analysis, quick, quiet, parallel) {
+jmb_reanalyse <- function(analysis, minutes, quick, quiet, parallel) {
 
-  if (quick) return(analysis)
+ if (quick || minutes < elapsed(analysis) * 2) return(analysis)
 
   timer <- timer::Timer$new()
   timer$start()
@@ -36,22 +36,23 @@ jmb_reanalyse <- function(analysis, quick, quiet, parallel) {
 
 #' @export
 reanalyse.jmb_analysis <- function(analysis,
+                                   minutes = getOption("mb.minutes", 60L),
                                    parallel = getOption("mb.parallel", FALSE),
                                    quick = getOption("mb.quick", FALSE),
                                    quiet = getOption("mb.quiet", TRUE),
                                    beep = getOption("mb.beep", TRUE),
                                    ...) {
 
+  check_count(minutes)
   check_flag(quick)
   check_flag(quiet)
   check_flag(parallel)
   check_flag(beep)
-
 
   if (beep) on.exit(beepr::beep())
 
   rjags::load.module("basemod", quiet = quiet)
   rjags::load.module("bugs", quiet = quiet)
 
-  jmb_reanalyse(analysis, quick = quick, quiet = quiet, parallel = parallel)
+  jmb_reanalyse(analysis, minutes = minutes, quick = quick, quiet = quiet, parallel = parallel)
 }
