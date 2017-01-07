@@ -58,9 +58,13 @@ test_that("analyse", {
   expect_identical(nchains(analysis), 4L)
   expect_identical(nsamples(analysis), 2000L)
 
-  expect_is(is_converged(analysis), "logical")
-
   expect_is(as.mcmcr(analysis), "mcmcr")
+
+  glance <- glance(analysis)
+  expect_is(glance, "tbl")
+  expect_identical(colnames(glance), c("n", "k", "IC", "converged"))
+  expect_identical(glance$n, 300L)
+  expect_identical(glance$k, 5L)
 
   coef <- coef(analysis)
 
