@@ -40,8 +40,7 @@ test_that("analyse", {
     prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]])
 } "
 
-  model <- model(jags_template, monitor = "^(b|log_s)",
-                 center = "Year",
+  model <- model(jags_template, center = "Year", monitor = "^(b|l)",
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
 
