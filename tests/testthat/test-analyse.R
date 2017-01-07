@@ -79,11 +79,11 @@ test_that("analyse", {
   expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))
   expect_identical(tidy$estimate, coef$estimate)
 
-  predict <- predict(analysis, new_data = new_data(data, "Site"))
+  year <- predict(analysis, new_data = new_data(data, "Year"))
 
-  expect_is(predict, "tbl")
-  expect_identical(colnames(predict), c("Site", "HabitatQuality", "Year", "Visit",
+  expect_is(year, "tbl")
+  expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
                                         "Density", "YearFactor",
                                      "estimate", "lower", "upper"))
-  expect_identical(nrow(predict), 6L)
+  expect_false(is.unsorted(year$estimate))
 })

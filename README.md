@@ -20,6 +20,11 @@ library(jmbr)
 #> Loading required package: mbr
 #> Loading required package: broom
 #> Loading required package: mcmcr
+#> 
+#> Attaching package: 'mcmcr'
+#> The following object is masked from 'package:ggplot2':
+#> 
+#>     derive
 #> Loading required package: newdata
 
 options("mb.parallel" = TRUE)
@@ -70,11 +75,11 @@ tidy(analysis)
 #> # A tibble: 5 × 5
 #>              term    estimate  std.error   statistic p.value
 #> *           <chr>       <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.21323796 0.03740485 112.6727994  0.0005
-#> 2           beta1  1.19360012 0.06574060  18.2675089  0.0005
-#> 3           beta2  0.02170486 0.02831082   0.7317959  0.4450
-#> 4           beta3 -0.27350006 0.03383068  -8.1927415  0.0005
-#> 5 log_sDispersion -2.20955017 0.27933347  -7.9751722  0.0005
+#> 1           alpha  4.21845266 0.03854190 109.4477310  0.0005
+#> 2           beta1  1.18567742 0.06154552  19.3407929  0.0005
+#> 3           beta2  0.01497019 0.02972606   0.5633698  0.5980
+#> 4           beta3 -0.26835746 0.03182295  -8.5202267  0.0005
+#> 5 log_sDispersion -2.27226482 0.29448653  -7.8140197  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
