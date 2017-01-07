@@ -17,7 +17,7 @@ jmb_reanalyse_internal <- function(analysis, parallel, quiet) {
   nchains <- length(analysis$jags_chains)
   nthin <- niters * nchains / (2000 * 2)
 
-  fun <- ifelse(parallel, purrr::pmap, purrr::map)
+  fun <- if (parallel) plapply else lapply
 
   analysis$jags_chains %<>% fun(jmb_reanalyse_chain, niters = niters, nthin = nthin, quiet = quiet)
 

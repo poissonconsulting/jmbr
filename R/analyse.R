@@ -50,7 +50,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
-  fun <- ifelse(parallel, purrr::pmap, purrr::map)
+  fun <- if (parallel) plapply else lapply
 
   jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data, monitor = model$monitor,
                      nadapt = nadapt, niters = niters, nthin = nthin,

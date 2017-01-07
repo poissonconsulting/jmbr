@@ -10,6 +10,84 @@ Introduction
 
 `jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).
 
+Demonstration
+-------------
+
+``` r
+library(ggplot2)
+library(magrittr)
+library(jmbr)
+#> Loading required package: mbr
+#> Loading required package: broom
+#> Loading required package: mcmcr
+#> Loading required package: newdata
+
+options("mb.parallel" = TRUE)
+doParallel::registerDoParallel(4)
+
+data <- bauw::peregrine
+
+template <- "
+model {
+  alpha ~ dnorm(0, 10^-2)
+  beta1 ~ dnorm(0, 10^-2)
+  beta2 ~ dnorm(0, 10^-2)
+  beta3 ~ dnorm(0, 10^-2)
+
+  log_sDispersion ~ dnorm(0, 10^-2)
+
+  log(sDispersion) <- log_sDispersion
+
+  for (i in 1:length(Pairs)) {
+    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3
+    eDispersion[i] ~ dgamma(1 / sDispersion^2, 1 / sDispersion^2)
+    Pairs[i] ~ dpois(ePairs[i] * eDispersion[i])
+  }
+}"
+
+new_expr <- "
+for (i in 1:length(Pairs)) {
+  prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
+}"
+
+model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
+
+analysis <- analyse(model, data = data)# %>% reanalyse()
+
+plot(analysis)
+```
+
+![](README-unnamed-chunk-2-1.png)![](README-unnamed-chunk-2-2.png)
+
+``` r
+
+glance(analysis)
+#> # A tibble: 1 × 6
+#>       n     k logLik    IC minutes converged
+#>   <int> <int>  <dbl> <dbl>   <int>     <lgl>
+#> 1    40     5     NA    NA       0     FALSE
+tidy(analysis)
+#> # A tibble: 5 × 5
+#>              term   estimate  std.error   statistic p.value
+#> *           <chr>      <dbl>      <dbl>       <dbl>   <dbl>
+#> 1           alpha  4.2186642 0.04054657 104.0033374  0.0005
+#> 2           beta1  1.1980643 0.08629097  13.9767913  0.0005
+#> 3           beta2  0.0166283 0.03242638   0.5561502  0.5640
+#> 4           beta3 -0.2745776 0.04443925  -6.2583909  0.0005
+#> 5 log_sDispersion -2.2321705 0.36204892  -6.2634847  0.0005
+
+year <- predict(analysis, new_data = new_data(data, "Year"))
+
+ggplot(data = year, aes(x = Year, y = estimate)) +
+  geom_point(data = data, aes(y = Pairs)) +
+  geom_line() +
+  geom_line(aes(y = lower), linetype = "dotted") +
+  geom_line(aes(y = upper), linetype = "dotted") +
+  expand_limits(y = 0)
+```
+
+![](README-unnamed-chunk-2-3.png)
+
 Installation
 ------------
 

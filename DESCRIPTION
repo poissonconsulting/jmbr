@@ -24,9 +24,11 @@ Imports:
     tibble,
     timer (>= 0.0.1)
 Suggests:
+    bauw (>= 0.0.0.9000),
     ggplot2,
     testthat
 Remotes:
+    poissonconsulting/bauw,
     poissonconsulting/mbr,
     poissonconsulting/mcmcr,
     poissonconsulting/newdata,

@@ -21,6 +21,60 @@ knitr::opts_chunk$set(
 
 `jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).
 
+## Demonstration
+
+```{r}
+library(ggplot2)
+library(magrittr)
+library(jmbr)
+
+options("mb.parallel" = FALSE)
+doParallel::registerDoParallel(4)
+
+data <- bauw::peregrine
+
+template <- "
+model {
+  alpha ~ dnorm(0, 10^-2)
+  beta1 ~ dnorm(0, 10^-2)
+  beta2 ~ dnorm(0, 10^-2)
+  beta3 ~ dnorm(0, 10^-2)
+
+  log_sDispersion ~ dnorm(0, 10^-2)
+
+  log(sDispersion) <- log_sDispersion
+
+  for (i in 1:length(Pairs)) {
+    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3
+    eDispersion[i] ~ dgamma(1 / sDispersion^2, 1 / sDispersion^2)
+    Pairs[i] ~ dpois(ePairs[i] * eDispersion[i])
+  }
+}"
+
+new_expr <- "
+for (i in 1:length(Pairs)) {
+  prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
+}"
+
+model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
+
+analysis <- analyse(model, data = data) %>% reanalyse(minutes = 1L)
+
+plot(analysis)
+
+glance(analysis)
+tidy(analysis)
+
+year <- predict(analysis, new_data = new_data(data, "Year"))
+
+ggplot(data = year, aes(x = Year, y = estimate)) +
+  geom_point(data = data, aes(y = Pairs)) +
+  geom_line() +
+  geom_line(aes(y = lower), linetype = "dotted") +
+  geom_line(aes(y = upper), linetype = "dotted") +
+  expand_limits(y = 0)
+```
+
 ## Installation
 
 To install from GitHub
