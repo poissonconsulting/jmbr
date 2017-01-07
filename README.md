@@ -68,13 +68,13 @@ glance(analysis)
 #> 1    40     5     NA    NA       0      TRUE
 tidy(analysis)
 #> # A tibble: 5 × 5
-#>              term    estimate  std.error  statistic p.value
-#> *           <chr>       <dbl>      <dbl>      <dbl>   <dbl>
-#> 1           alpha  4.21692422 0.03810367 110.653814  0.0005
-#> 2           beta1  1.18963236 0.07367380  16.152516  0.0005
-#> 3           beta2  0.01918109 0.02968810   0.694137  0.5160
-#> 4           beta3 -0.27225452 0.03744825  -7.267770  0.0005
-#> 5 log_sDispersion -2.26572399 0.31702219  -7.252330  0.0005
+#>              term    estimate  std.error   statistic p.value
+#> *           <chr>       <dbl>      <dbl>       <dbl>   <dbl>
+#> 1           alpha  4.21323796 0.03740485 112.6727994  0.0005
+#> 2           beta1  1.19360012 0.06574060  18.2675089  0.0005
+#> 3           beta2  0.02170486 0.02831082   0.7317959  0.4450
+#> 4           beta3 -0.27350006 0.03383068  -8.1927415  0.0005
+#> 5 log_sDispersion -2.20955017 0.27933347  -7.9751722  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
