@@ -28,7 +28,7 @@ library(ggplot2)
 library(magrittr)
 library(jmbr)
 
-options("mb.parallel" = FALSE)
+options("mb.parallel" = TRUE)
 doParallel::registerDoParallel(4)
 
 data <- bauw::peregrine
@@ -58,7 +58,7 @@ for (i in 1:length(Pairs)) {
 
 model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
 
-analysis <- analyse(model, data = data) %>% reanalyse(minutes = 1L)
+analysis <- analyse(model, data = data) %>% reanalyse()
 
 plot(analysis)
 

@@ -52,7 +52,7 @@ for (i in 1:length(Pairs)) {
 
 model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
 
-analysis <- analyse(model, data = data)# %>% reanalyse()
+analysis <- analyse(model, data = data) %>% reanalyse()
 
 plot(analysis)
 ```
@@ -65,16 +65,16 @@ glance(analysis)
 #> # A tibble: 1 × 6
 #>       n     k logLik    IC minutes converged
 #>   <int> <int>  <dbl> <dbl>   <int>     <lgl>
-#> 1    40     5     NA    NA       0     FALSE
+#> 1    40     5     NA    NA       0      TRUE
 tidy(analysis)
 #> # A tibble: 5 × 5
-#>              term   estimate  std.error   statistic p.value
-#> *           <chr>      <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.2186642 0.04054657 104.0033374  0.0005
-#> 2           beta1  1.1980643 0.08629097  13.9767913  0.0005
-#> 3           beta2  0.0166283 0.03242638   0.5561502  0.5640
-#> 4           beta3 -0.2745776 0.04443925  -6.2583909  0.0005
-#> 5 log_sDispersion -2.2321705 0.36204892  -6.2634847  0.0005
+#>              term    estimate  std.error  statistic p.value
+#> *           <chr>       <dbl>      <dbl>      <dbl>   <dbl>
+#> 1           alpha  4.21692422 0.03810367 110.653814  0.0005
+#> 2           beta1  1.18963236 0.07367380  16.152516  0.0005
+#> 3           beta2  0.01918109 0.02968810   0.694137  0.5160
+#> 4           beta3 -0.27225452 0.03744825  -7.267770  0.0005
+#> 5 log_sDispersion -2.26572399 0.31702219  -7.252330  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
