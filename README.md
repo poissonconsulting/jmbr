@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
+[![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
 
 jmbr
 ====
@@ -75,11 +75,11 @@ tidy(analysis)
 #> # A tibble: 5 × 5
 #>              term    estimate  std.error   statistic p.value
 #> *           <chr>       <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.21845266 0.03854190 109.4477310  0.0005
-#> 2           beta1  1.18567742 0.06154552  19.3407929  0.0005
-#> 3           beta2  0.01497019 0.02972606   0.5633698  0.5980
-#> 4           beta3 -0.26835746 0.03182295  -8.5202267  0.0005
-#> 5 log_sDispersion -2.27226482 0.29448653  -7.8140197  0.0005
+#> 1           alpha  4.21875112 0.03885275 108.5648200  0.0005
+#> 2           beta1  1.17459477 0.06604093  17.8402572  0.0005
+#> 3           beta2  0.01823347 0.02698938   0.6800934  0.5250
+#> 4           beta3 -0.26341033 0.03411531  -7.7652317  0.0005
+#> 5 log_sDispersion -2.25449847 0.27639247  -8.2469455  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
