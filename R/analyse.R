@@ -61,7 +61,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
   mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
   obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
-             nadapt = nadapt, niters = niters, duration = timer$elapsed())
+             nadapt = nadapt, ngens = niters, duration = timer$elapsed())
   class(obj) <- c("jmb_analysis", "mb_analysis")
   obj
 }
@@ -84,7 +84,7 @@ analyse.jmb_model <- function(model, data, drop = character(0),
   check_flag(quiet)
   check_flag(parallel)
   check_flag(beep)
-  
+
 
   if (beep) on.exit(beepr::beep())
 

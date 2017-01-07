@@ -16,7 +16,7 @@ jmb_reanalyse <- function(analysis, quick, quiet, parallel) {
   timer <- timer::Timer$new()
   timer$start()
 
-  niters <- analysis$niters * 2
+  niters <- analysis$ngens * 2
   nchains <- length(analysis$jags_chains)
   nthin <- niters * nchains / (2000 * 2)
 
@@ -24,7 +24,12 @@ jmb_reanalyse <- function(analysis, quick, quiet, parallel) {
 
   analysis$jags_chains %<>% fun(jmb_reanalyse_chain, niters = niters, nthin = nthin, quiet = quiet)
 
-  analysis$niters <- niters
+  mcmcr <- lapply(analysis$jags_chains, function(x) x$jags_samples)
+  mcmcr %<>% lapply(mcmcr::as.mcmcr)
+  mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
+
+  analysis$mcmcr <- mcmcr
+  analysis$ngens <- as.integer(niters)
   analysis$duration %<>% magrittr::add(timer$elapsed())
   analysis
 }
@@ -41,7 +46,7 @@ reanalyse.jmb_analysis <- function(analysis,
   check_flag(quiet)
   check_flag(parallel)
   check_flag(beep)
-  
+
 
   if (beep) on.exit(beepr::beep())
 
