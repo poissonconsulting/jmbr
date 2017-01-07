@@ -45,8 +45,7 @@ test_that("analyse", {
                  new_expr = new_expr)
 
   analysis <- analyse(model, data = data, niters = 10^3, beep = FALSE)
-
-  analysis <- reanalyse(analysis, beep = FALSE)
+  analysis <- jmb_reanalyse_internal(analysis, parallel = FALSE, quiet = TRUE)
 
   expect_identical(parameters(analysis), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
   expect_identical(parameters(analysis, fixed = FALSE), "bSiteYear")
