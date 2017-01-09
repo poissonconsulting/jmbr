@@ -61,7 +61,7 @@ test_that("analyse", {
 
   glance <- glance(analysis)
   expect_is(glance, "tbl")
-  expect_identical(colnames(glance), c("n", "k", "logLik", "IC", "minutes", "converged"))
+  expect_identical(colnames(glance), c("n", "k", "logLik", "mAICc", "minutes", "converged"))
   expect_true(is.na(glance$logLik))
   expect_identical(glance$n, 300L)
   expect_identical(glance$k, 5L)
@@ -85,6 +85,6 @@ test_that("analyse", {
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
                                         "Density", "YearFactor",
                                      "estimate", "lower", "upper"))
-  expect_identical(year$estimate, year$lower)
+  expect_true(all(is.na(year$lower)))
   expect_false(is.unsorted(year$estimate))
 })
