@@ -56,7 +56,7 @@ for (i in 1:length(Pairs)) {
   prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
 }"
 
-model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
+model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
 
 analysis <- analyse(model, data = data)
 analysis <- reanalyse(analysis)

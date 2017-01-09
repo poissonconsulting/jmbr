@@ -52,7 +52,11 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
 
   fun <- if (parallel) plapply else lapply
 
-  jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data, monitor = model$monitor,
+  monitor <- str_c(model$derived, collapse = "|") %>%
+    str_c(model$fixed, ., sep = "|") %>%
+    str_c("(", ., ")")
+
+  jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data, monitor = monitor,
                      nadapt = nadapt, niters = niters, nthin = nthin,
                      quick = quick, quiet = quiet)
 
