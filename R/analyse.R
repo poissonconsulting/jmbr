@@ -13,9 +13,13 @@ jmb_analyse_chain <- function(inits, tempfile = tempfile, data, regexp, named, n
   if (quiet) {
     suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
   } else {
-    jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet)
+    jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = 0, quiet = quiet)
   }
 
+  if (nadapt) {
+    is_adapted <- rjags::adapt(jags_model, n.iter = nadapt, end.adaptation = TRUE)
+    if (!is_adapted) warning("incomplete adaptation")
+  }
   vars <- variable_names(jags_model, data, regexp, named)
 
   if (!quick) {
