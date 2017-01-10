@@ -2,6 +2,8 @@ jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
 
   jags_model <- jags_chain$jags_model
 
+  jags_model$recompile()
+
   vars <- names(jags_chain$jags_samples)
 
   jags_samples <- rjags::jags.samples(model = jags_model, variable.names = vars, n.iter = niters/2, thin = nthin, progress.bar = "none")
@@ -17,9 +19,7 @@ jmb_reanalyse_internal <- function(analysis, parallel, quiet) {
   nchains <- length(analysis$jags_chains)
   nthin <- niters * nchains / (2000 * 2)
 
-  fun <- if (parallel) plapply else lapply
-
-  analysis$jags_chains %<>% fun(jmb_reanalyse_chain, niters = niters, nthin = nthin, quiet = quiet)
+  analysis$jags_chains %<>% plapply(jmb_reanalyse_chain, .parallel = parallel, niters = niters, nthin = nthin, quiet = quiet)
 
   mcmcr <- lapply(analysis$jags_chains, function(x) x$jags_samples)
   mcmcr %<>% lapply(mcmcr::as.mcmcr)

@@ -54,7 +54,7 @@ for (i in 1:length(Pairs)) {
   prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
 }"
 
-model <- model(template, scale = "Year", new_expr = new_expr, monitor = "^(a|b|l)")
+model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
 
 analysis <- analyse(model, data = data)
 analysis <- reanalyse(analysis)
@@ -68,18 +68,18 @@ plot(analysis)
 
 glance(analysis)
 #> # A tibble: 1 × 6
-#>       n     k logLik    IC minutes converged
+#>       n     k logLik mAICc minutes converged
 #>   <int> <int>  <dbl> <dbl>   <int>     <lgl>
 #> 1    40     5     NA    NA       0      TRUE
 tidy(analysis)
 #> # A tibble: 5 × 5
 #>              term    estimate  std.error   statistic p.value
 #> *           <chr>       <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.21748440 0.03946177 106.8589652  0.0005
-#> 2           beta1  1.18793417 0.06617626  18.0475643  0.0005
-#> 3           beta2  0.01777753 0.02777314   0.6595694  0.4960
-#> 4           beta3 -0.26891623 0.03436705  -7.9460382  0.0005
-#> 5 log_sDispersion -2.26675894 0.28366827  -8.0393583  0.0005
+#> 1           alpha  4.21213337 0.03852987 109.3084891  0.0005
+#> 2           beta1  1.19000034 0.06740250  17.7086604  0.0005
+#> 3           beta2  0.02146461 0.03128205   0.6776837  0.5300
+#> 4           beta3 -0.27204548 0.03355195  -8.1475111  0.0005
+#> 5 log_sDispersion -2.21011312 0.24186606  -9.1827626  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 

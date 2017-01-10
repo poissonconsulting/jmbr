@@ -3,11 +3,7 @@ variable_names <- function(jags_model, data, regexp, named) {
 
   vars <- vars[!vars %in% names(data)]
 
-  if (!all(named %in% vars)) error("random or derived parameters missing from model")
-
   vars <- vars[grepl(regexp, vars, perl = TRUE)]
-
-  if (!length(setdiff(vars, named))) error("no matching fixed parameters in model")
 
   vars %<>% c(named) %>% unique() %>% sort()
   vars
@@ -58,9 +54,9 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
   regexp <- model$fixed
   named <- names(model$random_effects) %>% c(model$derived)
 
-  fun <- if (parallel) plapply else lapply
-
-  jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data,
+  jags_chains <- plapply(inits, jmb_analyse_chain,
+                         .parallel = parallel,
+                         tempfile = tempfile, data = data,
                      regexp = regexp, named = named,
                      nadapt = nadapt, niters = niters, nthin = nthin,
                      quick = quick, quiet = quiet)

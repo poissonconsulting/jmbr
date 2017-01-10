@@ -40,7 +40,7 @@ test_that("analyse", {
     prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]])
 } "
 
-  model <- model(jags_template, center = "Year", fixed = "^(b|l)",
+  model <- model(jags_template, center = "Year", fixed = "^(b|l)", derived = "eDensity",
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
 
@@ -49,6 +49,7 @@ test_that("analyse", {
 
   expect_identical(parameters(analysis), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
   expect_identical(parameters(analysis, "random"), "bSiteYear")
+  expect_identical(parameters(analysis, "derived"), "eDensity")
 
   expect_identical(ngens(analysis), 2000L)
   expect_identical(nsims(analysis), 8000L)
