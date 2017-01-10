@@ -67,6 +67,10 @@ test_that("analyse", {
   expect_identical(glance$n, 300L)
   expect_identical(glance$k, 5L)
 
+  derived <- coef(analysis, param_type = "derived")
+  expect_identical(colnames(derived), c("term", "estimate", "sd", "zscore", "lower", "upper", "significance"))
+  expect_identical(nrow(derived), 300L)
+
   coef <- coef(analysis)
 
   expect_is(coef, "tbl")
