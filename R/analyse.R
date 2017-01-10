@@ -1,21 +1,26 @@
-variable_names <- function(jags_model, data, monitor) {
+variable_names <- function(jags_model, data, regexp, named) {
   vars <- stats::variable.names(jags_model)
 
   vars <- vars[!vars %in% names(data)]
-  vars <- vars[grepl(monitor, vars, perl = TRUE)]
 
-  vars %<>% unique() %>% sort()
+  if (!all(named %in% vars)) error("random or derived parameters missing from model")
+
+  vars <- vars[grepl(regexp, vars, perl = TRUE)]
+
+  if (!length(setdiff(vars, named))) error("no matching fixed parameters in model")
+
+  vars %<>% c(named) %>% unique() %>% sort()
   vars
 }
 
-jmb_analyse_chain <- function(inits, tempfile = tempfile, data, monitor, nadapt, niters, nthin, quick, quiet) {
+jmb_analyse_chain <- function(inits, tempfile = tempfile, data, regexp, named, nadapt, niters, nthin, quick, quiet) {
   if (quiet) {
     suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
   } else {
     jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet)
   }
 
-  vars <- variable_names(jags_model, data, monitor)
+  vars <- variable_names(jags_model, data, regexp, named)
 
   if (!quick) {
     niters <- niters / 2
@@ -50,13 +55,13 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
+  regexp <- model$fixed
+  named <- names(model$random_effects) %>% c(model$derived)
+
   fun <- if (parallel) plapply else lapply
 
-  monitor <- str_c(model$derived, collapse = "|") %>%
-    str_c(model$fixed, ., sep = "|") %>%
-    str_c("(", ., ")")
-
-  jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data, monitor = monitor,
+  jags_chains <- fun(inits, jmb_analyse_chain, tempfile = tempfile, data = data,
+                     regexp = regexp, named = named,
                      nadapt = nadapt, niters = niters, nthin = nthin,
                      quick = quick, quiet = quiet)
 
