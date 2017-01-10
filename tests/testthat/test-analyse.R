@@ -62,10 +62,10 @@ test_that("analyse", {
 
   glance <- glance(analysis)
   expect_is(glance, "tbl")
-  expect_identical(colnames(glance), c("n", "k", "logLik", "mAICc", "minutes", "converged"))
+  expect_identical(colnames(glance), c("n", "K", "logLik", "AICc", "minutes", "converged"))
   expect_true(is.na(glance$logLik))
   expect_identical(glance$n, 300L)
-  expect_identical(glance$k, 5L)
+  expect_identical(glance$K, 5L)
 
   derived <- coef(analysis, param_type = "derived")
   expect_identical(colnames(derived), c("term", "estimate", "sd", "zscore", "lower", "upper", "significance"))

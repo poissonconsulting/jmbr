@@ -68,18 +68,18 @@ plot(analysis)
 
 glance(analysis)
 #> # A tibble: 1 × 6
-#>       n     k logLik mAICc minutes converged
+#>       n     K logLik  AICc minutes converged
 #>   <int> <int>  <dbl> <dbl>   <int>     <lgl>
 #> 1    40     5     NA    NA       0      TRUE
 tidy(analysis)
 #> # A tibble: 5 × 5
-#>              term    estimate  std.error   statistic p.value
-#> *           <chr>       <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.21873054 0.03946038 106.9092386  0.0005
-#> 2           beta1  1.16316340 0.06711848  17.3950563  0.0005
-#> 3           beta2  0.01587602 0.03043821   0.5006879  0.6080
-#> 4           beta3 -0.25704091 0.03431748  -7.5199858  0.0005
-#> 5 log_sDispersion -2.26262759 0.29950177  -7.6296822  0.0005
+#>              term    estimate  std.error statistic p.value
+#> *           <chr>       <dbl>      <dbl>     <dbl>   <dbl>
+#> 1           alpha  4.21520573 0.04420050 95.266813  0.0005
+#> 2           beta1  1.19121262 0.07598362 15.651727  0.0005
+#> 3           beta2  0.02118848 0.03324958  0.711245  0.4810
+#> 4           beta3 -0.27266083 0.03864932 -7.011786  0.0005
+#> 5 log_sDispersion -2.19376890 0.26965820 -8.205492  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
