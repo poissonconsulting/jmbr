@@ -76,9 +76,9 @@ test_that("analyse", {
   expect_is(coef, "tbl")
   expect_identical(colnames(coef), c("term", "estimate", "sd", "zscore", "lower", "upper", "significance"))
 
-  expect_identical(coef$term, c("bHabitatQuality[1]", "bHabitatQuality[2]",
+  expect_identical(coef$term, as.term(c("bHabitatQuality[1]", "bHabitatQuality[2]",
                                 "bIntercept", "bYear",
-                                "log_sDensity", "log_sSiteYear"))
+                                "log_sDensity", "log_sSiteYear")))
 
   tidy <- tidy(analysis)
   expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))
