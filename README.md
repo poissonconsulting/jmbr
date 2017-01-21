@@ -19,6 +19,7 @@ library(jmbr)
 #> Loading required package: mbr
 #> Loading required package: broom
 #> Loading required package: mcmcr
+#> Loading required package: coda
 #> 
 #> Attaching package: 'mcmcr'
 #> The following object is masked from 'package:ggplot2':
@@ -73,13 +74,13 @@ glance(analysis)
 #> 1    40     5     NA    NA       0      TRUE
 tidy(analysis)
 #> # A tibble: 5 × 5
-#>              term    estimate  std.error statistic p.value
-#> *           <chr>       <dbl>      <dbl>     <dbl>   <dbl>
-#> 1           alpha  4.21520573 0.04420050 95.266813  0.0005
-#> 2           beta1  1.19121262 0.07598362 15.651727  0.0005
-#> 3           beta2  0.02118848 0.03324958  0.711245  0.4810
-#> 4           beta3 -0.27266083 0.03864932 -7.011786  0.0005
-#> 5 log_sDispersion -2.19376890 0.26965820 -8.205492  0.0005
+#>              term    estimate  std.error   statistic p.value
+#> *      <S3: term>       <dbl>      <dbl>       <dbl>   <dbl>
+#> 1           alpha  4.21213448 0.03882827 108.4515516  0.0005
+#> 2           beta1  1.19780158 0.06661376  18.0284923  0.0005
+#> 3           beta2  0.01930201 0.02973238   0.6737991  0.4860
+#> 4           beta3 -0.27355619 0.03344914  -8.2505898  0.0005
+#> 5 log_sDispersion -2.26876576 0.27331182  -8.4056675  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
