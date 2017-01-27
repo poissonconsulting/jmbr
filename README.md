@@ -16,8 +16,8 @@ Demonstration
 ``` r
 library(ggplot2)
 library(jmbr)
-#> Loading required package: mbr
 #> Loading required package: broom
+#> Loading required package: mbr
 #> Loading required package: mcmcr
 #> Loading required package: coda
 #> 
@@ -58,7 +58,30 @@ for (i in 1:length(Pairs)) {
 model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
 
 analysis <- analyse(model, data = data)
+#> # A tibble: 1 × 6
+#>       n     K nsims minutes  rhat converged
+#>   <int> <int> <int>   <int> <dbl>     <lgl>
+#> 1    40     5  4000       0  1.14     FALSE
 analysis <- reanalyse(analysis)
+#> # A tibble: 1 × 6
+#>       n     K nsims minutes  rhat converged
+#>   <int> <int> <int>   <int> <dbl>     <lgl>
+#> 1    40     5  8000       0  1.27     FALSE
+#> # A tibble: 1 × 6
+#>       n     K nsims minutes  rhat converged
+#>   <int> <int> <int>   <int> <dbl>     <lgl>
+#> 1    40     5 16000       0  1.01      TRUE
+
+coef(analysis)
+#> # A tibble: 5 × 7
+#>              term    estimate         sd     zscore       lower
+#> *      <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>
+#> 1           alpha  4.21114737 0.04269307 98.6059570  4.12242507
+#> 2           beta1  1.19333489 0.07039818 17.0273326  1.07315360
+#> 3           beta2  0.02030659 0.03327551  0.6505679 -0.04156247
+#> 4           beta3 -0.27329630 0.03593528 -7.6705296 -0.34894141
+#> 5 log_sDispersion -2.22845138 0.32722034 -6.8977375 -3.00317492
+#> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)
 ```
@@ -66,21 +89,6 @@ plot(analysis)
 ![](README-unnamed-chunk-2-1.png)![](README-unnamed-chunk-2-2.png)
 
 ``` r
-
-glance(analysis)
-#> # A tibble: 1 × 6
-#>       n     K logLik  AICc minutes converged
-#>   <int> <int>  <dbl> <dbl>   <int>     <lgl>
-#> 1    40     5     NA    NA       0      TRUE
-tidy(analysis)
-#> # A tibble: 5 × 5
-#>              term    estimate  std.error   statistic p.value
-#> *      <S3: term>       <dbl>      <dbl>       <dbl>   <dbl>
-#> 1           alpha  4.21213448 0.03882827 108.4515516  0.0005
-#> 2           beta1  1.19780158 0.06661376  18.0284923  0.0005
-#> 3           beta2  0.01930201 0.02973238   0.6737991  0.4860
-#> 4           beta3 -0.27355619 0.03344914  -8.2505898  0.0005
-#> 5 log_sDispersion -2.26876576 0.27331182  -8.4056675  0.0005
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 

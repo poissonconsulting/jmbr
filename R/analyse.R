@@ -72,6 +72,9 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
   obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
              nadapt = nadapt, ngens = niters, duration = timer$elapsed())
   class(obj) <- c("jmb_analysis", "mb_analysis")
+
+  print(glance(obj))
+
   obj
 }
 

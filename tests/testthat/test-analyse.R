@@ -62,8 +62,7 @@ test_that("analyse", {
 
   glance <- glance(analysis)
   expect_is(glance, "tbl")
-  expect_identical(colnames(glance), c("n", "K", "logLik", "AICc", "minutes", "converged"))
-  expect_true(is.na(glance$logLik))
+  expect_identical(colnames(glance), c("n", "K", "nsims", "minutes", "rhat", "converged"))
   expect_identical(glance$n, 300L)
   expect_identical(glance$K, 5L)
 

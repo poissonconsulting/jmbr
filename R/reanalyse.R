@@ -33,10 +33,15 @@ jmb_reanalyse_internal <- function(analysis, parallel, quiet) {
 
 jmb_reanalyse <- function(analysis, rhat, minutes, quick, quiet, parallel) {
 
-  if (quick || converged(analysis, rhat) || minutes < elapsed(analysis) * 2) return(analysis)
+  if (quick || converged(analysis, rhat) || minutes < elapsed(analysis) * 2) {
+    print(glance(analysis))
+    return(analysis)
+  }
 
-  while (!converged(analysis, rhat) && minutes >= elapsed(analysis) * 2)
+  while (!converged(analysis, rhat) && minutes >= elapsed(analysis) * 2) {
     analysis %<>% jmb_reanalyse_internal(parallel = parallel, quiet = quiet)
+    print(glance(analysis))
+  }
   analysis
 }
 

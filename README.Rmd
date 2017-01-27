@@ -61,10 +61,9 @@ model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)"
 analysis <- analyse(model, data = data)
 analysis <- reanalyse(analysis)
 
-plot(analysis)
+coef(analysis)
 
-glance(analysis)
-tidy(analysis)
+plot(analysis)
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 
