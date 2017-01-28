@@ -54,7 +54,7 @@ jmb_reanalyse <- function(analysis, rhat, minutes, quick, quiet, parallel) {
 #' @export
 reanalyse.jmb_analysis <- function(analysis,
                                    rhat = getOption("mb.rhat", 1.1),
-                                   minutes = getOption("mb.minutes", 60L),
+                                   minutes = getOption("mb.minutes", 10L),
                                    parallel = getOption("mb.parallel", FALSE),
                                    quick = getOption("mb.quick", FALSE),
                                    quiet = getOption("mb.quiet", TRUE),
