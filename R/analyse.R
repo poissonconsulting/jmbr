@@ -16,10 +16,8 @@ jmb_analyse_chain <- function(inits, tempfile = tempfile, data, regexp, named, n
     jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = 0, quiet = quiet)
   }
 
-  if (nadapt) {
-    is_adapted <- rjags::adapt(jags_model, n.iter = nadapt, end.adaptation = TRUE)
-    if (!is_adapted) warning("incomplete adaptation")
-  }
+  jags_model %<>% adapt(nadapt = nadapt)
+
   vars <- variable_names(jags_model, data, regexp, named)
 
   if (!quick) {

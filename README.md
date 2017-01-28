@@ -61,26 +61,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 6
 #>       n     K nsims minutes  rhat converged
 #>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5  4000       0  1.14     FALSE
-analysis <- reanalyse(analysis)
+#> 1    40     5  4000       0  1.04      TRUE
+analysis <- reanalyse(analysis, rhat = 1.05)
 #> # A tibble: 1 × 6
 #>       n     K nsims minutes  rhat converged
 #>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5  8000       0  1.27     FALSE
-#> # A tibble: 1 × 6
-#>       n     K nsims minutes  rhat converged
-#>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5 16000       0  1.01      TRUE
+#> 1    40     5  4000       0  1.04      TRUE
 
 coef(analysis)
 #> # A tibble: 5 × 7
-#>              term    estimate         sd     zscore       lower
-#> *      <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>
-#> 1           alpha  4.21114737 0.04269307 98.6059570  4.12242507
-#> 2           beta1  1.19333489 0.07039818 17.0273326  1.07315360
-#> 3           beta2  0.02030659 0.03327551  0.6505679 -0.04156247
-#> 4           beta3 -0.27329630 0.03593528 -7.6705296 -0.34894141
-#> 5 log_sDispersion -2.22845138 0.32722034 -6.8977375 -3.00317492
+#>              term   estimate         sd      zscore       lower
+#> *      <S3: term>      <dbl>      <dbl>       <dbl>       <dbl>
+#> 1           alpha  4.2108968 0.03754444 112.1351708  4.13063831
+#> 2           beta1  1.1879304 0.06904928  17.1637071  1.04868095
+#> 3           beta2  0.0229350 0.03068579   0.7671404 -0.03188646
+#> 4           beta3 -0.2698482 0.03555897  -7.5357232 -0.33334674
+#> 5 log_sDispersion -2.2119031 0.28267473  -7.8806972 -2.83598676
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)

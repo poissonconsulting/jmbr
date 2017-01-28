@@ -2,7 +2,13 @@ jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
 
   jags_model <- jags_chain$jags_model
 
-  jags_model$recompile()
+  if (quiet) {
+    utils::capture.output(jags_model$recompile())
+  } else {
+    jags_model$recompile()
+  }
+
+  jags_model %<>% adapt()
 
   vars <- names(jags_chain$jags_samples)
 
