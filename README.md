@@ -61,22 +61,34 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 6
 #>       n     K nsims minutes  rhat converged
 #>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5  4000       0  1.04      TRUE
+#> 1    40     5  4000       0  1.09      TRUE
 analysis <- reanalyse(analysis, rhat = 1.05)
 #> # A tibble: 1 × 6
 #>       n     K nsims minutes  rhat converged
 #>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5  4000       0  1.04      TRUE
+#> 1    40     5  8000       0  1.07      TRUE
+#> # A tibble: 1 × 6
+#>       n     K nsims minutes  rhat converged
+#>   <int> <int> <int>   <int> <dbl>     <lgl>
+#> 1    40     5 16000       0  1.07      TRUE
+#> # A tibble: 1 × 6
+#>       n     K nsims minutes  rhat converged
+#>   <int> <int> <int>   <int> <dbl>     <lgl>
+#> 1    40     5 32000       0  1.06      TRUE
+#> # A tibble: 1 × 6
+#>       n     K nsims minutes  rhat converged
+#>   <int> <int> <int>   <int> <dbl>     <lgl>
+#> 1    40     5 64000       0  1.01      TRUE
 
 coef(analysis)
 #> # A tibble: 5 × 7
-#>              term   estimate         sd      zscore       lower
-#> *      <S3: term>      <dbl>      <dbl>       <dbl>       <dbl>
-#> 1           alpha  4.2108968 0.03754444 112.1351708  4.13063831
-#> 2           beta1  1.1879304 0.06904928  17.1637071  1.04868095
-#> 3           beta2  0.0229350 0.03068579   0.7671404 -0.03188646
-#> 4           beta3 -0.2698482 0.03555897  -7.5357232 -0.33334674
-#> 5 log_sDispersion -2.2119031 0.28267473  -7.8806972 -2.83598676
+#>              term    estimate         sd      zscore       lower
+#> *      <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>
+#> 1           alpha  4.21501521 0.04084559 103.1631669  4.12922931
+#> 2           beta1  1.19313189 0.07492301  15.9615547  1.06296442
+#> 3           beta2  0.01819087 0.03115316   0.6180423 -0.03981811
+#> 4           beta3 -0.27187049 0.03803186  -7.1841374 -0.35147829
+#> 5 log_sDispersion -2.24259191 0.32804517  -6.9312755 -3.02798423
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)

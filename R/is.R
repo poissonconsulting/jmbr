@@ -3,7 +3,6 @@
 #' Tests whether x is an object of class 'jmb_code'
 #'
 #' @param x The object to test.
-#'
 #' @return A flag indicating whether the test was positive.
 #' @export
 is.jmb_code <- function(x) {
