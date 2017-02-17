@@ -89,6 +89,6 @@ test_that("analyse", {
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
                                         "Density", "YearFactor",
                                      "estimate", "lower", "upper"))
-  expect_true(all(is.na(year$lower)))
+  expect_true(all(year$lower < year$estimate))
   expect_false(is.unsorted(year$estimate))
 })
