@@ -62,7 +62,7 @@ test_that("analyse", {
 
   glance <- glance(analysis)
   expect_is(glance, "tbl")
-  expect_identical(colnames(glance), c("n", "K", "nsims", "minutes", "rhat", "converged"))
+  expect_identical(colnames(glance), c("n", "K", "nchains", "nsims", "minutes", "rhat", "converged"))
   expect_identical(glance$n, 300L)
   expect_identical(glance$K, 5L)
 
@@ -86,6 +86,7 @@ test_that("analyse", {
   year <- predict(analysis, new_data = new_data(data, "Year"), quick = TRUE)
 
   expect_is(year, "tbl")
+  print(colnames(year))
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
                                         "Density", "YearFactor",
                                      "estimate", "sd", "zscore", "lower", "upper", "pvalue"))
