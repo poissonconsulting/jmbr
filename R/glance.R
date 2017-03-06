@@ -8,8 +8,9 @@ glance.jmb_analysis <- function(x, n = NULL, rhat = getOption("mb.rhat", 1.1), .
   dplyr::data_frame(
     n = sample_size(x),
     K = nterms(x, include_constant = FALSE),
-    nchains = nchains(x),
     nsims = nsims(x),
+    nchains = nchains(x),
+    nsamples = niters(x) * nsims(x), # import nsamples
     minutes = elapsed(x),
     rhat = rhat_analysis,
     converged = rhat_analysis <= rhat_arg
