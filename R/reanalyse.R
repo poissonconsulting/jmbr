@@ -37,14 +37,14 @@ jmb_reanalyse_internal <- function(analysis, parallel, quiet) {
   analysis
 }
 
-jmb_reanalyse <- function(analysis, rhat, minutes, quick, quiet, parallel) {
+jmb_reanalyse <- function(analysis, rhat, duration, quick, quiet, parallel) {
 
-  if (quick || converged(analysis, rhat) || minutes < elapsed(analysis) * 2) {
+  if (quick || converged(analysis, rhat) || duration < elapsed(analysis) * 2) {
     print(glance(analysis))
     return(analysis)
   }
 
-  while (!converged(analysis, rhat) && minutes >= elapsed(analysis) * 2) {
+  while (!converged(analysis, rhat) && duration >= elapsed(analysis) * 2) {
     analysis %<>% jmb_reanalyse_internal(parallel = parallel, quiet = quiet)
     print(glance(analysis))
   }
@@ -54,14 +54,14 @@ jmb_reanalyse <- function(analysis, rhat, minutes, quick, quiet, parallel) {
 #' @export
 reanalyse.jmb_analysis <- function(analysis,
                                    rhat = getOption("mb.rhat", 1.1),
-                                   minutes = getOption("mb.minutes", 10L),
+                                   duration = getOption("mb.duration", dminutes(10)),
                                    parallel = getOption("mb.parallel", FALSE),
                                    quick = getOption("mb.quick", FALSE),
                                    quiet = getOption("mb.quiet", TRUE),
                                    beep = getOption("mb.beep", TRUE),
                                    ...) {
 
-  check_count(minutes)
+  if (!is.duration) error("duration must be an object of class Duration")
   check_flag(quick)
   check_flag(quiet)
   check_flag(parallel)
@@ -72,5 +72,5 @@ reanalyse.jmb_analysis <- function(analysis,
   rjags::load.module("basemod", quiet = quiet)
   rjags::load.module("bugs", quiet = quiet)
 
-  jmb_reanalyse(analysis, rhat = rhat, minutes = minutes, quick = quick, quiet = quiet, parallel = parallel)
+  jmb_reanalyse(analysis, rhat = rhat, duration = duration, quick = quick, quiet = quiet, parallel = parallel)
 }
