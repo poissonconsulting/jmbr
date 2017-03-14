@@ -61,7 +61,7 @@ reanalyse.jmb_analysis <- function(analysis,
                                    beep = getOption("mb.beep", TRUE),
                                    ...) {
 
-  if (!is.duration) error("duration must be an object of class Duration")
+  if (!is.duration(duration)) error("duration must be an object of class Duration")
   check_flag(quick)
   check_flag(quiet)
   check_flag(parallel)

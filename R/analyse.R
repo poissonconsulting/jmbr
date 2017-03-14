@@ -68,7 +68,8 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
   mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
   obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
-             nadapt = nadapt, ngens = niters, duration = timer$elapsed())
+             nadapt = nadapt, ngens = niters)
+  obj$duration <- timer$elapsed()
   class(obj) <- c("jmb_analysis", "mb_analysis")
 
   print(glance(obj))
