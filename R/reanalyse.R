@@ -27,8 +27,8 @@ jmb_reanalyse_internal <- function(analysis, parallel, quiet) {
 
   analysis$jags_chains %<>% llply(.fun = jmb_reanalyse_chain, .parallel = parallel, niters = niters, nthin = nthin, quiet = quiet)
 
-  mcmcr <- lapply(analysis$jags_chains, function(x) x$jags_samples)
-  mcmcr %<>% lapply(mcmcr::as.mcmcr)
+  mcmcr <- llply(analysis$jags_chains, function(x) x$jags_samples)
+  mcmcr %<>% llply(mcmcr::as.mcmcr)
   mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
   analysis$mcmcr <- mcmcr

@@ -63,8 +63,8 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
                      nadapt = nadapt, niters = niters, nthin = nthin,
                      quick = quick, quiet = quiet)
 
-  mcmcr <- lapply(jags_chains, function(x) x$jags_samples)
-  mcmcr %<>% lapply(mcmcr::as.mcmcr)
+  mcmcr <- llply(jags_chains, function(x) x$jags_samples)
+  mcmcr %<>% llply(mcmcr::as.mcmcr)
   mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
   obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
@@ -87,7 +87,7 @@ analyse.jmb_model <- function(model, data, drop = character(0),
   if (is.data.frame(data)) {
     check_data2(data)
   } else if (is.list(data)) {
-    lapply(data, check_data2)
+    llply(data, check_data2)
   } else error("data must be a data.frame or a list of data.frames")
 
   check_vector(drop, "", min_length = 0)
@@ -112,6 +112,6 @@ analyse.jmb_model <- function(model, data, drop = character(0),
                        quick = quick, quiet = quiet, parallel = parallel))
   }
 
-  lapply(data, jmb_analyse, model = model, tempfile = tempfile,
+  llply(data, jmb_analyse, model = model, tempfile = tempfile,
          quick = quick, quiet = quiet, parallel = parallel)
 }
