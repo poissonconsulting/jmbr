@@ -18,8 +18,26 @@ library(ggplot2)
 library(jmbr)
 #> Loading required package: broom
 #> Loading required package: mbr
+#> Loading required package: lubridate
+#> 
+#> Attaching package: 'lubridate'
+#> The following object is masked from 'package:base':
+#> 
+#>     date
 #> Loading required package: mcmcr
 #> Loading required package: coda
+#> Loading required package: dplyr
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:lubridate':
+#> 
+#>     intersect, setdiff, union
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 #> 
 #> Attaching package: 'mcmcr'
 #> The following object is masked from 'package:ggplot2':
@@ -58,37 +76,25 @@ for (i in 1:length(Pairs)) {
 model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
 
 analysis <- analyse(model, data = data)
-#> # A tibble: 1 × 6
-#>       n     K nsims minutes  rhat converged
-#>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5  4000       0  1.09      TRUE
+#> # A tibble: 1 × 8
+#>       n     K nsims nchains nsamples           duration  rhat converged
+#>   <int> <int> <int>   <int>    <int>     <S4: Duration> <dbl>     <lgl>
+#> 1    40     5  4000       4  2000000 0.508044004440308s  1.08      TRUE
 analysis <- reanalyse(analysis, rhat = 1.05)
-#> # A tibble: 1 × 6
-#>       n     K nsims minutes  rhat converged
-#>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5  8000       0  1.07      TRUE
-#> # A tibble: 1 × 6
-#>       n     K nsims minutes  rhat converged
-#>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5 16000       0  1.07      TRUE
-#> # A tibble: 1 × 6
-#>       n     K nsims minutes  rhat converged
-#>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5 32000       0  1.06      TRUE
-#> # A tibble: 1 × 6
-#>       n     K nsims minutes  rhat converged
-#>   <int> <int> <int>   <int> <dbl>     <lgl>
-#> 1    40     5 64000       0  1.01      TRUE
+#> # A tibble: 1 × 8
+#>       n     K nsims nchains nsamples           duration  rhat converged
+#>   <int> <int> <int>   <int>    <int>     <S4: Duration> <dbl>     <lgl>
+#> 1    40     5  8000       4  4000000 0.891358852386475s  1.04      TRUE
 
 coef(analysis)
 #> # A tibble: 5 × 7
 #>              term    estimate         sd      zscore       lower
 #> *      <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>
-#> 1           alpha  4.21501521 0.04084559 103.1631669  4.12922931
-#> 2           beta1  1.19313189 0.07492301  15.9615547  1.06296442
-#> 3           beta2  0.01819087 0.03115316   0.6180423 -0.03981811
-#> 4           beta3 -0.27187049 0.03803186  -7.1841374 -0.35147829
-#> 5 log_sDispersion -2.24259191 0.32804517  -6.9312755 -3.02798423
+#> 1           alpha  4.21839847 0.03876136 108.8190964  4.13751797
+#> 2           beta1  1.18603338 0.06965518  17.0732814  1.06087894
+#> 3           beta2  0.01571155 0.03166625   0.5168674 -0.04393087
+#> 4           beta3 -0.26799978 0.03583228  -7.5170808 -0.34000586
+#> 5 log_sDispersion -2.21588610 0.30678317  -7.3376073 -3.02357840
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)

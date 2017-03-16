@@ -56,7 +56,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
   regexp <- model$fixed
   named <- names(model$random_effects) %>% c(model$derived)
 
-  jags_chains <- plapply(inits, jmb_analyse_chain,
+  jags_chains <- llply(inits, .fun = jmb_analyse_chain,
                          .parallel = parallel,
                          tempfile = tempfile, data = data,
                      regexp = regexp, named = named,

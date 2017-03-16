@@ -25,7 +25,7 @@ jmb_reanalyse_internal <- function(analysis, parallel, quiet) {
   nchains <- length(analysis$jags_chains)
   nthin <- niters * nchains / (2000 * 2)
 
-  analysis$jags_chains %<>% plapply(jmb_reanalyse_chain, .parallel = parallel, niters = niters, nthin = nthin, quiet = quiet)
+  analysis$jags_chains %<>% llply(.fun = jmb_reanalyse_chain, .parallel = parallel, niters = niters, nthin = nthin, quiet = quiet)
 
   mcmcr <- lapply(analysis$jags_chains, function(x) x$jags_samples)
   mcmcr %<>% lapply(mcmcr::as.mcmcr)
