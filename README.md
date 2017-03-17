@@ -79,22 +79,26 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nsims nchains nsamples           duration  rhat converged
 #>   <int> <int> <int>   <int>    <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5  4000       4  2000000 0.508044004440308s  1.08      TRUE
+#> 1    40     5  4000       4     2000 0.397214889526367s  1.28     FALSE
 analysis <- reanalyse(analysis, rhat = 1.05)
 #> # A tibble: 1 × 8
 #>       n     K nsims nchains nsamples           duration  rhat converged
 #>   <int> <int> <int>   <int>    <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5  8000       4  4000000 0.891358852386475s  1.04      TRUE
+#> 1    40     5  8000       4     2000 0.701442956924438s  1.07      TRUE
+#> # A tibble: 1 × 8
+#>       n     K nsims nchains nsamples         duration  rhat converged
+#>   <int> <int> <int>   <int>    <int>   <S4: Duration> <dbl>     <lgl>
+#> 1    40     5 16000       4     2000 1.2069079875946s  1.02      TRUE
 
 coef(analysis)
 #> # A tibble: 5 × 7
 #>              term    estimate         sd      zscore       lower
 #> *      <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>
-#> 1           alpha  4.21839847 0.03876136 108.8190964  4.13751797
-#> 2           beta1  1.18603338 0.06965518  17.0732814  1.06087894
-#> 3           beta2  0.01571155 0.03166625   0.5168674 -0.04393087
-#> 4           beta3 -0.26799978 0.03583228  -7.5170808 -0.34000586
-#> 5 log_sDispersion -2.21588610 0.30678317  -7.3376073 -3.02357840
+#> 1           alpha  4.21726317 0.04028850 104.6923642  4.13972121
+#> 2           beta1  1.18295482 0.06833576  17.3521776  1.05749771
+#> 3           beta2  0.01786635 0.03070446   0.5585299 -0.04212982
+#> 4           beta3 -0.26631017 0.03470670  -7.7272600 -0.34252029
+#> 5 log_sDispersion -2.25630852 0.30719811  -7.4592862 -3.03343771
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)
