@@ -12,6 +12,10 @@ install:
   - ps: (new-object net.webclient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.2.0-Rtools33.exe', 'C:\projects\JAGS-4.2.0.exe')
   - cmd: C:\projects\JAGS-4.2.0.exe /S
 
+environment:
+  global:
+    USE_RTOOLS: true
+
 build_script:
   - travis-tool.sh install_r rjags
   - travis-tool.sh install_deps
