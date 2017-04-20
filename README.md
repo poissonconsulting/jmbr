@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
+![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg) [![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 jmbr
 ====
@@ -8,7 +8,7 @@ jmbr
 Introduction
 ------------
 
-`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).
+`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS). It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of packages.
 
 Demonstration
 -------------
@@ -76,39 +76,79 @@ for (i in 1:length(Pairs)) {
 model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
 
 analysis <- analyse(model, data = data)
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims           duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  4000 0.531356811523438s  1.11     FALSE
+#> 1    40     5     2000       4  4000 0.329591989517212s  1.07      TRUE
 analysis <- reanalyse(analysis, rhat = 1.05)
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
 #> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims          duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  8000 0.87201189994812s  1.07      TRUE
-#> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims          duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4 16000 1.49126768112183s  1.05      TRUE
+#>       n     K nsamples nchains nsims           duration  rhat converged
+#>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
+#> 1    40     5     2000       4  8000 0.584886789321899s  1.02      TRUE
 
 coef(analysis)
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
+
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
 #> # A tibble: 5 × 7
 #>              term    estimate         sd     zscore       lower
 #> *      <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>
-#> 1           alpha  4.21470601 0.04311186 97.7320804  4.12784996
-#> 2           beta1  1.19232131 0.07400230 16.1419121  1.05161818
-#> 3           beta2  0.01945699 0.03319176  0.5984384 -0.04232642
-#> 4           beta3 -0.27266655 0.03693438 -7.3950774 -0.35123212
-#> 5 log_sDispersion -2.19606274 0.33046801 -6.7695869 -2.95116906
+#> 1           alpha  4.21683478 0.03904673 107.981507  4.14144452
+#> 2           beta1  1.17798994 0.06793828  17.383115  1.05239903
+#> 3           beta2  0.01830389 0.03072267   0.588996 -0.04532292
+#> 4           beta3 -0.26473785 0.03463306  -7.678952 -0.33826740
+#> 5 log_sDispersion -2.23250259 0.31347703  -7.208431 -2.90272296
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)
 ```
 
-![](README-unnamed-chunk-2-1.png)![](README-unnamed-chunk-2-2.png)
+![](tools/README-unnamed-chunk-2-1.png)![](tools/README-unnamed-chunk-2-2.png)
 
 ``` r
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
+#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
+#> their attributes
 
 ggplot(data = year, aes(x = Year, y = estimate)) +
   geom_point(data = data, aes(y = Pairs)) +
@@ -118,7 +158,7 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
   expand_limits(y = 0)
 ```
 
-![](README-unnamed-chunk-2-3.png)
+![](tools/README-unnamed-chunk-2-3.png)
 
 Installation
 ------------
