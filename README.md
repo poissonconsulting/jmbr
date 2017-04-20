@@ -14,37 +14,10 @@ Demonstration
 -------------
 
 ``` r
-library(ggplot2)
 library(jmbr)
-#> Loading required package: broom
-#> Loading required package: mbr
-#> Loading required package: lubridate
-#> 
-#> Attaching package: 'lubridate'
-#> The following object is masked from 'package:base':
-#> 
-#>     date
-#> Loading required package: mcmcr
-#> Loading required package: coda
-#> Loading required package: dplyr
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:lubridate':
-#> 
-#>     intersect, setdiff, union
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-#> 
-#> Attaching package: 'mcmcr'
-#> The following object is masked from 'package:ggplot2':
-#> 
-#>     derive
-#> Loading required package: newdata
+```
 
+``` r
 options("mb.parallel" = TRUE)
 doParallel::registerDoParallel(4)
 
@@ -76,79 +49,36 @@ for (i in 1:length(Pairs)) {
 model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
 
 analysis <- analyse(model, data = data)
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims           duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  4000 0.329591989517212s  1.07      TRUE
+#> 1    40     5     2000       4  4000 0.225793123245239s  1.06      TRUE
 analysis <- reanalyse(analysis, rhat = 1.05)
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims           duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  8000 0.584886789321899s  1.02      TRUE
+#> 1    40     5     2000       4  8000 0.419265270233154s  1.04      TRUE
 
 coef(analysis)
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
-
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
 #> # A tibble: 5 × 7
-#>              term    estimate         sd     zscore       lower
-#> *      <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>
-#> 1           alpha  4.21683478 0.03904673 107.981507  4.14144452
-#> 2           beta1  1.17798994 0.06793828  17.383115  1.05239903
-#> 3           beta2  0.01830389 0.03072267   0.588996 -0.04532292
-#> 4           beta3 -0.26473785 0.03463306  -7.678952 -0.33826740
-#> 5 log_sDispersion -2.23250259 0.31347703  -7.208431 -2.90272296
+#>              term    estimate         sd      zscore      lower
+#> *      <S3: term>       <dbl>      <dbl>       <dbl>      <dbl>
+#> 1           alpha  4.21617930 0.04178934 100.8214195  4.1289657
+#> 2           beta1  1.17450513 0.06878395  17.2079036  1.0620844
+#> 3           beta2  0.01911691 0.03184606   0.6607256 -0.0396886
+#> 4           beta3 -0.26337100 0.03562742  -7.4866955 -0.3462302
+#> 5 log_sDispersion -2.24523276 0.28726222  -7.9031179 -2.8907822
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)
 ```
 
-![](tools/README-unnamed-chunk-2-1.png)![](tools/README-unnamed-chunk-2-2.png)
+![](tools/README-unnamed-chunk-3-1.png)![](tools/README-unnamed-chunk-3-2.png)
 
 ``` r
+library(ggplot2)
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
-#> Warning in bind_rows_(x, .id): Vectorizing 'term' elements may not preserve
-#> their attributes
 
 ggplot(data = year, aes(x = Year, y = estimate)) +
   geom_point(data = data, aes(y = Pairs)) +
@@ -158,7 +88,7 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
   expand_limits(y = 0)
 ```
 
-![](tools/README-unnamed-chunk-2-3.png)
+![](tools/README-unnamed-chunk-4-1.png)
 
 Installation
 ------------

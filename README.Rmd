@@ -27,10 +27,11 @@ It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of pack
 
 ## Demonstration
 
-```{r}
-library(ggplot2)
+```{r, message = FALSE}
 library(jmbr)
+```
 
+```{r}
 options("mb.parallel" = TRUE)
 doParallel::registerDoParallel(4)
 
@@ -67,6 +68,10 @@ analysis <- reanalyse(analysis, rhat = 1.05)
 coef(analysis)
 
 plot(analysis)
+```
+
+```{r, message = FALSE}
+library(ggplot2)
 
 year <- predict(analysis, new_data = new_data(data, "Year"))
 

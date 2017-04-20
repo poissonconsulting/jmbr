@@ -87,7 +87,6 @@ test_that("analyse", {
   year <- predict(analysis, new_data = new_data(data, "Year"), quick = TRUE)
 
   expect_is(year, "tbl")
-  print(colnames(year))
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
                                         "Density", "YearFactor",
                                      "estimate", "sd", "zscore", "lower", "upper", "pvalue"))
