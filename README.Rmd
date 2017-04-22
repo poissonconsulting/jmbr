@@ -28,17 +28,14 @@ It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of pack
 ## Demonstration
 
 ```{r, message = FALSE}
+library(magrittr)
+library(ggplot2)
 library(jmbr)
 ```
 
 ```{r}
-options("mb.parallel" = TRUE)
-doParallel::registerDoParallel(4)
-
-data <- bauw::peregrine
-
-template <- "
-model {
+# define model in JAGS language
+model <- model("model {
   alpha ~ dnorm(0, 10^-2)
   beta1 ~ dnorm(0, 10^-2)
   beta2 ~ dnorm(0, 10^-2)
@@ -53,17 +50,19 @@ model {
     eDispersion[i] ~ dgamma(1 / sDispersion^2, 1 / sDispersion^2)
     Pairs[i] ~ dpois(ePairs[i] * eDispersion[i])
   }
-}"
+}")
 
-new_expr <- "
+# add R code to calculate derived parameters
+model %<>% update_model(new_expr = "
 for (i in 1:length(Pairs)) {
   prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
-}"
+}")
 
-model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
+model %<>% update_model(scale = "Year")
 
-analysis <- analyse(model, data = data)
-analysis <- reanalyse(analysis, rhat = 1.05)
+# analyse
+analysis <- analyse(model, data = bauw::peregrine)
+analysis %<>% reanalyse(rhat = 1.05)
 
 coef(analysis)
 
@@ -71,12 +70,12 @@ plot(analysis)
 ```
 
 ```{r, message = FALSE}
-library(ggplot2)
+# make predictions by varying year with other predictors held constant
+year <- predict(analysis, new_data = "Year")
 
-year <- predict(analysis, new_data = new_data(data, "Year"))
-
+# plot those predictions
 ggplot(data = year, aes(x = Year, y = estimate)) +
-  geom_point(data = data, aes(y = Pairs)) +
+  geom_point(data = bauw::peregrine, aes(y = Pairs)) +
   geom_line() +
   geom_line(aes(y = lower), linetype = "dotted") +
   geom_line(aes(y = upper), linetype = "dotted") +

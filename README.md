@@ -14,17 +14,14 @@ Demonstration
 -------------
 
 ``` r
+library(magrittr)
+library(ggplot2)
 library(jmbr)
 ```
 
 ``` r
-options("mb.parallel" = TRUE)
-doParallel::registerDoParallel(4)
-
-data <- bauw::peregrine
-
-template <- "
-model {
+# define model in JAGS language
+model <- model("model {
   alpha ~ dnorm(0, 10^-2)
   beta1 ~ dnorm(0, 10^-2)
   beta2 ~ dnorm(0, 10^-2)
@@ -39,36 +36,43 @@ model {
     eDispersion[i] ~ dgamma(1 / sDispersion^2, 1 / sDispersion^2)
     Pairs[i] ~ dpois(ePairs[i] * eDispersion[i])
   }
-}"
+}")
 
-new_expr <- "
+# add R code to calculate derived parameters
+model %<>% update_model(new_expr = "
 for (i in 1:length(Pairs)) {
   prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
-}"
+}")
 
-model <- model(template, scale = "Year", new_expr = new_expr, fixed = "^(a|b|l)")
+model %<>% update_model(scale = "Year")
 
-analysis <- analyse(model, data = data)
+# analyse
+analysis <- analyse(model, data = bauw::peregrine)
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims           duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  4000 0.225793123245239s  1.06      TRUE
-analysis <- reanalyse(analysis, rhat = 1.05)
+#> 1    40     6     2000       4  4000 0.631420135498047s  1.16     FALSE
+analysis %<>% reanalyse(rhat = 1.05)
 #> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims           duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  8000 0.419265270233154s  1.04      TRUE
+#>       n     K nsamples nchains nsims          duration  rhat converged
+#>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
+#> 1    40     6     2000       4  8000 1.17804932594299s  1.37     FALSE
+#> # A tibble: 1 × 8
+#>       n     K nsamples nchains nsims          duration  rhat converged
+#>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
+#> 1    40     6     2000       4 16000 2.20400643348694s  1.04      TRUE
 
 coef(analysis)
-#> # A tibble: 5 × 7
-#>              term    estimate         sd      zscore      lower
-#> *      <S3: term>       <dbl>      <dbl>       <dbl>      <dbl>
-#> 1           alpha  4.21617930 0.04178934 100.8214195  4.1289657
-#> 2           beta1  1.17450513 0.06878395  17.2079036  1.0620844
-#> 3           beta2  0.01911691 0.03184606   0.6607256 -0.0396886
-#> 4           beta3 -0.26337100 0.03562742  -7.4866955 -0.3462302
-#> 5 log_sDispersion -2.24523276 0.28726222  -7.9031179 -2.8907822
-#> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
+#> # A tibble: 6 × 7
+#>              term   estimate         sd     zscore       lower       upper
+#> *      <S3: term>      <dbl>      <dbl>      <dbl>       <dbl>       <dbl>
+#> 1           alpha  4.2138739 0.03876333 108.728852  4.14094996  4.29635583
+#> 2           beta1  1.1949288 0.06920169  17.297585  1.06804548  1.33476351
+#> 3           beta2  0.0204495 0.03058227   0.639638 -0.04036223  0.07987298
+#> 4           beta3 -0.2729831 0.03539894  -7.738926 -0.34302285 -0.20621540
+#> 5 log_sDispersion -2.2231475 0.31166918  -7.263053 -2.99543884 -1.75420698
+#> 6     sDispersion  0.1082678 0.03106494   3.500575  0.05001469  0.17304441
+#> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
 ```
@@ -76,12 +80,12 @@ plot(analysis)
 ![](tools/README-unnamed-chunk-3-1.png)![](tools/README-unnamed-chunk-3-2.png)
 
 ``` r
-library(ggplot2)
+# make predictions by varying year with other predictors held constant
+year <- predict(analysis, new_data = "Year")
 
-year <- predict(analysis, new_data = new_data(data, "Year"))
-
+# plot those predictions
 ggplot(data = year, aes(x = Year, y = estimate)) +
-  geom_point(data = data, aes(y = Pairs)) +
+  geom_point(data = bauw::peregrine, aes(y = Pairs)) +
   geom_line() +
   geom_line(aes(y = lower), linetype = "dotted") +
   geom_line(aes(y = upper), linetype = "dotted") +

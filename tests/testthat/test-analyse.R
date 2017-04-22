@@ -1,9 +1,6 @@
 context("analyse")
 
 test_that("analyse", {
-
-  require(newdata)
-
   data <- density99
   data$YearFactor <- factor(data$Year)
 
@@ -84,7 +81,7 @@ test_that("analyse", {
   expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))
   expect_identical(tidy$estimate, coef$estimate)
 
-  year <- predict(analysis, new_data = new_data(data, "Year"), quick = TRUE)
+  year <- predict(analysis, new_data = "Year", quick = TRUE)
 
   expect_is(year, "tbl")
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
