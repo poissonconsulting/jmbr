@@ -3,6 +3,7 @@
 S3method(analyse,jmb_model)
 S3method(glance,jmb_analysis)
 S3method(reanalyse,jmb_analysis)
+S3method(update_priors,jmb_code)
 export(is.jmb_analysis)
 export(is.jmb_code)
 export(is.jmb_model)
