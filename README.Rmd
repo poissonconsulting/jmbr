@@ -59,7 +59,7 @@ for (i in 1:length(Pairs)) {
 }")
 
 # define data types and center year
-model %<>% update_model(select_data = list("Pairs" = integer(), "Year+" = integer()))
+model %<>% update_model(select_data = list("Pairs" = integer(), "Year*" = integer()))
 
 # analyse
 analysis <- analyse(model, data = bauw::peregrine)
