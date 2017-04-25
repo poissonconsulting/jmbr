@@ -45,8 +45,6 @@ test_that("analyse", {
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
 
-  update_priors(model)
-
   analysis <- analyse(model, data = data, beep = FALSE)
   analysis <- jmb_reanalyse_internal(analysis, parallel = FALSE, quiet = TRUE)
 
