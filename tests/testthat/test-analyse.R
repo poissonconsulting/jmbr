@@ -38,7 +38,9 @@ test_that("analyse", {
 } "
 
   model <- model(jags_template,
-                 select_data = list("Year+" = numeric(), YearFactor = factor(), Site = factor(), Density = numeric(), HabitatQuality = factor()),
+                 select_data = list("Year+" = numeric(), YearFactor = factor(),
+                                    Site = factor(), Density = numeric(),
+                                    HabitatQuality = factor()),
                  fixed = "^(b|l)", derived = "eDensity",
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
