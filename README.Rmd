@@ -58,7 +58,8 @@ for (i in 1:length(Pairs)) {
   prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
 }")
 
-model %<>% update_model(scale = "Year")
+# define data types and center year
+model %<>% update_model(select_data = list("Pairs" = integer(), "Year+" = integer()))
 
 # analyse
 analysis <- analyse(model, data = bauw::peregrine)

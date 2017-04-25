@@ -44,35 +44,32 @@ for (i in 1:length(Pairs)) {
   prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
 }")
 
-model %<>% update_model(scale = "Year")
+# define data types and center year
+model %<>% update_model(select_data = list("Pairs" = integer(), "Year+" = integer()))
 
 # analyse
 analysis <- analyse(model, data = bauw::peregrine)
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims           duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4  4000 0.631420135498047s  1.16     FALSE
+#> 1    40     6     2000       4  4000 0.626194000244141s  1.09      TRUE
 analysis %<>% reanalyse(rhat = 1.05)
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims          duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4  8000 1.17804932594299s  1.37     FALSE
-#> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims          duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4 16000 2.20400643348694s  1.04      TRUE
+#> 1    40     6     2000       4  8000 1.17726182937622s  1.03      TRUE
 
 coef(analysis)
 #> # A tibble: 6 × 7
-#>              term   estimate         sd     zscore       lower       upper
-#> *      <S3: term>      <dbl>      <dbl>      <dbl>       <dbl>       <dbl>
-#> 1           alpha  4.2138739 0.03876333 108.728852  4.14094996  4.29635583
-#> 2           beta1  1.1949288 0.06920169  17.297585  1.06804548  1.33476351
-#> 3           beta2  0.0204495 0.03058227   0.639638 -0.04036223  0.07987298
-#> 4           beta3 -0.2729831 0.03539894  -7.738926 -0.34302285 -0.20621540
-#> 5 log_sDispersion -2.2231475 0.31166918  -7.263053 -2.99543884 -1.75420698
-#> 6     sDispersion  0.1082678 0.03106494   3.500575  0.05001469  0.17304441
-#> # ... with 1 more variables: pvalue <dbl>
+#>              term      estimate           sd      zscore         lower
+#> *      <S3: term>         <dbl>        <dbl>       <dbl>         <dbl>
+#> 1           alpha  4.2184129005 3.987753e-02 105.7487707  4.1338416932
+#> 2           beta1  0.1013464044 5.802042e-03  17.5060733  0.0903058917
+#> 3           beta2  0.0001270859 2.248071e-04   0.5957733 -0.0002921866
+#> 4           beta3 -0.0001671163 2.190179e-05  -7.6977009 -0.0002151813
+#> 5 log_sDispersion -2.2490830653 3.215759e-01  -7.0945140 -3.0418811360
+#> 6     sDispersion  0.1054959131 3.200401e-02   3.3492311  0.0477450085
+#> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)
 ```
