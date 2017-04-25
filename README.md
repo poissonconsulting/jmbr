@@ -45,30 +45,30 @@ for (i in 1:length(Pairs)) {
 }")
 
 # define data types and center year
-model %<>% update_model(select_data = list("Pairs" = integer(), "Year+" = integer()))
+model %<>% update_model(select_data = list("Pairs" = integer(), "Year*" = integer()))
 
 # analyse
 analysis <- analyse(model, data = bauw::peregrine)
 #> # A tibble: 1 × 8
 #>       n     K nsamples nchains nsims           duration  rhat converged
 #>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4  4000 0.626194000244141s  1.09      TRUE
+#> 1    40     6     2000       4  4000 0.625787973403931s  1.06      TRUE
 analysis %<>% reanalyse(rhat = 1.05)
 #> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims          duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>    <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4  8000 1.17726182937622s  1.03      TRUE
+#>       n     K nsamples nchains nsims         duration  rhat converged
+#>   <int> <int>    <int>   <int> <int>   <S4: Duration> <dbl>     <lgl>
+#> 1    40     6     2000       4  8000 1.1707968711853s  1.04      TRUE
 
 coef(analysis)
 #> # A tibble: 6 × 7
-#>              term      estimate           sd      zscore         lower
-#> *      <S3: term>         <dbl>        <dbl>       <dbl>         <dbl>
-#> 1           alpha  4.2184129005 3.987753e-02 105.7487707  4.1338416932
-#> 2           beta1  0.1013464044 5.802042e-03  17.5060733  0.0903058917
-#> 3           beta2  0.0001270859 2.248071e-04   0.5957733 -0.0002921866
-#> 4           beta3 -0.0001671163 2.190179e-05  -7.6977009 -0.0002151813
-#> 5 log_sDispersion -2.2490830653 3.215759e-01  -7.0945140 -3.0418811360
-#> 6     sDispersion  0.1054959131 3.200401e-02   3.3492311  0.0477450085
+#>              term    estimate         sd      zscore       lower
+#> *      <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>
+#> 1           alpha  4.21753001 0.03957244 106.5991373  4.14316887
+#> 2           beta1  1.18255269 0.07602162  15.6329143  1.04827654
+#> 3           beta2  0.01684336 0.02917942   0.5894709 -0.03800634
+#> 4           beta3 -0.26696542 0.03782166  -7.1374926 -0.34728703
+#> 5 log_sDispersion -2.23926475 0.30393877  -7.4906417 -2.99742494
+#> 6     sDispersion  0.10653681 0.03006866   3.5628403  0.04991550
 #> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
 
 plot(analysis)
