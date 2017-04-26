@@ -78,7 +78,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
 }
 
 #' @export
-analyse.jmb_model <- function(x, data, drop = character(0),
+analyse.jmb_model <- function(x, data,
                               parallel = getOption("mb.parallel", FALSE),
                               quick = getOption("mb.quick", FALSE),
                               quiet = getOption("mb.quiet", TRUE),
@@ -91,7 +91,6 @@ analyse.jmb_model <- function(x, data, drop = character(0),
     llply(data, check_data2)
   } else error("data must be a data.frame or a list of data.frames")
 
-  check_vector(drop, "", min_length = 0)
   check_flag(quick)
   check_flag(quiet)
   check_flag(parallel)
@@ -99,8 +98,6 @@ analyse.jmb_model <- function(x, data, drop = character(0),
   check_flag(beep)
 
   if (beep) on.exit(beepr::beep())
-
-  x %<>% drop_parameters(parameters = drop)
 
   tempfile <- tempfile(fileext = ".bug")
   write(template(x), file = tempfile)
