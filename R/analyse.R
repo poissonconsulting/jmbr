@@ -78,7 +78,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
 }
 
 #' @export
-analyse.jmb_model <- function(model, data, drop = character(0),
+analyse.jmb_model <- function(x, data, drop = character(0),
                               parallel = getOption("mb.parallel", FALSE),
                               quick = getOption("mb.quick", FALSE),
                               quiet = getOption("mb.quiet", TRUE),
@@ -99,19 +99,19 @@ analyse.jmb_model <- function(model, data, drop = character(0),
 
   if (beep) on.exit(beepr::beep())
 
-  model %<>% drop_parameters(parameters = drop)
+  x %<>% drop_parameters(parameters = drop)
 
   tempfile <- tempfile(fileext = ".bug")
-  write(template(model), file = tempfile)
+  write(template(x), file = tempfile)
 
   rjags::load.module("basemod", quiet = quiet)
   rjags::load.module("bugs", quiet = quiet)
 
   if (is.data.frame(data)) {
-    return(jmb_analyse(data = data, model = model, tempfile = tempfile,
+    return(jmb_analyse(data = data, model = x, tempfile = tempfile,
                        quick = quick, quiet = quiet, parallel = parallel))
   }
 
-  llply(data, jmb_analyse, model = model, tempfile = tempfile,
+  llply(data, jmb_analyse, model = x, tempfile = tempfile,
          quick = quick, quiet = quiet, parallel = parallel)
 }
