@@ -1,10 +1,10 @@
-context("analyse")
+context("update_priors")
 
-test_that("analyse", {
+test_that("update_priors", {
 
   code <- mb_code("model{
 
-    bIntercept ~ dnorm(0, 5^-2)
+    bIntercept ~ dnorm(2, 5^-2)
     bYear ~ dnorm(0, 1^-2)
 
     bHabitatQuality[1] <- 0
@@ -32,7 +32,7 @@ test_that("analyse", {
 
   code2 <- mb_code("model{
 
-    bIntercept ~ dnorm(0, 10^-2)
+    bIntercept ~ dnorm(2, 10^-2)
     bYear ~ dnorm(0, 2^-2)
 
     bHabitatQuality[1] <- 0
