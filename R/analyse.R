@@ -30,7 +30,7 @@ jmb_analyse_chain <- function(inits, tempfile = tempfile, data, regexp, named, n
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
 
-jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
+jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
 
   timer <- timer::Timer$new()
   timer$start()
@@ -72,7 +72,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, parallel) {
   obj$duration <- timer$elapsed()
   class(obj) <- c("jmb_analysis", "mb_analysis")
 
-  print(glance(obj))
+  if (glance) print(glance(obj))
 
   obj
 }
@@ -82,6 +82,7 @@ analyse.jmb_model <- function(x, data, drop = character(0),
                               parallel = getOption("mb.parallel", FALSE),
                               quick = getOption("mb.quick", FALSE),
                               quiet = getOption("mb.quiet", TRUE),
+                              glance = getOption("mb.glance", TRUE),
                               beep = getOption("mb.beep", TRUE),
                               ...) {
   if (is.data.frame(data)) {
@@ -94,8 +95,8 @@ analyse.jmb_model <- function(x, data, drop = character(0),
   check_flag(quick)
   check_flag(quiet)
   check_flag(parallel)
+  check_flag(glance)
   check_flag(beep)
-
 
   if (beep) on.exit(beepr::beep())
 
@@ -109,9 +110,10 @@ analyse.jmb_model <- function(x, data, drop = character(0),
 
   if (is.data.frame(data)) {
     return(jmb_analyse(data = data, model = x, tempfile = tempfile,
-                       quick = quick, quiet = quiet, parallel = parallel))
+                       quick = quick, quiet = quiet, glance = glance,
+                       parallel = parallel))
   }
 
   llply(data, jmb_analyse, model = x, tempfile = tempfile,
-         quick = quick, quiet = quiet, parallel = parallel)
+         quick = quick, quiet = quiet, glance = glance, parallel = parallel)
 }

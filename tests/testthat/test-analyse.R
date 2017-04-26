@@ -45,7 +45,7 @@ test_that("analyse", {
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
 
-  analysis <- analyse(model, data = data, beep = FALSE)
+  analysis <- analyse(model, data = data, beep = FALSE, glance = FALSE)
   analysis <- jmb_reanalyse_internal(analysis, parallel = FALSE, quiet = TRUE)
 
   expect_identical(parameters(analysis), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
