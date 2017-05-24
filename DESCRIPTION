@@ -1,7 +1,7 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9008
-Date: 2017-04-21
+Version: 0.0.0.9009
+Date: 2017-04-24
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE
@@ -15,7 +15,7 @@ Imports:
     beepr,
     dplyr,
     datacheckr (>= 0.1.2),
-    lubridate,
+    lubridate (>= 1.6.0.9009),
     magrittr,
     mcmcr (>= 0.0.0.9004),
     plyr,
@@ -32,6 +32,7 @@ Suggests:
     ggplot2,
     testthat
 Remotes:
+    tidyverse/lubridate,
     poissonconsulting/bauw,
     poissonconsulting/mbr,
     poissonconsulting/mcmcr,
