@@ -17,6 +17,7 @@ Demonstration
 library(magrittr)
 library(ggplot2)
 library(jmbr)
+#> Warning: package 'dplyr' was built under R version 3.4.1
 ```
 
 ``` r
@@ -27,49 +28,60 @@ model <- model("model {
   beta2 ~ dnorm(0, 10^-2)
   beta3 ~ dnorm(0, 10^-2)
 
-  log_sDispersion ~ dnorm(0, 10^-2)
+  log_sAnnual ~ dnorm(0, 10^-2)
+  log(sAnnual) <- log_sAnnual
 
-  log(sDispersion) <- log_sDispersion
+  for(i in 1:nAnnual) {
+    bAnnual[i] ~ dnorm(0, sAnnual^-2)
+  }
 
   for (i in 1:length(Pairs)) {
-    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3
-    eDispersion[i] ~ dgamma(1 / sDispersion^2, 1 / sDispersion^2)
-    Pairs[i] ~ dpois(ePairs[i] * eDispersion[i])
+    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+    Pairs[i] ~ dpois(ePairs[i])
   }
 }")
 
 # add R code to calculate derived parameters
 model %<>% update_model(new_expr = "
 for (i in 1:length(Pairs)) {
-  prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
+  log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
 }")
 
 # define data types and center year
-model %<>% update_model(select_data = list("Pairs" = integer(), "Year*" = integer()))
+model %<>% update_model(
+  select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
+  derived = "sAnnual",
+  random_effects = list(bAnnual = "Annual"))
+
+data <- bauw::peregrine
+data$Annual <- factor(data$Year)
 
 # analyse
-analysis <- analyse(model, data = bauw::peregrine)
-#> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims           duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>     <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4  4000 0.625787973403931s  1.06      TRUE
+analysis <- analyse(model, data = data)
+#> # A tibble: 1 x 8
+#>       n     K nsamples nchains nsims       duration  rhat converged
+#>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
+#> 1    40     5     2000       4  4000           1.1s  4.32     FALSE
 analysis %<>% reanalyse(rhat = 1.05)
-#> # A tibble: 1 × 8
-#>       n     K nsamples nchains nsims         duration  rhat converged
-#>   <int> <int>    <int>   <int> <int>   <S4: Duration> <dbl>     <lgl>
-#> 1    40     6     2000       4  8000 1.1707968711853s  1.04      TRUE
+#> # A tibble: 1 x 8
+#>       n     K nsamples nchains nsims       duration  rhat converged
+#>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
+#> 1    40     5     2000       4  8000           1.8s  1.59     FALSE
+#> # A tibble: 1 x 8
+#>       n     K nsamples nchains nsims       duration  rhat converged
+#>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
+#> 1    40     5     2000       4 16000           2.9s  1.02      TRUE
 
 coef(analysis)
-#> # A tibble: 6 × 7
-#>              term    estimate         sd      zscore       lower
-#> *      <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>
-#> 1           alpha  4.21753001 0.03957244 106.5991373  4.14316887
-#> 2           beta1  1.18255269 0.07602162  15.6329143  1.04827654
-#> 3           beta2  0.01684336 0.02917942   0.5894709 -0.03800634
-#> 4           beta3 -0.26696542 0.03782166  -7.1374926 -0.34728703
-#> 5 log_sDispersion -2.23926475 0.30393877  -7.4906417 -2.99742494
-#> 6     sDispersion  0.10653681 0.03006866   3.5628403  0.04991550
-#> # ... with 2 more variables: upper <dbl>, pvalue <dbl>
+#> # A tibble: 5 x 7
+#>          term    estimate         sd      zscore       lower       upper
+#> *  <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>       <dbl>
+#> 1       alpha  4.21138251 0.04041260 104.1785750  4.12990741  4.28843009
+#> 2       beta1  1.18892366 0.07304180  16.3232834  1.06414398  1.34951822
+#> 3       beta2  0.01723847 0.03078737   0.5597436 -0.04266213  0.07804809
+#> 4       beta3 -0.27075301 0.03735017  -7.2814823 -0.35214221 -0.20217399
+#> 5 log_sAnnual -2.25132597 0.29455283  -7.7091312 -2.93327534 -1.77770088
+#> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
 ```
@@ -77,7 +89,7 @@ plot(analysis)
 ![](tools/README-unnamed-chunk-3-1.png)![](tools/README-unnamed-chunk-3-2.png)
 
 ``` r
-# make predictions by varying year with other predictors held constant
+# make predictions by varying year with other predictors including the random effect of Annual held constant
 year <- predict(analysis, new_data = "Year")
 
 # plot those predictions

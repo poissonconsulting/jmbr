@@ -41,28 +41,36 @@ model <- model("model {
   beta2 ~ dnorm(0, 10^-2)
   beta3 ~ dnorm(0, 10^-2)
 
-  log_sDispersion ~ dnorm(0, 10^-2)
+  log_sAnnual ~ dnorm(0, 10^-2)
+  log(sAnnual) <- log_sAnnual
 
-  log(sDispersion) <- log_sDispersion
+  for(i in 1:nAnnual) {
+    bAnnual[i] ~ dnorm(0, sAnnual^-2)
+  }
 
   for (i in 1:length(Pairs)) {
-    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3
-    eDispersion[i] ~ dgamma(1 / sDispersion^2, 1 / sDispersion^2)
-    Pairs[i] ~ dpois(ePairs[i] * eDispersion[i])
+    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+    Pairs[i] ~ dpois(ePairs[i])
   }
 }")
 
 # add R code to calculate derived parameters
 model %<>% update_model(new_expr = "
 for (i in 1:length(Pairs)) {
-  prediction[i] <- exp(alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3)
+  log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
 }")
 
 # define data types and center year
-model %<>% update_model(select_data = list("Pairs" = integer(), "Year*" = integer()))
+model %<>% update_model(
+  select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
+  derived = "sAnnual",
+  random_effects = list(bAnnual = "Annual"))
+
+data <- bauw::peregrine
+data$Annual <- factor(data$Year)
 
 # analyse
-analysis <- analyse(model, data = bauw::peregrine)
+analysis <- analyse(model, data = data)
 analysis %<>% reanalyse(rhat = 1.05)
 
 coef(analysis)
@@ -71,7 +79,7 @@ plot(analysis)
 ```
 
 ```{r, message = FALSE}
-# make predictions by varying year with other predictors held constant
+# make predictions by varying year with other predictors including the random effect of Annual held constant
 year <- predict(analysis, new_data = "Year")
 
 # plot those predictions
