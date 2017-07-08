@@ -51,6 +51,10 @@ test_that("analyse", {
   expect_identical(parameters(analysis), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
   expect_identical(parameters(analysis, "random"), "bSiteYear")
   expect_identical(parameters(analysis, "derived"), "eDensity")
+  expect_identical(parameters(analysis, "primary"),
+                   c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "log_sDensity", "log_sSiteYear"))
+  expect_identical(parameters(analysis, "all"),
+                   c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "eDensity", "log_sDensity", "log_sSiteYear"))
 
   expect_identical(ngens(analysis), 2000L)
   expect_identical(nsims(analysis), 8000L)
@@ -80,6 +84,9 @@ test_that("analyse", {
   expect_identical(coef$term, as.term(c("bHabitatQuality[1]", "bHabitatQuality[2]",
                                 "bIntercept", "bYear",
                                 "log_sDensity", "log_sSiteYear")))
+
+  expect_identical(nrow(coef(analysis, "primary")), 66L)
+  expect_identical(nrow(coef(analysis, "all")), 366L)
 
   tidy <- tidy(analysis)
   expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))

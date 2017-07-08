@@ -1,7 +1,7 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9010
-Date: 2017-07-07
+Version: 0.0.0.9011
+Date: 2017-07-08
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE
@@ -10,7 +10,7 @@ BugReports: https://github.com/poissonconsulting/jmbr/issues
 Depends:
     R (>= 3.3.1),
     broom,
-    mbr (>= 0.0.0.9040)
+    mbr (>= 0.0.0.9046)
 Imports:
     beepr,
     dplyr,
