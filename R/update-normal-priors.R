@@ -1,5 +1,5 @@
 #' @export
-update_priors.jmb_code <- function(object, multiplier = 2, ...) {
+update_normal_priors.jmb_code <- function(object, multiplier = 2, ...) {
   check_number(multiplier)
   if (multiplier <= 0) error("multiplier must be greater than 0")
 

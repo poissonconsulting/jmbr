@@ -1,6 +1,6 @@
-context("update_priors")
+context("update_normal_priors")
 
-test_that("update_priors", {
+test_that("update_normal_priors", {
 
   code <- mb_code("model{
 
@@ -58,5 +58,5 @@ test_that("update_priors", {
     }
   }")
 
-  expect_identical(update_priors(code), code2)
+  expect_identical(update_normal_priors(code), code2)
 })
