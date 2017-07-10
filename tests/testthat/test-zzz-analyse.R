@@ -48,12 +48,12 @@ test_that("analyse", {
   analysis <- analyse(model, data = data, beep = FALSE, glance = FALSE)
   analysis <- jmb_reanalyse_internal(analysis, parallel = FALSE, quiet = TRUE)
 
-  expect_identical(parameters(analysis), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
+  expect_identical(parameters(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
   expect_identical(parameters(analysis, "random"), "bSiteYear")
   expect_identical(parameters(analysis, "derived"), "eDensity")
   expect_identical(parameters(analysis, "primary"),
                    c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "log_sDensity", "log_sSiteYear"))
-  expect_identical(parameters(analysis, "all"),
+  expect_identical(parameters(analysis),
                    c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "eDensity", "log_sDensity", "log_sSiteYear"))
 
   expect_identical(ngens(analysis), 2000L)
