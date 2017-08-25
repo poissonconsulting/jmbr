@@ -11,7 +11,7 @@ test_that("analyse", {
     bHabitatQuality[i] ~ dnorm(0, 5^-2)
   }
 
-  log_sSiteYear ~ dnorm(0, 5^-2)
+  log_sSiteYear ~ dnorm(0, 5^-2) # xxx # yyy
   log_sDensity ~ dnorm(0, 5^-2)
 
   log(sSiteYear) <- log_sSiteYear

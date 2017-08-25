@@ -4,7 +4,7 @@ test_that("analyse", {
 
   template <- "model{
 
-  bIntercept ~ dnorm(0, 5^-2)
+  bIntercept ~ dnorm(0, 5^-2) # comment
   bYear ~ dnorm(0, 5^-2)
 
   bHabitatQuality[1] <- 0
