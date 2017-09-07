@@ -6,8 +6,8 @@ dist: precise
 r_packages:
   - covr
 
-r_binary_packages:
-  - rjags
+apt_packages:
+  - r-cran-rjags
 
 after_success:
   - Rscript -e 'covr::codecov()'
