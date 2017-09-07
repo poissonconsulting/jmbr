@@ -72,7 +72,8 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS). It is part of the <a href="https://github.com/poissonconsulting/mbr">mbr</a> family of packages.</p>
+<p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).</p>
+<p>It is part of the <a href="https://github.com/poissonconsulting/mbr">mbr</a> family of packages.</p>
 </div>
 <div id="demonstration" class="section level2">
 <h2 class="hasAnchor">
@@ -120,26 +121,30 @@ analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <s
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  4000           0.9s  9.85     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  4000           0.9s  1.79     FALSE</span>
 analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>(<span class="dt">rhat =</span> <span class="fl">1.05</span>)
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  8000           1.5s  1.25     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  8000           1.5s  1.08      TRUE</span>
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4 16000           2.5s  1.04      TRUE</span>
+<span class="co">#&gt; 1    40     5     2000       4 16000           2.5s  1.21     FALSE</span>
+<span class="co">#&gt; # A tibble: 1 x 8</span>
+<span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
+<span class="co">#&gt; 1    40     5     2000       4 32000           4.3s  1.02      TRUE</span>
 
 <span class="kw">coef</span>(analysis)
 <span class="co">#&gt; # A tibble: 5 x 7</span>
 <span class="co">#&gt;          term    estimate         sd      zscore       lower       upper</span>
 <span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.21216945 0.04138185 101.7427727  4.12228769  4.28375231</span>
-<span class="co">#&gt; 2       beta1  1.19259706 0.07499481  15.9470952  1.04722831  1.34471886</span>
-<span class="co">#&gt; 3       beta2  0.01685269 0.03148954   0.5304249 -0.04565986  0.07927081</span>
-<span class="co">#&gt; 4       beta3 -0.27305964 0.03878512  -7.0658731 -0.34963480 -0.19862445</span>
-<span class="co">#&gt; 5 log_sAnnual -2.24102819 0.28851409  -7.8308662 -2.90619718 -1.74289636</span>
+<span class="co">#&gt; 1       alpha  4.21250231 0.04109089 102.4963422  4.13285050  4.29260784</span>
+<span class="co">#&gt; 2       beta1  1.19816563 0.07343727  16.3615511  1.06766880  1.35728001</span>
+<span class="co">#&gt; 3       beta2  0.01598961 0.03228886   0.4889319 -0.04899451  0.07720559</span>
+<span class="co">#&gt; 4       beta3 -0.27524081 0.03750613  -7.3759224 -0.35585815 -0.20770374</span>
+<span class="co">#&gt; 5 log_sAnnual -2.22090568 0.31585180  -7.1490050 -2.99892732 -1.73188590</span>
 <span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
 
 <span class="kw">plot</span>(analysis)</code></pre></div>
@@ -175,6 +180,13 @@ devtools::install_github("poissonconsulting/jmbr")</a></code></pre>
 <a href="#inspiration" class="anchor"></a>Inspiration</h2>
 <ul>
 <li><a href="https://github.com/poissonconsulting/jaggernaut">jaggernaut</a></li>
+</ul>
+</div>
+<div id="creditation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#creditation" class="anchor"></a>Creditation</h2>
+<ul>
+<li><a href="http://mcmc-jags.sourceforge.net">JAGS</a></li>
 </ul>
 </div>
 </div>
