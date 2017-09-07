@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg) [![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/joethorley/stability-badges#unstable) [![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mbr)](https://cran.r-project.org/package=mbr)
 
 jmbr
 ====
@@ -17,7 +17,6 @@ Demonstration
 library(magrittr)
 library(ggplot2)
 library(jmbr)
-#> Warning: package 'dplyr' was built under R version 3.4.1
 ```
 
 ``` r
@@ -61,26 +60,26 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nsamples nchains nsims       duration  rhat converged
 #>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  4000           1.1s  4.32     FALSE
+#> 1    40     5     2000       4  4000           0.9s  8.14     FALSE
 analysis %<>% reanalyse(rhat = 1.05)
 #> # A tibble: 1 x 8
 #>       n     K nsamples nchains nsims       duration  rhat converged
 #>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  8000           1.8s  1.59     FALSE
+#> 1    40     5     2000       4  8000           1.4s  1.53     FALSE
 #> # A tibble: 1 x 8
 #>       n     K nsamples nchains nsims       duration  rhat converged
 #>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4 16000           2.9s  1.02      TRUE
+#> 1    40     5     2000       4 16000           2.4s  1.02      TRUE
 
 coef(analysis)
 #> # A tibble: 5 x 7
 #>          term    estimate         sd      zscore       lower       upper
 #> *  <S3: term>       <dbl>      <dbl>       <dbl>       <dbl>       <dbl>
-#> 1       alpha  4.21138251 0.04041260 104.1785750  4.12990741  4.28843009
-#> 2       beta1  1.18892366 0.07304180  16.3232834  1.06414398  1.34951822
-#> 3       beta2  0.01723847 0.03078737   0.5597436 -0.04266213  0.07804809
-#> 4       beta3 -0.27075301 0.03735017  -7.2814823 -0.35214221 -0.20217399
-#> 5 log_sAnnual -2.25132597 0.29455283  -7.7091312 -2.93327534 -1.77770088
+#> 1       alpha  4.21430746 0.04088458 103.0524647  4.13114700  4.29067852
+#> 2       beta1  1.18736731 0.08041674  14.8261169  1.04727069  1.35569490
+#> 3       beta2  0.01574954 0.03086360   0.5250588 -0.04288459  0.07851137
+#> 4       beta3 -0.27046401 0.04090835  -6.6434541 -0.35599314 -0.19449269
+#> 5 log_sAnnual -2.22736822 0.27968606  -8.0092400 -2.82772390 -1.74599321
 #> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
