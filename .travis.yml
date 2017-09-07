@@ -5,8 +5,8 @@ cache: packages
 r_packages:
   - covr
 
-apt_packages:
-  - r-cran-rjags
+r_binary_packages:
+  - rjags
 
 after_success:
   - Rscript -e 'covr::codecov()'

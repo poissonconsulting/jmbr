@@ -121,30 +121,26 @@ analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <s
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  4000           0.9s  1.79     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  4000           0.9s  3.68     FALSE</span>
 analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>(<span class="dt">rhat =</span> <span class="fl">1.05</span>)
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  8000           1.5s  1.08      TRUE</span>
+<span class="co">#&gt; 1    40     5     2000       4  8000           1.5s  1.06      TRUE</span>
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4 16000           2.5s  1.21     FALSE</span>
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4 32000           4.3s  1.02      TRUE</span>
+<span class="co">#&gt; 1    40     5     2000       4 16000           2.6s  1.03      TRUE</span>
 
 <span class="kw">coef</span>(analysis)
 <span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;          term    estimate         sd      zscore       lower       upper</span>
-<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.21250231 0.04109089 102.4963422  4.13285050  4.29260784</span>
-<span class="co">#&gt; 2       beta1  1.19816563 0.07343727  16.3615511  1.06766880  1.35728001</span>
-<span class="co">#&gt; 3       beta2  0.01598961 0.03228886   0.4889319 -0.04899451  0.07720559</span>
-<span class="co">#&gt; 4       beta3 -0.27524081 0.03750613  -7.3759224 -0.35585815 -0.20770374</span>
-<span class="co">#&gt; 5 log_sAnnual -2.22090568 0.31585180  -7.1490050 -2.99892732 -1.73188590</span>
+<span class="co">#&gt;          term    estimate         sd     zscore       lower       upper</span>
+<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       alpha  4.21034788 0.04265083 98.7577897  4.13120990  4.29858622</span>
+<span class="co">#&gt; 2       beta1  1.18496458 0.07218745 16.4647859  1.05865154  1.34241357</span>
+<span class="co">#&gt; 3       beta2  0.01633512 0.03241619  0.4817403 -0.04790298  0.07682232</span>
+<span class="co">#&gt; 4       beta3 -0.26818458 0.03788269 -7.1357480 -0.35015927 -0.20187308</span>
+<span class="co">#&gt; 5 log_sAnnual -2.23945026 0.33410743 -6.8210407 -3.08190954 -1.75036998</span>
 <span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
 
 <span class="kw">plot</span>(analysis)</code></pre></div>
