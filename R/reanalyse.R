@@ -1,5 +1,4 @@
 jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
-
   jags_model <- jags_chain$jags_model
 
   if (quiet) {
@@ -7,12 +6,12 @@ jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
   } else {
     jags_model$recompile()
   }
-  vars <- names(jags_chain$jags_samples)
+  monitor <- names(jags_chain$jags_samples)
 
   if (quiet) {
-    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = vars, n.iter = niters/2, thin = nthin, progress.bar = "none"))
+    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = niters/2, thin = nthin, progress.bar = "none"))
   } else {
-    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = vars, n.iter = niters/2, thin = nthin, progress.bar = "none"))
+    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = niters/2, thin = nthin, progress.bar = "none"))
   }
   list(jags_model = jags_model, jags_samples = jags_samples)
 }

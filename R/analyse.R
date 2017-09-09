@@ -1,15 +1,4 @@
-variable_names <- function(jags_model, data, regexp, named) {
-  vars <- stats::variable.names(jags_model)
-
-  vars <- vars[!vars %in% names(data)]
-
-  vars <- vars[grepl(regexp, vars, perl = TRUE)]
-
-  vars %<>% c(named) %>% unique() %>% sort()
-  vars
-}
-
-jmb_analyse_chain <- function(inits, tempfile = tempfile, data, regexp, named, nadapt, niters, nthin, quick, quiet) {
+jmb_analyse_chain <- function(inits, tempfile = tempfile, data, monitor, nadapt, niters, nthin, quick, quiet) {
   if (quiet) {
     suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
   } else {
@@ -18,14 +7,12 @@ jmb_analyse_chain <- function(inits, tempfile = tempfile, data, regexp, named, n
 
   jags_model %<>% adapt(nadapt = nadapt)
 
-  vars <- variable_names(jags_model, data, regexp, named)
-
   if (!quick) {
     niters <- niters / 2
     update(jags_model, n.iter = niters, progress.bar = "none")
   }
 
-  jags_samples <- rjags::jags.samples(model = jags_model, variable.names = vars, n.iter = niters, thin = nthin, progress.bar = "none")
+  jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = niters, thin = nthin, progress.bar = "none")
 
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
@@ -53,15 +40,15 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
-  regexp <- model$fixed
-  named <- names(model$random_effects) %>% c(model$derived)
+  monitor <- mbr::monitor(model)
+  monitor <- monitor[!monitor %in% names(data)]
 
   jags_chains <- llply(inits, .fun = jmb_analyse_chain,
-                         .parallel = parallel,
-                         tempfile = tempfile, data = data,
-                     regexp = regexp, named = named,
-                     nadapt = nadapt, niters = niters, nthin = nthin,
-                     quick = quick, quiet = quiet)
+                       .parallel = parallel,
+                       tempfile = tempfile, data = data,
+                       monitor = monitor,
+                       nadapt = nadapt, niters = niters, nthin = nthin,
+                       quick = quick, quiet = quiet)
 
   mcmcr <- llply(jags_chains, function(x) x$jags_samples)
   mcmcr %<>% llply(mcmcr::as.mcmcr)
@@ -112,5 +99,5 @@ analyse.jmb_model <- function(x, data,
   }
 
   llply(data, jmb_analyse, model = x, tempfile = tempfile,
-         quick = quick, quiet = quiet, glance = glance, parallel = parallel)
+        quick = quick, quiet = quiet, glance = glance, parallel = parallel)
 }
