@@ -2,7 +2,7 @@
 % Please edit documentation in R/reanalyse.R
 \name{reanalyse.jmb_analysis}
 \alias{reanalyse.jmb_analysis}
-\title{Reanalyse List}
+\title{Reanalyse}
 \usage{
 \method{reanalyse}{jmb_analysis}(object, rhat = getOption("mb.rhat", 1.1),
   nreanalyses = getOption("mb.nreanalyses", 1L),
@@ -34,5 +34,5 @@
 \item{...}{Unused arguments.}
 }
 \description{
-Reanalyse List
+Reanalyse
 }

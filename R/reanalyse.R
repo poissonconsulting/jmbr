@@ -51,7 +51,7 @@ jmb_reanalyse <- function(object, rhat, nreanalyses, duration, quick, quiet, par
 
 }
 
-#' Reanalyse List
+#' Reanalyse
 #'
 #' @param object The object to reanalyse.
 #' @param rhat A number specifying the rhat threshold.
@@ -75,6 +75,8 @@ reanalyse.jmb_analysis <- function(object,
                                    beep = getOption("mb.beep", TRUE),
                                    ...) {
 
+  if (beep) on.exit(beepr::beep())
+
   check_scalar(nreanalyses, c(1L, 6L))
   if (!is.duration(duration)) error("duration must be an object of class Duration")
   check_flag(quick)
@@ -82,8 +84,6 @@ reanalyse.jmb_analysis <- function(object,
   check_flag(parallel)
   check_flag(glance)
   check_flag(beep)
-
-  if (beep) on.exit(beepr::beep())
 
   rjags::load.module("basemod", quiet = quiet)
   rjags::load.module("bugs", quiet = quiet)
