@@ -1,4 +1,4 @@
-jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
+jmb_reanalyse_chain <- function(jags_chain, ngens, nthin, quiet) {
   jags_model <- jags_chain$jags_model
 
   if (quiet) {
@@ -9,9 +9,9 @@ jmb_reanalyse_chain <- function(jags_chain, niters, nthin, quiet) {
   monitor <- names(jags_chain$jags_samples)
 
   if (quiet) {
-    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = niters/2, thin = nthin, progress.bar = "none"))
+    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = ngens/2L, thin = nthin, progress.bar = "none"))
   } else {
-    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = niters/2, thin = nthin, progress.bar = "none"))
+    utils::capture.output(jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = ngens/2L, thin = nthin, progress.bar = "none"))
   }
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
@@ -20,18 +20,18 @@ jmb_reanalyse_internal <- function(object, parallel, quiet) {
   timer <- timer::Timer$new()
   timer$start()
 
-  niters <- object$ngens * 2
+  ngens <- object$ngens * 2L
   nchains <- length(object$jags_chains)
-  nthin <- niters * nchains / (2000 * 2)
+  nthin <- ngens * nchains / (2000 * 2)
 
-  object$jags_chains %<>% llply(.fun = jmb_reanalyse_chain, .parallel = parallel, niters = niters, nthin = nthin, quiet = quiet)
+  object$jags_chains %<>% llply(.fun = jmb_reanalyse_chain, .parallel = parallel, ngens = ngens, nthin = nthin, quiet = quiet)
 
   mcmcr <- llply(object$jags_chains, function(x) x$jags_samples)
   mcmcr %<>% llply(mcmcr::as.mcmcr)
   mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
   object$mcmcr <- mcmcr
-  object$ngens <- as.integer(niters)
+  object$ngens <- as.integer(ngens)
   object$duration %<>% magrittr::add(timer$elapsed())
   object
 }

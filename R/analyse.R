@@ -1,18 +1,18 @@
-jmb_analyse_chain <- function(inits, tempfile = tempfile, data, monitor, nadapt, niters, nthin, quick, quiet) {
+jmb_analyse_chain <- function(inits, tempfile = tempfile, data,
+                              monitor, nadapt, ngens, nthin, quick, quiet) {
   if (quiet) {
     suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
   } else {
-    jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = 0, quiet = quiet)
+    jags_model <- rjags::jags.model(tempfile, data, inits = inits,
+                                    n.adapt = 0, quiet = quiet)
+    jags_model %<>% adapt(nadapt = nadapt)
   }
 
-  jags_model %<>% adapt(nadapt = nadapt)
+  update(jags_model, n.iter = ngens / 2L, progress.bar = "none")
 
-  if (!quick) {
-    niters <- niters / 2
-    update(jags_model, n.iter = niters, progress.bar = "none")
-  }
-
-  jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor, n.iter = niters, thin = nthin, progress.bar = "none")
+  jags_samples <- rjags::jags.samples(
+    model = jags_model, variable.names = monitor, n.iter = ngens / 2L,
+    thin = nthin, progress.bar = "none")
 
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
@@ -23,13 +23,13 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
   timer$start()
 
   nchains <- 4L
-  niters <- model$niters
-  nadapt <- niters / 10
-  nthin <- niters * nchains / (2000 * 2)
+  ngens <- model$ngens
+  nadapt <- ngens / 10L
+  nthin <- ngens * nchains / (2000 * 2)
 
   if (quick) {
     nchains <- 2L
-    niters <- 10
+    ngens <- 10
     nadapt <- 0
     nthin <- 1L
   }
@@ -47,15 +47,18 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
                        .parallel = parallel,
                        tempfile = tempfile, data = data,
                        monitor = monitor,
-                       nadapt = nadapt, niters = niters, nthin = nthin,
+                       nadapt = nadapt, ngens = ngens, nthin = nthin,
                        quick = quick, quiet = quiet)
 
   mcmcr <- llply(jags_chains, function(x) x$jags_samples)
   mcmcr %<>% llply(mcmcr::as.mcmcr)
   mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
 
-  obj %<>% c(inits = list(inits), jags_chains = list(jags_chains), mcmcr = list(mcmcr),
-             nadapt = nadapt, ngens = niters)
+  obj %<>% c(inits = list(inits),
+             jags_chains = list(jags_chains),
+             mcmcr = list(mcmcr),
+             nadapt = nadapt,
+             ngens = ngens)
   obj$duration <- timer$elapsed()
   class(obj) <- c("jmb_analysis", "mb_analysis")
 
