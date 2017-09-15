@@ -25,7 +25,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
   nchains <- 4L
   ngens <- model$ngens
   nadapt <- ngens / 10L
-  nthin <- ngens * nchains / (2000 * 2)
+  nthin <- ngens * nchains / 4000L
 
   if (quick) {
     nchains <- 2L

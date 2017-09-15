@@ -22,7 +22,7 @@ jmb_reanalyse_internal <- function(object, parallel, quiet) {
 
   ngens <- object$ngens * 2L
   nchains <- length(object$jags_chains)
-  nthin <- ngens * nchains / (2000 * 2)
+  nthin <- ngens * nchains / 4000L
 
   object$jags_chains %<>% llply(.fun = jmb_reanalyse_chain, .parallel = parallel, ngens = ngens, nthin = nthin, quiet = quiet)
 
