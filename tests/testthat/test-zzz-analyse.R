@@ -54,7 +54,7 @@ test_that("analyse", {
   expect_identical(nchains(analysis), 4L)
   expect_identical(nsamples(analysis), 2000L)
 
-  analysis <- reanalyse(analysis, beep = FALSE, parallel = FALSE, glance = FALSE, quiet = TRUE)
+  analysis <- reanalyse(analysis, beep = FALSE, parallel = FALSE, glance = FALSE, quiet = TRUE, rhat = 1.0)
 
   expect_identical(parameters(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
   expect_identical(parameters(analysis, "random"), "bSiteYear")
