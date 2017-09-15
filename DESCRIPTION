@@ -1,7 +1,7 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9012
-Date: 2017-09-11
+Version: 0.0.0.9013
+Date: 2017-09-15
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE

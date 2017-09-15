@@ -1,5 +1,5 @@
-jmb_analyse_chain <- function(inits, tempfile = tempfile, data,
-                              monitor, nadapt, ngens, nthin, quick, quiet) {
+jmb_analyse_chain <- function(inits, tempfile, data,
+                              monitor, nadapt, ngens, nthin, quiet) {
   if (quiet) {
     suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
   } else {
@@ -48,7 +48,7 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
                        tempfile = tempfile, data = data,
                        monitor = monitor,
                        nadapt = nadapt, ngens = ngens, nthin = nthin,
-                       quick = quick, quiet = quiet)
+                       quiet = quiet)
 
   mcmcr <- llply(jags_chains, function(x) x$jags_samples)
   mcmcr %<>% llply(mcmcr::as.mcmcr)
