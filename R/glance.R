@@ -11,7 +11,6 @@ glance.jmb_analysis <- function(x, n = NULL, rhat = getOption("mb.rhat", 1.1), .
     nsamples = nsamples(x),
     nchains = nchains(x),
     nsims = nsims(x),
-    duration = elapsed(x),
     rhat = rhat_analysis,
     converged = rhat_analysis <= rhat_arg
   )
