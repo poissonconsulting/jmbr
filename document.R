@@ -1,4 +1,5 @@
 devtools::document()
 devtools::build()
+set_analysis_mode("report")
 pkgdown::build_site()
 devtools::check()
