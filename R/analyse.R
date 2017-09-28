@@ -8,6 +8,8 @@ jmb_analyse_chain <- function(inits, tempfile, data,
     jags_model %<>% adapt(nadapt = nadapt)
   }
 
+  monitor <- monitor[monitor %in% stats::variable.names(jags_model)]
+
   update(jags_model, n.iter = ngens / 2L, progress.bar = "none")
 
   jags_samples <- rjags::jags.samples(

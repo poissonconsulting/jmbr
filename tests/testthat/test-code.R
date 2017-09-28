@@ -1,4 +1,4 @@
-context("analyse")
+context("code")
 
 test_that("analyse", {
 
@@ -35,7 +35,7 @@ test_that("analyse", {
   expect_identical(class(code), c("jmb_code", "mb_code"))
   expect_true(is.jmb_code(code))
 
-  expect_identical(length(parameters(code)), 30L)
+  expect_identical(length(parameters(code)), 24L)
 
   expect_error(parameters(code, param_type = "primary"))
   expect_error(parameters(code, scalar_only = TRUE))

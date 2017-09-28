@@ -118,29 +118,25 @@ data<span class="op">$</span>Annual &lt;-<span class="st"> </span><span class="k
 
 <span class="co"># analyse</span>
 analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <span class="dt">data =</span> data)
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  4000           0.9s  3.68     FALSE</span>
+<span class="co">#&gt; # A tibble: 1 x 7</span>
+<span class="co">#&gt;       n     K nsamples nchains nsims  rhat converged</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
+<span class="co">#&gt; 1    40     5     2000       4  4000  3.81     FALSE</span>
 analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>(<span class="dt">rhat =</span> <span class="fl">1.05</span>)
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  8000           1.5s  1.06      TRUE</span>
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nsamples nchains nsims       duration  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;S4: Duration&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4 16000           2.6s  1.03      TRUE</span>
+<span class="co">#&gt; # A tibble: 1 x 7</span>
+<span class="co">#&gt;       n     K nsamples nchains nsims  rhat converged</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
+<span class="co">#&gt; 1    40     5     2000       4  8000  1.59     FALSE</span>
 
 <span class="kw">coef</span>(analysis)
 <span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;          term    estimate         sd     zscore       lower       upper</span>
-<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.21034788 0.04265083 98.7577897  4.13120990  4.29858622</span>
-<span class="co">#&gt; 2       beta1  1.18496458 0.07218745 16.4647859  1.05865154  1.34241357</span>
-<span class="co">#&gt; 3       beta2  0.01633512 0.03241619  0.4817403 -0.04790298  0.07682232</span>
-<span class="co">#&gt; 4       beta3 -0.26818458 0.03788269 -7.1357480 -0.35015927 -0.20187308</span>
-<span class="co">#&gt; 5 log_sAnnual -2.23945026 0.33410743 -6.8210407 -3.08190954 -1.75036998</span>
+<span class="co">#&gt;          term    estimate        sd     zscore       lower     upper</span>
+<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       alpha  4.20160888 0.3190210 12.9172484  2.72283767 4.2862884</span>
+<span class="co">#&gt; 2       beta1  1.17322827 0.3381698  3.1902756 -0.11236730 1.3113444</span>
+<span class="co">#&gt; 3       beta2  0.02451536 0.1412100  0.4115281 -0.03817742 0.6106968</span>
+<span class="co">#&gt; 4       beta3 -0.26257505 0.1515154 -1.4550124 -0.33425829 0.3118249</span>
+<span class="co">#&gt; 5 log_sAnnual -2.19991386 0.7003175 -2.9794356 -3.12865399 0.2057419</span>
 <span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
 
 <span class="kw">plot</span>(analysis)</code></pre></div>

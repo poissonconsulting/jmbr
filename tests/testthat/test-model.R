@@ -1,4 +1,4 @@
-context("analyse")
+context("model")
 
 test_that("analyse", {
   template <- "model{
@@ -45,9 +45,9 @@ test_that("analyse", {
   expect_identical(class(model), c("jmb_model", "mb_model"))
   expect_true(is.jmb_model(model))
 
-  expect_identical(length(parameters(model)), 30L)
-  expect_identical(length(parameters(model, "fixed")), 28L)
-  expect_identical(length(parameters(model, "primary")), 29L)
+  expect_identical(length(parameters(model)), 24L)
+  expect_identical(length(parameters(model, "fixed")), 22L)
+  expect_identical(length(parameters(model, "primary")), 23L)
   expect_identical(parameters(model, "random"), "bSiteYear")
   expect_identical(parameters(model, "derived"), "eDensity")
 })

@@ -59,29 +59,25 @@ data$Annual <- factor(data$Year)
 
 # analyse
 analysis <- analyse(model, data = data)
-#> # A tibble: 1 x 8
-#>       n     K nsamples nchains nsims       duration  rhat converged
-#>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  4000             1s  7.25     FALSE
+#> # A tibble: 1 x 7
+#>       n     K nsamples nchains nsims  rhat converged
+#>   <int> <int>    <int>   <int> <int> <dbl>     <lgl>
+#> 1    40     5     2000       4  4000  4.19     FALSE
 analysis %<>% reanalyse(rhat = 1.05)
-#> # A tibble: 1 x 8
-#>       n     K nsamples nchains nsims       duration  rhat converged
-#>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4  8000           1.5s  1.47     FALSE
-#> # A tibble: 1 x 8
-#>       n     K nsamples nchains nsims       duration  rhat converged
-#>   <int> <int>    <int>   <int> <int> <S4: Duration> <dbl>     <lgl>
-#> 1    40     5     2000       4 16000           2.6s  1.02      TRUE
+#> # A tibble: 1 x 7
+#>       n     K nsamples nchains nsims  rhat converged
+#>   <int> <int>    <int>   <int> <int> <dbl>     <lgl>
+#> 1    40     5     2000       4  8000  2.42     FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term    estimate         sd     zscore      lower       upper
-#> *  <S3: term>       <dbl>      <dbl>      <dbl>      <dbl>       <dbl>
-#> 1       alpha  4.20903082 0.04220253 99.7117951  4.1220719  4.28612679
-#> 2       beta1  1.20387244 0.07324812 16.4233055  1.0587509  1.34742101
-#> 3       beta2  0.01710525 0.03287110  0.5424502 -0.0462879  0.08140526
-#> 4       beta3 -0.27817983 0.03759964 -7.3797468 -0.3513976 -0.20204822
-#> 5 log_sAnnual -2.20449849 0.29904101 -7.4474912 -2.8713166 -1.72381426
+#>          term    estimate         sd     zscore       lower     upper
+#> *  <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>     <dbl>
+#> 1       alpha  4.18849970 0.56957031  6.9034198  2.16137137 4.2873588
+#> 2       beta1  1.17413356 0.64151832  1.3827190 -0.85187462 1.3640460
+#> 3       beta2  0.02780689 0.08135331  0.5885207 -0.04514979 0.3224608
+#> 4       beta3 -0.26132047 0.18992889 -0.9923042 -0.35905945 0.3218552
+#> 5 log_sAnnual -2.05843624 1.06316347 -1.5281046 -2.78189803 0.8358778
 #> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
