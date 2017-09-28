@@ -121,22 +121,22 @@ analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <s
 <span class="co">#&gt; # A tibble: 1 x 7</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  4000  3.81     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  4000  3.58     FALSE</span>
 analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>(<span class="dt">rhat =</span> <span class="fl">1.05</span>)
 <span class="co">#&gt; # A tibble: 1 x 7</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  8000  1.59     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  8000   1.2     FALSE</span>
 
 <span class="kw">coef</span>(analysis)
 <span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;          term    estimate        sd     zscore       lower     upper</span>
-<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.20160888 0.3190210 12.9172484  2.72283767 4.2862884</span>
-<span class="co">#&gt; 2       beta1  1.17322827 0.3381698  3.1902756 -0.11236730 1.3113444</span>
-<span class="co">#&gt; 3       beta2  0.02451536 0.1412100  0.4115281 -0.03817742 0.6106968</span>
-<span class="co">#&gt; 4       beta3 -0.26257505 0.1515154 -1.4550124 -0.33425829 0.3118249</span>
-<span class="co">#&gt; 5 log_sAnnual -2.19991386 0.7003175 -2.9794356 -3.12865399 0.2057419</span>
+<span class="co">#&gt;          term    estimate         sd    zscore       lower      upper</span>
+<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       alpha  4.20429703 0.07399365 56.717057  4.10102278  4.2859115</span>
+<span class="co">#&gt; 2       beta1  1.19835976 0.09639747 12.340543  1.00944542  1.3341503</span>
+<span class="co">#&gt; 3       beta2  0.02123997 0.03969791  0.617862 -0.03945853  0.0919844</span>
+<span class="co">#&gt; 4       beta3 -0.27529452 0.04123077 -6.616630 -0.34103467 -0.1822420</span>
+<span class="co">#&gt; 5 log_sAnnual -2.22931721 0.35638652 -6.237731 -2.89795001 -1.5292552</span>
 <span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
 
 <span class="kw">plot</span>(analysis)</code></pre></div>
