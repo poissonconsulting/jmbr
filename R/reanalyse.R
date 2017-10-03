@@ -36,13 +36,13 @@ jmb_reanalyse_internal <- function(object, parallel, quiet) {
   object
 }
 
-jmb_reanalyse <- function(object, rhat, nreanalyses, duration, quick, quiet, parallel, glance) {
-  if (quick || duration < elapsed(object) * 2 || converged(object, rhat)) {
+jmb_reanalyse <- function(object, rhat, esr, nreanalyses, duration, quick, quiet, parallel, glance) {
+  if (quick || duration < elapsed(object) * 2 || converged(object, rhat = rhat, esr = esr)) {
     if (glance) print(glance(object))
     return(object)
   }
 
-  while (nreanalyses > 0L && duration >= elapsed(object) * 2 && !converged(object, rhat)) {
+  while (nreanalyses > 0L && duration >= elapsed(object) * 2 && !converged(object, rhat = rhat, esr = esr)) {
     object %<>% jmb_reanalyse_internal(parallel = parallel, quiet = quiet)
     nreanalyses %<>% magrittr::subtract(1L)
     if (glance) print(glance(object))
@@ -55,6 +55,7 @@ jmb_reanalyse <- function(object, rhat, nreanalyses, duration, quick, quiet, par
 #'
 #' @param object The object to reanalyse.
 #' @param rhat A number specifying the rhat threshold.
+#' @param esr A number specifying the minimum effective sampling rate.
 #' @param nreanalyses A count between 1 and 6 specifying the maximum number of reanalyses.
 #' @param duration The maximum total time to spend on analysis/reanalysis.
 #' @param quick A flag indicating whether to quickly get unreliable values.
@@ -66,6 +67,7 @@ jmb_reanalyse <- function(object, rhat, nreanalyses, duration, quick, quiet, par
 #' @export
 reanalyse.jmb_analysis <- function(object,
                                    rhat = getOption("mb.rhat", 1.1),
+                                   esr = getOption("mb.esr", 0.33),
                                    nreanalyses = getOption("mb.nreanalyses", 1L),
                                    duration = getOption("mb.duration", dhours(1)),
                                    parallel = getOption("mb.parallel", FALSE),
@@ -88,7 +90,7 @@ reanalyse.jmb_analysis <- function(object,
   rjags::load.module("basemod", quiet = quiet)
   rjags::load.module("bugs", quiet = quiet)
 
-  jmb_reanalyse(object, rhat = rhat, nreanalyses = nreanalyses,
+  jmb_reanalyse(object, rhat = rhat, esr = esr, nreanalyses = nreanalyses,
                 duration = duration, quick = quick, quiet = quiet,
                 parallel = parallel, glance = glance)
 }

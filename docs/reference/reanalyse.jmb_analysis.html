@@ -92,8 +92,8 @@
 
     <pre class="usage"><span class='co'># S3 method for jmb_analysis</span>
 <span class='fu'>reanalyse</span>(<span class='no'>object</span>, <span class='kw'>rhat</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.rhat"</span>, <span class='fl'>1.1</span>),
-  <span class='kw'>nreanalyses</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.nreanalyses"</span>, <span class='fl'>1L</span>),
-  <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.duration"</span>, <span class='fu'>dhours</span>(<span class='fl'>1</span>)),
+  <span class='kw'>esr</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.esr"</span>, <span class='fl'>0.33</span>), <span class='kw'>nreanalyses</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.nreanalyses"</span>,
+  <span class='fl'>1L</span>), <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.duration"</span>, <span class='fu'>dhours</span>(<span class='fl'>1</span>)),
   <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.parallel"</span>, <span class='fl'>FALSE</span>), <span class='kw'>quick</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.quick"</span>,
   <span class='fl'>FALSE</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.quiet"</span>, <span class='fl'>TRUE</span>),
   <span class='kw'>glance</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.glance"</span>, <span class='fl'>TRUE</span>), <span class='kw'>beep</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"mb.beep"</span>, <span class='fl'>TRUE</span>),
@@ -109,6 +109,10 @@
     <tr>
       <th>rhat</th>
       <td><p>A number specifying the rhat threshold.</p></td>
+    </tr>
+    <tr>
+      <th>esr</th>
+      <td><p>A number specifying the minimum effective sampling rate.</p></td>
     </tr>
     <tr>
       <th>nreanalyses</th>

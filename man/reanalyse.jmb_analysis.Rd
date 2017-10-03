@@ -5,8 +5,8 @@
 \title{Reanalyse}
 \usage{
 \method{reanalyse}{jmb_analysis}(object, rhat = getOption("mb.rhat", 1.1),
-  nreanalyses = getOption("mb.nreanalyses", 1L),
-  duration = getOption("mb.duration", dhours(1)),
+  esr = getOption("mb.esr", 0.33), nreanalyses = getOption("mb.nreanalyses",
+  1L), duration = getOption("mb.duration", dhours(1)),
   parallel = getOption("mb.parallel", FALSE), quick = getOption("mb.quick",
   FALSE), quiet = getOption("mb.quiet", TRUE),
   glance = getOption("mb.glance", TRUE), beep = getOption("mb.beep", TRUE),
@@ -16,6 +16,8 @@
 \item{object}{The object to reanalyse.}
 
 \item{rhat}{A number specifying the rhat threshold.}
+
+\item{esr}{A number specifying the minimum effective sampling rate.}
 
 \item{nreanalyses}{A count between 1 and 6 specifying the maximum number of reanalyses.}
 

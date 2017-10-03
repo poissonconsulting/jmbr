@@ -121,22 +121,22 @@ analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <s
 <span class="co">#&gt; # A tibble: 1 x 7</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  4000  9.65     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  4000  3.88     FALSE</span>
 analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>(<span class="dt">rhat =</span> <span class="fl">1.05</span>)
 <span class="co">#&gt; # A tibble: 1 x 7</span>
 <span class="co">#&gt;       n     K nsamples nchains nsims  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5     2000       4  8000  1.27     FALSE</span>
+<span class="co">#&gt; 1    40     5     2000       4  8000  1.06      TRUE</span>
 
 <span class="kw">coef</span>(analysis)
 <span class="co">#&gt; # A tibble: 5 x 7</span>
 <span class="co">#&gt;          term    estimate         sd     zscore       lower       upper</span>
 <span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.20807551 0.17772023 23.4705687  3.56389667  4.30503929</span>
-<span class="co">#&gt; 2       beta1  1.20304834 0.25187703  4.5252037  0.32016793  1.41460707</span>
-<span class="co">#&gt; 3       beta2  0.01561167 0.06507165  0.2988729 -0.08912521  0.11769122</span>
-<span class="co">#&gt; 4       beta3 -0.27891370 0.09526829 -2.6976978 -0.37906046  0.08129512</span>
-<span class="co">#&gt; 5 log_sAnnual -2.16557320 0.57500191 -3.5699218 -2.84363854 -0.15763872</span>
+<span class="co">#&gt; 1       alpha  4.21384695 0.04144212 101.659416  4.13094969  4.29180638</span>
+<span class="co">#&gt; 2       beta1  1.19830938 0.07545894  15.871834  1.05907750  1.34011683</span>
+<span class="co">#&gt; 3       beta2  0.01466289 0.03171564   0.454284 -0.04759217  0.07796886</span>
+<span class="co">#&gt; 4       beta3 -0.27591376 0.03798435  -7.250063 -0.34705770 -0.20562548</span>
+<span class="co">#&gt; 5 log_sAnnual -2.21325766 0.40023095  -5.706923 -3.37141791 -1.73587669</span>
 <span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
 
 <span class="kw">plot</span>(analysis)</code></pre></div>
