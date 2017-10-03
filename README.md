@@ -59,25 +59,25 @@ data$Annual <- factor(data$Year)
 
 # analyse
 analysis <- analyse(model, data = data)
-#> # A tibble: 1 x 7
-#>       n     K nsamples nchains nsims  rhat converged
-#>   <int> <int>    <int>   <int> <int> <dbl>     <lgl>
-#> 1    40     5     2000       4  4000  5.38     FALSE
+#> # A tibble: 1 x 8
+#>       n     K nchains nsims nsamples   ess  rhat converged
+#>   <int> <int>   <int> <int>    <int> <int> <dbl>     <lgl>
+#> 1    40     5       4  4000     2000    20  3.21     FALSE
 analysis %<>% reanalyse(rhat = 1.05)
-#> # A tibble: 1 x 7
-#>       n     K nsamples nchains nsims  rhat converged
-#>   <int> <int>    <int>   <int> <int> <dbl>     <lgl>
-#> 1    40     5     2000       4  8000  4.03     FALSE
+#> # A tibble: 1 x 8
+#>       n     K nchains nsims nsamples   ess  rhat converged
+#>   <int> <int>   <int> <int>    <int> <int> <dbl>     <lgl>
+#> 1    40     5       4  8000     2000    80  1.12     FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term     estimate        sd      zscore      lower     upper
-#> *  <S3: term>        <dbl>     <dbl>       <dbl>      <dbl>     <dbl>
-#> 1       alpha  4.200013055 1.1560910  3.15944543  0.3894291 4.2843698
-#> 2       beta1  1.165486122 0.3094748  3.32485499  0.3618053 1.3207511
-#> 3       beta2  0.009940705 0.0603524  0.07273552 -0.1515508 0.1164670
-#> 4       beta3 -0.259689153 0.1244847 -1.71087936 -0.3408357 0.1158218
-#> 5 log_sAnnual -2.114872109 1.3365166 -1.15484532 -2.8321227 1.3766284
+#>          term   estimate         sd      zscore       lower       upper
+#> *  <S3: term>      <dbl>      <dbl>       <dbl>       <dbl>       <dbl>
+#> 1       alpha  4.2139403 0.03931062 107.1869589  4.13209508  4.28936833
+#> 2       beta1  1.1892252 0.06595600  18.0517537  1.06407584  1.31922713
+#> 3       beta2  0.0167123 0.03060619   0.5342985 -0.04268904  0.07921558
+#> 4       beta3 -0.2705118 0.03377259  -8.0295839 -0.34215782 -0.20683192
+#> 5 log_sAnnual -2.2628915 0.41526125  -5.6351732 -3.57432685 -1.78365409
 #> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)

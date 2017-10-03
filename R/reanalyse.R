@@ -37,12 +37,12 @@ jmb_reanalyse_internal <- function(object, parallel, quiet) {
 }
 
 jmb_reanalyse <- function(object, rhat, esr, nreanalyses, duration, quick, quiet, parallel, glance) {
-  if (quick || duration < elapsed(object) * 2 || converged(object, rhat = rhat, esr = esr)) {
+  if (quick || duration < elapsed(object) * 2 || (converged(object, rhat) && esr(object) > esr)) {
     if (glance) print(glance(object))
     return(object)
   }
 
-  while (nreanalyses > 0L && duration >= elapsed(object) * 2 && !converged(object, rhat = rhat, esr = esr)) {
+  while (nreanalyses > 0L && duration >= elapsed(object) * 2 && !(converged(object, rhat) && esr(object) > esr)) {
     object %<>% jmb_reanalyse_internal(parallel = parallel, quiet = quiet)
     nreanalyses %<>% magrittr::subtract(1L)
     if (glance) print(glance(object))
