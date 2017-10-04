@@ -19,6 +19,7 @@ Demonstration
 library(magrittr)
 library(ggplot2)
 library(jmbr)
+#> Warning: package 'dplyr' was built under R version 3.4.2
 ```
 
 ``` r
@@ -57,28 +58,29 @@ model %<>% update_model(
 data <- bauw::peregrine
 data$Annual <- factor(data$Year)
 
+set_analysis_mode("report")
+
 # analyse
 analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
-#>       n     K nchains nsims nsamples   ess  rhat converged
-#>   <int> <int>   <int> <int>    <int> <int> <dbl>     <lgl>
-#> 1    40     5       4  4000     2000    20  3.21     FALSE
-analysis %<>% reanalyse(rhat = 1.05)
+#>       n     K nchains nthin niters   ess  rhat converged
+#>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
+#> 1    40     5       3     1    500    15  3.62     FALSE
+analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
-#>       n     K nchains nsims nsamples   ess  rhat converged
-#>   <int> <int>   <int> <int>    <int> <int> <dbl>     <lgl>
-#> 1    40     5       4  8000     2000    80  1.12     FALSE
+#>       n     K nchains nthin niters   ess  rhat converged
+#>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
+#> 1    40     5       3     2    500    15  6.35     FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term   estimate         sd      zscore       lower       upper
-#> *  <S3: term>      <dbl>      <dbl>       <dbl>       <dbl>       <dbl>
-#> 1       alpha  4.2139403 0.03931062 107.1869589  4.13209508  4.28936833
-#> 2       beta1  1.1892252 0.06595600  18.0517537  1.06407584  1.31922713
-#> 3       beta2  0.0167123 0.03060619   0.5342985 -0.04268904  0.07921558
-#> 4       beta3 -0.2705118 0.03377259  -8.0295839 -0.34215782 -0.20683192
-#> 5 log_sAnnual -2.2628915 0.41526125  -5.6351732 -3.57432685 -1.78365409
-#> # ... with 1 more variables: pvalue <dbl>
+#>          term    estimate        sd     zscore      lower     upper pvalue
+#> *  <S3: term>       <dbl>     <dbl>      <dbl>      <dbl>     <dbl>  <dbl>
+#> 1       alpha  4.14897964 1.0799673  3.1089842  1.1963713 4.3224505 0.0007
+#> 2       beta1  0.53541260 1.0910233  0.1532191 -1.5984392 1.2882127 0.9320
+#> 3       beta2  0.04672688 0.3706449  0.7657981 -0.1033356 0.9360959 0.4507
+#> 4       beta3 -0.06267305 0.4785459  0.3104643 -0.3173841 0.9916081 0.9413
+#> 5 log_sAnnual -1.10500381 1.4867995 -0.6391699 -3.6412093 0.9756051 0.8693
 
 plot(analysis)
 ```

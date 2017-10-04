@@ -1,6 +1,8 @@
 context("analyse")
 
 test_that("analyse", {
+  set_analysis_mode("check")
+
   data <- density99
   data$YearFactor <- factor(data$Year)
 
@@ -45,16 +47,21 @@ test_that("analyse", {
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
 
-  analysis <- analyse(model, data = data, parallel = FALSE, beep = FALSE, glance = FALSE)
+  analysis <- analyse(model, data = data)
 
-  expect_identical(ngens(analysis), 1000L)
-  expect_identical(nsims(analysis), 4000L)
+  expect_identical(class(analysis), c("jmb_analysis", "mb_analysis"))
+  expect_true(is.jmb_analysis(analysis))
 
   expect_identical(niters(analysis), 500L)
-  expect_identical(nchains(analysis), 4L)
-  expect_identical(nsamples(analysis), 2000L)
+  expect_identical(nchains(analysis), 2L)
+  expect_identical(nsims(analysis), 1000L)
+  expect_identical(ngens(analysis), 2000L)
 
-  analysis <- reanalyse(analysis, beep = FALSE, parallel = FALSE, glance = FALSE, quiet = TRUE, rhat = 1.0)
+  analysis <- reanalyse(analysis)
+
+  expect_identical(niters(analysis), 500L)
+  expect_identical(ngens(analysis), 4000L)
+
 
   expect_identical(parameters(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
   expect_identical(parameters(analysis, "random"), "bSiteYear")
@@ -64,18 +71,11 @@ test_that("analyse", {
   expect_identical(parameters(analysis),
                    c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "eDensity", "log_sDensity", "log_sSiteYear"))
 
-  expect_identical(ngens(analysis), 2000L)
-  expect_identical(nsims(analysis), 8000L)
-
-  expect_identical(niters(analysis), 500L)
-  expect_identical(nchains(analysis), 4L)
-  expect_identical(nsamples(analysis), 2000L)
-
   expect_is(as.mcmcr(analysis), "mcmcr")
 
   glance <- glance(analysis)
   expect_is(glance, "tbl")
-  expect_identical(colnames(glance), c("n", "K", "nchains", "nsims", "nsamples",  "ess", "rhat", "converged"))
+  expect_identical(colnames(glance), c("n", "K", "nchains", "nthin", "niters",  "ess", "rhat", "converged"))
   expect_identical(glance$n, 300L)
   expect_identical(glance$K, 5L)
 
@@ -99,7 +99,7 @@ test_that("analyse", {
   expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))
   expect_identical(tidy$estimate, coef$estimate)
 
-  year <- predict(analysis, new_data = "Year", quick = TRUE)
+  year <- predict(analysis, new_data = "Year")
 
   expect_is(year, "tbl")
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",

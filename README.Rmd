@@ -71,9 +71,11 @@ model %<>% update_model(
 data <- bauw::peregrine
 data$Annual <- factor(data$Year)
 
+set_analysis_mode("report")
+
 # analyse
 analysis <- analyse(model, data = data)
-analysis %<>% reanalyse(rhat = 1.05)
+analysis %<>% reanalyse()
 
 coef(analysis)
 

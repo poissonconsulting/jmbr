@@ -1,40 +1,32 @@
-jmb_analyse_chain <- function(inits, tempfile, data,
-                              monitor, nadapt, ngens, nthin, quiet) {
-  if (quiet) {
-    suppressWarnings(jags_model <- rjags::jags.model(tempfile, data, inits = inits, n.adapt = nadapt, quiet = quiet))
-  } else {
-    jags_model <- rjags::jags.model(tempfile, data, inits = inits,
-                                    n.adapt = 0, quiet = quiet)
-    jags_model %<>% adapt(nadapt = nadapt)
-  }
+jmb_analyse_chain <- function(inits, loaded, data, monitor, niters, ngens, nthin, quiet) {
+
+  capture_output <- if (quiet) function(x) suppressWarnings(capture.output(x)) else eval
+
+  capture_output(
+    jags_model <- rjags::jags.model(loaded, data, inits = inits, n.adapt = 0, quiet = quiet)
+  )
+
+  niters <- niters * nthin
+  adapted <- rjags::adapt(jags_model, n.iter = floor(niters / 2),
+                          progress.bar = "none", end.adaptation = TRUE)
+
+  if (!adapted) warning("incomplete adaptation")
+
+  update(jags_model, n.iter = floor(niters / 2), progress.bar = "none")
 
   monitor <- monitor[monitor %in% stats::variable.names(jags_model)]
 
-  update(jags_model, n.iter = ngens / 2L, progress.bar = "none")
-
-  jags_samples <- rjags::jags.samples(
-    model = jags_model, variable.names = monitor, n.iter = ngens / 2L,
-    thin = nthin, progress.bar = "none")
+  jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor,
+                                      n.iter = niters, thin = nthin, progress.bar = "none")
 
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
 
-jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
+#' @export
+analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quiet, glance, parallel, ...) {
 
   timer <- timer::Timer$new()
   timer$start()
-
-  nchains <- 4L
-  ngens <- model$ngens
-  nadapt <- ngens / 10L
-  nthin <- ngens * nchains / 4000L
-
-  if (quick) {
-    nchains <- 2L
-    ngens <- 10
-    nadapt <- 0
-    nthin <- 1L
-  }
 
   obj <- list(model = model, data = data)
 
@@ -47,9 +39,11 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
 
   jags_chains <- llply(inits, .fun = jmb_analyse_chain,
                        .parallel = parallel,
-                       tempfile = tempfile, data = data,
+                       loaded = loaded,
+                       data = data,
                        monitor = monitor,
-                       nadapt = nadapt, ngens = ngens, nthin = nthin,
+                       niters = niters,
+                       nthin = nthin,
                        quiet = quiet)
 
   mcmcr <- llply(jags_chains, function(x) x$jags_samples)
@@ -59,50 +53,12 @@ jmb_analyse <- function(data, model, tempfile, quick, quiet, glance, parallel) {
   obj %<>% c(inits = list(inits),
              jags_chains = list(jags_chains),
              mcmcr = list(mcmcr),
-             nadapt = nadapt,
-             ngens = ngens)
+             nthin = nthin)
+
   obj$duration <- timer$elapsed()
   class(obj) <- c("jmb_analysis", "mb_analysis")
 
   if (glance) print(glance(obj))
 
   obj
-}
-
-#' @export
-analyse.jmb_model <- function(x, data,
-                              parallel = getOption("mb.parallel", FALSE),
-                              quick = getOption("mb.quick", FALSE),
-                              quiet = getOption("mb.quiet", TRUE),
-                              glance = getOption("mb.glance", TRUE),
-                              beep = getOption("mb.beep", TRUE),
-                              ...) {
-  if (is.data.frame(data)) {
-    check_data2(data)
-  } else if (is.list(data)) {
-    llply(data, check_data2)
-  } else error("data must be a data.frame or a list of data.frames")
-
-  check_flag(quick)
-  check_flag(quiet)
-  check_flag(parallel)
-  check_flag(glance)
-  check_flag(beep)
-
-  if (beep) on.exit(beepr::beep())
-
-  tempfile <- tempfile(fileext = ".bug")
-  write(template(x), file = tempfile)
-
-  rjags::load.module("basemod", quiet = quiet)
-  rjags::load.module("bugs", quiet = quiet)
-
-  if (is.data.frame(data)) {
-    return(jmb_analyse(data = data, model = x, tempfile = tempfile,
-                       quick = quick, quiet = quiet, glance = glance,
-                       parallel = parallel))
-  }
-
-  llply(data, jmb_analyse, model = x, tempfile = tempfile,
-        quick = quick, quiet = quiet, glance = glance, parallel = parallel)
 }
