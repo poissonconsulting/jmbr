@@ -97,8 +97,7 @@ test_that("analyse", {
   expect_identical(nrow(coef(analysis, "all")), 366L)
 
   tidy <- tidy(analysis)
-  expect_identical(colnames(tidy), c("term", "estimate", "std.error", "statistic", "p.value"))
-  expect_identical(tidy$estimate, coef$estimate)
+  expect_identical(colnames(tidy), c("term", "estimate", "lower", "upper", "esr", "rhat"))
 
   year <- predict(analysis, new_data = "Year")
 
