@@ -65,22 +65,23 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains nthin niters   ess  rhat converged
 #>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
-#> 1    40     5       3     1    500    15  3.62     FALSE
+#> 1    40     5       3     1    500    15 11.15     FALSE
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
 #>       n     K nchains nthin niters   ess  rhat converged
 #>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
-#> 1    40     5       3     2    500    15  6.35     FALSE
+#> 1    40     5       3     2    500    15  3.37     FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term    estimate        sd     zscore      lower     upper pvalue
-#> *  <S3: term>       <dbl>     <dbl>      <dbl>      <dbl>     <dbl>  <dbl>
-#> 1       alpha  4.14897964 1.0799673  3.1089842  1.1963713 4.3224505 0.0007
-#> 2       beta1  0.53541260 1.0910233  0.1532191 -1.5984392 1.2882127 0.9320
-#> 3       beta2  0.04672688 0.3706449  0.7657981 -0.1033356 0.9360959 0.4507
-#> 4       beta3 -0.06267305 0.4785459  0.3104643 -0.3173841 0.9916081 0.9413
-#> 5 log_sAnnual -1.10500381 1.4867995 -0.6391699 -3.6412093 0.9756051 0.8693
+#>          term    estimate        sd     zscore      lower       upper
+#> *  <S3: term>       <dbl>     <dbl>      <dbl>      <dbl>       <dbl>
+#> 1       alpha  4.19960591 0.2356105 17.6613223  3.3876685 4.584919355
+#> 2       beta1  1.19708263 0.5963545  1.5851312 -0.7768972 1.347455349
+#> 3       beta2  0.01209337 0.1820639 -0.3642091 -0.5239679 0.082476706
+#> 4       beta3 -0.27622165 0.0984345 -2.4434555 -0.3449300 0.003805838
+#> 5 log_sAnnual -2.07849803 1.0013675 -1.7039847 -2.7960975 0.745387667
+#> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
 ```

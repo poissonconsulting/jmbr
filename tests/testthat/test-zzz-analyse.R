@@ -77,6 +77,7 @@ test_that("analyse", {
   expect_is(glance, "tbl")
   expect_identical(colnames(glance), c("n", "K", "nchains", "nthin", "niters",  "ess", "rhat", "converged"))
   expect_identical(glance$n, 300L)
+  expect_identical(glance$nthin, 2L)
   expect_identical(glance$K, 5L)
 
   derived <- coef(analysis, param_type = "derived")
