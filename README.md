@@ -62,25 +62,25 @@ set_analysis_mode("report")
 
 # analyse
 analysis <- analyse(model, data = data)
-#> # A tibble: 1 x 8
-#>       n     K nchains nthin niters   ess  rhat converged
-#>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
-#> 1    40     5       3     1    500    10  3.14     FALSE
+#> # A tibble: 1 x 10
+#>       n     K logLik    IC nchains nthin niters   ess  rhat converged
+#>   <int> <int>  <dbl> <dbl>   <int> <int>  <int> <int> <dbl>     <lgl>
+#> 1    40     5     NA    NA       3     1    500     9  5.31     FALSE
 analysis %<>% reanalyse()
-#> # A tibble: 1 x 8
-#>       n     K nchains nthin niters   ess  rhat converged
-#>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
-#> 1    40     5       3     2    500    17  2.96     FALSE
+#> # A tibble: 1 x 10
+#>       n     K logLik    IC nchains nthin niters   ess  rhat converged
+#>   <int> <int>  <dbl> <dbl>   <int> <int>  <int> <int> <dbl>     <lgl>
+#> 1    40     5     NA    NA       3     2    500    14  3.66     FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term    estimate         sd     zscore      lower       upper
-#> *  <S3: term>       <dbl>      <dbl>      <dbl>      <dbl>       <dbl>
-#> 1       alpha  4.21426319 0.65752415  6.0212092  2.0099596  4.45823353
-#> 2       beta1  1.14468470 0.30567907  3.3435701  0.1984024  1.30830245
-#> 3       beta2  0.01659602 0.18843660  0.3693495 -0.2592542  0.52530597
-#> 4       beta3 -0.24790538 0.06743933 -3.4475494 -0.3259777 -0.07302329
-#> 5 log_sAnnual -2.11489843 1.03195005 -1.7133428 -3.0856478  0.68151620
+#>          term    estimate         sd     zscore       lower       upper
+#> *  <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>       <dbl>
+#> 1       alpha  4.22049016 0.08195433 51.4048198   4.0186878  4.35866854
+#> 2       beta1  1.16168678 0.34136390  3.1482669  -0.1372206  1.33706810
+#> 3       beta2  0.01316756 0.05064457  0.1805151  -0.1257728  0.09102157
+#> 4       beta3 -0.25697845 0.16540529 -1.2997912  -0.3491999  0.35575296
+#> 5 log_sAnnual -2.33342195 3.06340701 -1.1984944 -10.8164013 -0.44422658
 #> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
