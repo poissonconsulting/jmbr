@@ -121,24 +121,24 @@ data<span class="op">$</span>Annual &lt;-<span class="st"> </span><span class="k
 <span class="co"># analyse</span>
 analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <span class="dt">data =</span> data)
 <span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nchains nthin niters   ess  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5       3     1    500     9  6.93     FALSE</span>
+<span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
+<span class="co">#&gt; 1    40     5       3    500     1    15 11.15     FALSE</span>
 analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>()
 <span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nchains nthin niters   ess  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5       3     2    500    18  1.57     FALSE</span>
+<span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
+<span class="co">#&gt; 1    40     5       3    500     2    45  1.59     FALSE</span>
 
 <span class="kw">coef</span>(analysis)
 <span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;          term    estimate         sd     zscore      lower      upper</span>
-<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.25988019 0.17156119 24.6891336  3.6781992  4.5299708</span>
-<span class="co">#&gt; 2       beta1  1.17507269 0.43425826  2.3463626 -0.3905526  1.3500275</span>
-<span class="co">#&gt; 3       beta2 -0.01982869 0.09545549 -0.1790028 -0.3477448  0.1796505</span>
-<span class="co">#&gt; 4       beta3 -0.26353293 0.19788619 -0.9690798 -0.3462988  0.4228780</span>
-<span class="co">#&gt; 5 log_sAnnual -2.18277882 0.77568247 -2.6538564 -3.5754088 -0.1533664</span>
+<span class="co">#&gt;          term    estimate         sd     zscore       lower       upper</span>
+<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       alpha  4.26160752 0.28479963 14.7130563  2.98965181  4.34540572</span>
+<span class="co">#&gt; 2       beta1  1.16342081 0.26394457  4.1309862  0.20105698  1.31701106</span>
+<span class="co">#&gt; 3       beta2 -0.01857269 0.04450215 -0.3852559 -0.09476931  0.10485756</span>
+<span class="co">#&gt; 4       beta3 -0.25800355 0.07333986 -3.3004058 -0.33334189 -0.03727961</span>
+<span class="co">#&gt; 5 log_sAnnual -2.24753001 0.73718986 -2.8504763 -3.05609613  0.25696421</span>
 <span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
 
 <span class="kw">plot</span>(analysis)</code></pre></div>

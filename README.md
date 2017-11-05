@@ -62,24 +62,24 @@ set_analysis_mode("report")
 # analyse
 analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
-#>       n     K nchains nthin niters   ess  rhat converged
-#>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
-#> 1    40     5       3     1    500     9     4     FALSE
+#>       n     K nchains niters nthin   ess  rhat converged
+#>   <int> <int>   <int>  <int> <int> <int> <dbl>     <lgl>
+#> 1    40     5       3    500     1    30  6.61     FALSE
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
-#>       n     K nchains nthin niters   ess  rhat converged
-#>   <int> <int>   <int> <int>  <int> <int> <dbl>     <lgl>
-#> 1    40     5       3     2    500    15  2.79     FALSE
+#>       n     K nchains niters nthin   ess  rhat converged
+#>   <int> <int>   <int>  <int> <int> <int> <dbl>     <lgl>
+#> 1    40     5       3    500     2    30   2.8     FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term    estimate         sd     zscore       lower       upper
-#> *  <S3: term>       <dbl>      <dbl>      <dbl>       <dbl>       <dbl>
-#> 1       alpha  4.27075042 0.10194013 41.6739590  3.83198438  4.33868814
-#> 2       beta1  1.14443300 0.36809298  2.8204166 -0.28689638  1.33522085
-#> 3       beta2 -0.02298595 0.04564764 -0.3899573 -0.08361092  0.08692664
-#> 4       beta3 -0.24720248 0.14840704 -1.3854035 -0.34220461  0.27566699
-#> 5 log_sAnnual -2.29553099 2.42267975 -1.3623445 -8.83542348 -0.17984485
+#>          term    estimate        sd      zscore       lower       upper
+#> *  <S3: term>       <dbl>     <dbl>       <dbl>       <dbl>       <dbl>
+#> 1       alpha  4.23797430 0.6677601  5.77768071  2.33840558  4.33711673
+#> 2       beta1  1.15231028 0.3364444  3.11444326  0.03845824  1.42217788
+#> 3       beta2 -0.01852368 0.1856543 -0.01062253 -0.41127181  0.50435488
+#> 4       beta3 -0.27674499 0.1520678 -2.09007368 -0.65073495 -0.07092225
+#> 5 log_sAnnual -2.01904764 1.2357751 -1.17829498 -2.89305745  0.94382566
 #> # ... with 1 more variables: pvalue <dbl>
 
 plot(analysis)
