@@ -1,5 +1,8 @@
 {
-  "@context": ["http://purl.org/codemeta/2.0", "http://schema.org"],
+  "@context": [
+    "http://purl.org/codemeta/2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "jmbr",
   "description": "Facilitates analyses using 'Just Another Gibbs Sampler'.",
@@ -232,5 +235,5 @@
   "contIntegration": "https://travis-ci.org/poissonconsulting/jmbr",
   "releaseNotes": "https://github.com/poissonconsulting/jmbr/blob/master/NEWS.md",
   "readme": "https://github.com/poissonconsulting/jmbr/blob/master/README.md",
-  "fileSize": "149.302KB"
+  "fileSize": "140.136KB"
 }
