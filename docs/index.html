@@ -116,22 +116,22 @@
 <a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">#&gt; # A tibble: 1 x 8</span></a>
 <a class="sourceLine" id="cb2-41" data-line-number="41"><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></a>
 <a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
-<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt; 1    40     5       3    500     1    15  4.21 F</span></a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt; 1    40     5       3    500     1    15  6.41 F</span></a>
 <a class="sourceLine" id="cb2-44" data-line-number="44">analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>()</a>
 <a class="sourceLine" id="cb2-45" data-line-number="45"><span class="co">#&gt; # A tibble: 1 x 8</span></a>
 <a class="sourceLine" id="cb2-46" data-line-number="46"><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></a>
 <a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
-<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 1    40     5       3    500     2    30  4.03 F</span></a>
+<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 1    40     5       3    500     2    60  1.11 F</span></a>
 <a class="sourceLine" id="cb2-49" data-line-number="49"></a>
 <a class="sourceLine" id="cb2-50" data-line-number="50"><span class="kw">coef</span>(analysis)</a>
 <a class="sourceLine" id="cb2-51" data-line-number="51"><span class="co">#&gt; # A tibble: 5 x 7</span></a>
-<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt;   term        estimate    sd zscore   lower  upper   pvalue</span></a>
-<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt; * &lt;S3: term&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; 1 alpha         4.25   0.684  5.80   2.07   4.33   0.000700</span></a>
-<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; 2 beta1         1.15   0.351  2.92   0.161  1.36   0.00530 </span></a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; 3 beta2        -0.0102 0.224  0.356 -0.0714 0.668  0.780   </span></a>
-<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; 4 beta3        -0.252  0.110 -2.00  -0.359  0.0362 0.156   </span></a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; 5 log_sAnnual  -2.19   1.39  -1.49  -5.65   0.627  0.272</span></a>
+<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt;   term        estimate     sd   zscore   lower   upper   pvalue</span></a>
+<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt; * &lt;S3: term&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; 1 alpha         4.27   0.0403  106      4.18    4.34   0.000700</span></a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; 2 beta1         1.20   0.0728   16.5    1.06    1.34   0.000700</span></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; 3 beta2        -0.0235 0.0317 -  0.724 -0.0824  0.0414 0.441   </span></a>
+<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; 4 beta3        -0.275  0.0356 -  7.73  -0.345  -0.204  0.000700</span></a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; 5 log_sAnnual  -2.19   0.408  -  5.57  -3.55   -1.74   0.000700</span></a>
 <a class="sourceLine" id="cb2-59" data-line-number="59"></a>
 <a class="sourceLine" id="cb2-60" data-line-number="60"><span class="kw">plot</span>(analysis)</a></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png" width="672"><img src="tools/README-unnamed-chunk-3-2.png" width="672"></p>
@@ -175,6 +175,10 @@ devtools::install_github("poissonconsulting/jmbr")</a></code></pre>
 </ul>
 <h2>License</h2>
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing jmbr</a></li>
+</ul>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Joe Thorley <br><small class="roles"> Author, maintainer </small> </li>
@@ -186,7 +190,7 @@ devtools::install_github("poissonconsulting/jmbr")</a></code></pre>
 <li><a href="https://ci.appveyor.com/project/poissonconsulting/jmbr"><img src="https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/gh/poissonconsulting/jmbr"><img src="https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg" alt="codecov"></a></li>
 <li><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
-<li><a href="https://cran.r-project.org/package=mbr"><img src="http://www.r-pkg.org/badges/version/mbr" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://doi.org/10.5281/zenodo.1162355"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg" alt="DOI"></a></li>
 </ul>
 </div>
 

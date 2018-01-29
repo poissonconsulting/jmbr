@@ -1,0 +1,13 @@
+citHeader("To cite jmbr in publications use:")
+
+citEntry(entry = "misc",
+  author       = as.person("Joe Thorley"),
+  year         = "2018",
+  title        = "jmbr: Analyses Using JAGS",
+  doi          = "https://doi.org/10.5281/zenodo.1162355",
+  textVersion  = paste(
+  "Joe Thorley (2018)",
+  "jmbr: Analyses Using JAGS.",
+  "doi: https://doi.org/10.5281/zenodo.1162355."))
+
+citFooter("Please also cite JAGS.")

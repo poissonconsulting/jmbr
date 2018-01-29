@@ -9,7 +9,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmb
 [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mbr)](https://cran.r-project.org/package=mbr)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg)](https://doi.org/10.5281/zenodo.1162355)
 
 # jmbr
 
@@ -72,22 +72,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    15  3.31 F
+#> 1    40     5       3    500     1    15  6.31 F
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    45  1.18 F
+#> 1    40     5       3    500     2    45  1.84 F
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate     sd  zscore  lower   upper   pvalue
-#> * <S3: term>     <dbl>  <dbl>   <dbl>  <dbl>   <dbl>    <dbl>
-#> 1 alpha         4.26   0.167   25.3    3.63   4.35   0.000700
-#> 2 beta1         1.18   0.282    3.90   0.170  1.31   0.0173  
-#> 3 beta2        -0.0193 0.0438 - 0.544 -0.114  0.0467 0.540   
-#> 4 beta3        -0.266  0.115  - 2.05  -0.336  0.132  0.147   
-#> 5 log_sAnnual  -2.17   0.602  - 3.44  -2.89  -0.0983 0.0360
+#>   term        estimate    sd  zscore  lower  upper   pvalue
+#> * <S3: term>     <dbl> <dbl>   <dbl>  <dbl>  <dbl>    <dbl>
+#> 1 alpha         4.27   0.140  30.8    4.18  4.77   0.000700
+#> 2 beta1         1.19   0.399   2.65  -0.145 1.34   0.149   
+#> 3 beta2        -0.0266 0.229 - 0.450 -0.828 0.0412 0.463   
+#> 4 beta3        -0.269  0.145 - 1.55  -0.347 0.215  0.229   
+#> 5 log_sAnnual  -2.14   0.740 - 2.64  -2.74  0.127  0.120
 
 plot(analysis)
 ```
