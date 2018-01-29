@@ -1,4 +1,4 @@
-#' @import datacheckr mcmcr mbr stringr
+#' @import checkr mcmcr mbr stringr
 #' @importFrom broom glance
 #' @importFrom lubridate dminutes dhours is.duration
 #' @importFrom magrittr %<>% %>%

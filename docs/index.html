@@ -29,7 +29,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="/index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -66,124 +66,101 @@
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<div id="jmbr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#jmbr" class="anchor"></a>jmbr</h1></div>
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<section id="jmbr" class="level1"><div class="page-header"><h1>jmbr</h1></div>
+<section id="introduction" class="level2"><h2>Introduction</h2>
 <p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).</p>
 <p>It is part of the <a href="https://github.com/poissonconsulting/mbr">mbr</a> family of packages.</p>
-</div>
-<div id="demonstration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#demonstration" class="anchor"></a>Demonstration</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(jmbr)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># define model in JAGS language</span>
-model &lt;-<span class="st"> </span><span class="kw">model</span>(<span class="st">"model {</span>
-<span class="st">  alpha ~ dnorm(0, 10^-2)</span>
-<span class="st">  beta1 ~ dnorm(0, 10^-2)</span>
-<span class="st">  beta2 ~ dnorm(0, 10^-2)</span>
-<span class="st">  beta3 ~ dnorm(0, 10^-2)</span>
-
-<span class="st">  log_sAnnual ~ dnorm(0, 10^-2)</span>
-<span class="st">  log(sAnnual) &lt;- log_sAnnual</span>
-
-<span class="st">  for(i in 1:nAnnual) {</span>
-<span class="st">    bAnnual[i] ~ dnorm(0, sAnnual^-2)</span>
-<span class="st">  }</span>
-
-<span class="st">  for (i in 1:length(Pairs)) {</span>
-<span class="st">    log(ePairs[i]) &lt;- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]</span>
-<span class="st">    Pairs[i] ~ dpois(ePairs[i])</span>
-<span class="st">  }</span>
-<span class="st">}"</span>)
-
-<span class="co"># add R code to calculate derived parameters</span>
-model <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">update_model</span>(<span class="dt">new_expr =</span> <span class="st">"</span>
-<span class="st">for (i in 1:length(Pairs)) {</span>
-<span class="st">  log(prediction[i]) &lt;- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]</span>
-<span class="st">}"</span>)
-
-<span class="co"># define data types and center year</span>
-model <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">update_model</span>(
-  <span class="dt">select_data =</span> <span class="kw">list</span>(<span class="st">"Pairs"</span> =<span class="st"> </span><span class="kw">integer</span>(), <span class="st">"Year*"</span> =<span class="st"> </span><span class="kw">integer</span>(), <span class="dt">Annual =</span> <span class="kw">factor</span>()),
-  <span class="dt">derived =</span> <span class="st">"sAnnual"</span>,
-  <span class="dt">random_effects =</span> <span class="kw">list</span>(<span class="dt">bAnnual =</span> <span class="st">"Annual"</span>))
-
-data &lt;-<span class="st"> </span>bauw<span class="op">::</span>peregrine
-data<span class="op">$</span>Annual &lt;-<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Year)
-
-<span class="kw">set_analysis_mode</span>(<span class="st">"report"</span>)
-
-<span class="co"># analyse</span>
-analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <span class="dt">data =</span> data)
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5       3    500     1    15 11.15     FALSE</span>
-analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>()
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;     &lt;lgl&gt;</span>
-<span class="co">#&gt; 1    40     5       3    500     2    45  1.59     FALSE</span>
-
-<span class="kw">coef</span>(analysis)
-<span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;          term    estimate         sd     zscore       lower       upper</span>
-<span class="co">#&gt; *  &lt;S3: term&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       alpha  4.26160752 0.28479963 14.7130563  2.98965181  4.34540572</span>
-<span class="co">#&gt; 2       beta1  1.16342081 0.26394457  4.1309862  0.20105698  1.31701106</span>
-<span class="co">#&gt; 3       beta2 -0.01857269 0.04450215 -0.3852559 -0.09476931  0.10485756</span>
-<span class="co">#&gt; 4       beta3 -0.25800355 0.07333986 -3.3004058 -0.33334189 -0.03727961</span>
-<span class="co">#&gt; 5 log_sAnnual -2.24753001 0.73718986 -2.8504763 -3.05609613  0.25696421</span>
-<span class="co">#&gt; # ... with 1 more variables: pvalue &lt;dbl&gt;</span>
-
-<span class="kw">plot</span>(analysis)</code></pre></div>
+</section><section id="demonstration" class="level2"><h2>Demonstration</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(jmbr)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># define model in JAGS language</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">model &lt;-<span class="st"> </span><span class="kw">model</span>(<span class="st">"model {</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  alpha ~ dnorm(0, 10^-2)</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  beta1 ~ dnorm(0, 10^-2)</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  beta2 ~ dnorm(0, 10^-2)</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  beta3 ~ dnorm(0, 10^-2)</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  log_sAnnual ~ dnorm(0, 10^-2)</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  log(sAnnual) &lt;- log_sAnnual</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  for(i in 1:nAnnual) {</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">    bAnnual[i] ~ dnorm(0, sAnnual^-2)</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  }</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">  for (i in 1:length(Pairs)) {</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="st">    log(ePairs[i]) &lt;- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">    Pairs[i] ~ dpois(ePairs[i])</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">  }</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">}"</span>)</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co"># add R code to calculate derived parameters</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">model <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">update_model</span>(<span class="dt">new_expr =</span> <span class="st">"</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="st">for (i in 1:length(Pairs)) {</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="st">  log(prediction[i]) &lt;- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">}"</span>)</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co"># define data types and center year</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">model <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">update_model</span>(</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">  <span class="dt">select_data =</span> <span class="kw">list</span>(<span class="st">"Pairs"</span> =<span class="st"> </span><span class="kw">integer</span>(), <span class="st">"Year*"</span> =<span class="st"> </span><span class="kw">integer</span>(), <span class="dt">Annual =</span> <span class="kw">factor</span>()),</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">  <span class="dt">derived =</span> <span class="st">"sAnnual"</span>,</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">  <span class="dt">random_effects =</span> <span class="kw">list</span>(<span class="dt">bAnnual =</span> <span class="st">"Annual"</span>))</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">data &lt;-<span class="st"> </span>bauw<span class="op">::</span>peregrine</a>
+<a class="sourceLine" id="cb2-34" data-line-number="34">data<span class="op">$</span>Annual &lt;-<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Year)</a>
+<a class="sourceLine" id="cb2-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="kw">set_analysis_mode</span>(<span class="st">"report"</span>)</a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"></a>
+<a class="sourceLine" id="cb2-38" data-line-number="38"><span class="co"># analyse</span></a>
+<a class="sourceLine" id="cb2-39" data-line-number="39">analysis &lt;-<span class="st"> </span><span class="kw">analyse</span>(model, <span class="dt">data =</span> data)</a>
+<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">#&gt; # A tibble: 1 x 8</span></a>
+<a class="sourceLine" id="cb2-41" data-line-number="41"><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></a>
+<a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt; 1    40     5       3    500     1    15  3.33 F</span></a>
+<a class="sourceLine" id="cb2-44" data-line-number="44">analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>()</a>
+<a class="sourceLine" id="cb2-45" data-line-number="45"><span class="co">#&gt; # A tibble: 1 x 8</span></a>
+<a class="sourceLine" id="cb2-46" data-line-number="46"><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></a>
+<a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
+<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 1    40     5       3    500     2    30  1.67 F</span></a>
+<a class="sourceLine" id="cb2-49" data-line-number="49"></a>
+<a class="sourceLine" id="cb2-50" data-line-number="50"><span class="kw">coef</span>(analysis)</a>
+<a class="sourceLine" id="cb2-51" data-line-number="51"><span class="co">#&gt; # A tibble: 5 x 7</span></a>
+<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt;   term        estimate     sd   zscore   lower upper   pvalue</span></a>
+<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt; * &lt;S3: term&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; 1 alpha         4.25   0.335   12.3     3.11   4.34  0.000700</span></a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; 2 beta1         1.19   0.413    2.60   -0.356  1.34  0.143   </span></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; 3 beta2        -0.0112 0.0735   0.0574 -0.0799 0.250 0.781   </span></a>
+<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; 4 beta3        -0.275  0.149  - 1.62   -0.447  0.240 0.183   </span></a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; 5 log_sAnnual  -2.12   0.792  - 2.40   -2.84   0.292 0.108</span></a>
+<a class="sourceLine" id="cb2-59" data-line-number="59"></a>
+<a class="sourceLine" id="cb2-60" data-line-number="60"><span class="kw">plot</span>(analysis)</a></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png" width="672"><img src="tools/README-unnamed-chunk-3-2.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make predictions by varying year with other predictors including the random effect of Annual held constant</span>
-year &lt;-<span class="st"> </span><span class="kw">predict</span>(analysis, <span class="dt">new_data =</span> <span class="st">"Year"</span>)
-
-<span class="co"># plot those predictions</span>
-<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> year, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> estimate)) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>(<span class="dt">data =</span> bauw<span class="op">::</span>peregrine, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y =</span> Pairs)) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y =</span> lower), <span class="dt">linetype =</span> <span class="st">"dotted"</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y =</span> upper), <span class="dt">linetype =</span> <span class="st">"dotted"</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/expand_limits">expand_limits</a></span>(<span class="dt">y =</span> <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># make predictions by varying year with other predictors including the random effect of Annual held constant</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">year &lt;-<span class="st"> </span><span class="kw">predict</span>(analysis, <span class="dt">new_data =</span> <span class="st">"Year"</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># plot those predictions</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> year, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> estimate)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>(<span class="dt">data =</span> bauw<span class="op">::</span>peregrine, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y =</span> Pairs)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y =</span> lower), <span class="dt">linetype =</span> <span class="st">"dotted"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y =</span> upper), <span class="dt">linetype =</span> <span class="st">"dotted"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/expand_limits">expand_limits</a></span>(<span class="dt">y =</span> <span class="dv">0</span>)</a></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-4-1.png" width="672"></p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+</section><section id="installation" class="level2"><h2>Installation</h2>
 <p>To install from GitHub</p>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github"># install.packages("devtools")
 devtools::install_github("poissonconsulting/jmbr")</a></code></pre>
-</div>
-<div id="contribution" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contribution" class="anchor"></a>Contribution</h2>
+</section><section id="contribution" class="level2"><h2>Contribution</h2>
 <p>Please report any <a href="https://github.com/poissonconsulting/jmbr/issues">issues</a>.</p>
 <p><a href="https://github.com/poissonconsulting/jmbr/pulls">Pull requests</a> are always welcome.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
-</div>
-<div id="inspiration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#inspiration" class="anchor"></a>Inspiration</h2>
+</section><section id="inspiration" class="level2"><h2>Inspiration</h2>
 <ul>
 <li><a href="https://github.com/poissonconsulting/jaggernaut">jaggernaut</a></li>
-</ul>
-</div>
-<div id="creditation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#creditation" class="anchor"></a>Creditation</h2>
+</ul></section><section id="creditation" class="level2"><h2>Creditation</h2>
 <ul>
 <li><a href="http://mcmc-jags.sourceforge.net">JAGS</a></li>
-</ul>
-</div>
-</div>
+</ul></section></section>
 </div>
   </div>
 

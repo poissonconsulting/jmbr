@@ -1,19 +1,27 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/joethorley/stability-badges#unstable) [![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr) [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mbr)](https://cran.r-project.org/package=mbr)
 
-jmbr
-====
+[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/joethorley/stability-badges#unstable)
+[![Travis-CI Build
+Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr)
+[![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mbr)](https://cran.r-project.org/package=mbr)
 
-Introduction
-------------
+# jmbr
 
-`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).
+## Introduction
 
-It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of packages.
+`jmbr` (pronounced jimber) is an R package to facilitate analyses using
+Just Another Gibbs Sampler (JAGS).
 
-Demonstration
--------------
+It is part of the [mbr](https://github.com/poissonconsulting/mbr) family
+of packages.
+
+## Demonstration
 
 ``` r
 library(magrittr)
@@ -63,29 +71,28 @@ set_analysis_mode("report")
 analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
-#>   <int> <int>   <int>  <int> <int> <int> <dbl>     <lgl>
-#> 1    40     5       3    500     1    30  6.61     FALSE
+#>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
+#> 1    40     5       3    500     1    15  4.44 F
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
-#>   <int> <int>   <int>  <int> <int> <int> <dbl>     <lgl>
-#> 1    40     5       3    500     2    30   2.8     FALSE
+#>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
+#> 1    40     5       3    500     2    30  2.59 F
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>          term    estimate        sd      zscore       lower       upper
-#> *  <S3: term>       <dbl>     <dbl>       <dbl>       <dbl>       <dbl>
-#> 1       alpha  4.23797430 0.6677601  5.77768071  2.33840558  4.33711673
-#> 2       beta1  1.15231028 0.3364444  3.11444326  0.03845824  1.42217788
-#> 3       beta2 -0.01852368 0.1856543 -0.01062253 -0.41127181  0.50435488
-#> 4       beta3 -0.27674499 0.1520678 -2.09007368 -0.65073495 -0.07092225
-#> 5 log_sAnnual -2.01904764 1.2357751 -1.17829498 -2.89305745  0.94382566
-#> # ... with 1 more variables: pvalue <dbl>
+#>   term        estimate     sd zscore   lower upper   pvalue
+#> * <S3: term>     <dbl>  <dbl>  <dbl>   <dbl> <dbl>    <dbl>
+#> 1 alpha         4.24   0.456   8.88   2.65   4.33  0.000700
+#> 2 beta1         1.16   0.550   1.70  -0.679  1.31  0.215   
+#> 3 beta2        -0.0124 0.0957  0.184 -0.0891 0.340 0.795   
+#> 4 beta3        -0.268  0.267  -0.805 -0.695  0.462 0.291   
+#> 5 log_sAnnual  -2.10   1.04   -1.61  -2.87   0.580 0.261
 
 plot(analysis)
 ```
 
-![](tools/README-unnamed-chunk-3-1.png)![](tools/README-unnamed-chunk-3-2.png)
+![](tools/README-unnamed-chunk-3-1.png)<!-- -->![](tools/README-unnamed-chunk-3-2.png)<!-- -->
 
 ``` r
 # make predictions by varying year with other predictors including the random effect of Annual held constant
@@ -100,31 +107,31 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
   expand_limits(y = 0)
 ```
 
-![](tools/README-unnamed-chunk-4-1.png)
+![](tools/README-unnamed-chunk-4-1.png)<!-- -->
 
-Installation
-------------
+## Installation
 
 To install from GitHub
 
     # install.packages("devtools")
     devtools::install_github("poissonconsulting/jmbr")
 
-Contribution
-------------
+## Contribution
 
-Please report any [issues](https://github.com/poissonconsulting/jmbr/issues).
+Please report any
+[issues](https://github.com/poissonconsulting/jmbr/issues).
 
-[Pull requests](https://github.com/poissonconsulting/jmbr/pulls) are always welcome.
+[Pull requests](https://github.com/poissonconsulting/jmbr/pulls) are
+always welcome.
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.
 
-Inspiration
------------
+## Inspiration
 
--   [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
+  - [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
 
-Creditation
------------
+## Creditation
 
--   [JAGS](http://mcmc-jags.sourceforge.net)
+  - [JAGS](http://mcmc-jags.sourceforge.net)
