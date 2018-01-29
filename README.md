@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/joethorley/stability-badges#unstable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis-CI Build
 Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr)
 [![AppVeyor Build
@@ -72,22 +72,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    15  4.44 F
+#> 1    40     5       3    500     1    15  11.2 F
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    30  2.59 F
+#> 1    40     5       3    500     2    30  2.31 F
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate     sd zscore   lower upper   pvalue
-#> * <S3: term>     <dbl>  <dbl>  <dbl>   <dbl> <dbl>    <dbl>
-#> 1 alpha         4.24   0.456   8.88   2.65   4.33  0.000700
-#> 2 beta1         1.16   0.550   1.70  -0.679  1.31  0.215   
-#> 3 beta2        -0.0124 0.0957  0.184 -0.0891 0.340 0.795   
-#> 4 beta3        -0.268  0.267  -0.805 -0.695  0.462 0.291   
-#> 5 log_sAnnual  -2.10   1.04   -1.61  -2.87   0.580 0.261
+#>   term        estimate    sd   zscore  lower upper   pvalue
+#> * <S3: term>     <dbl> <dbl>    <dbl>  <dbl> <dbl>    <dbl>
+#> 1 alpha         4.25   0.309  13.5     3.20  4.43  0.000700
+#> 2 beta1         1.16   0.563   1.67   -0.811 1.36  0.200   
+#> 3 beta2        -0.0146 0.142   0.0459 -0.255 0.529 0.681   
+#> 4 beta3        -0.256  0.220 - 0.797  -0.350 0.503 0.293   
+#> 5 log_sAnnual  -2.08   0.813 - 2.27   -2.83  0.253 0.157
 
 plot(analysis)
 ```
