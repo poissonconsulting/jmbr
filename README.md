@@ -16,7 +16,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 ## Introduction
 
 `jmbr` (pronounced jimber) is an R package to facilitate analyses using
-Just Another Gibbs Sampler (JAGS).
+Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
 
 It is part of the [mbr](https://github.com/poissonconsulting/mbr) family
 of packages.
@@ -72,22 +72,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    15  6.31 F
+#> 1    40     5       3    500     1    15  3.85 F
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    45  1.84 F
+#> 1    40     5       3    500     2    45  3.64 F
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate    sd  zscore  lower  upper   pvalue
-#> * <S3: term>     <dbl> <dbl>   <dbl>  <dbl>  <dbl>    <dbl>
-#> 1 alpha         4.27   0.140  30.8    4.18  4.77   0.000700
-#> 2 beta1         1.19   0.399   2.65  -0.145 1.34   0.149   
-#> 3 beta2        -0.0266 0.229 - 0.450 -0.828 0.0412 0.463   
-#> 4 beta3        -0.269  0.145 - 1.55  -0.347 0.215  0.229   
-#> 5 log_sAnnual  -2.14   0.740 - 2.64  -2.74  0.127  0.120
+#>   term        estimate     sd    zscore  lower  upper   pvalue
+#> * <S3: term>     <dbl>  <dbl>     <dbl>  <dbl>  <dbl>    <dbl>
+#> 1 alpha         4.25   0.160   26.4      3.63   4.38  0.000700
+#> 2 beta1         1.17   0.595    1.56    -0.668  1.33  0.265   
+#> 3 beta2        -0.0148 0.0840   0.00441 -0.111  0.281 0.743   
+#> 4 beta3        -0.263  0.292  - 0.496   -0.340  0.635 0.325   
+#> 5 log_sAnnual  -2.12   0.770  - 2.42    -2.78  -0.125 0.0213
 
 plot(analysis)
 ```
@@ -116,6 +116,27 @@ To install from GitHub
     # install.packages("devtools")
     devtools::install_github("poissonconsulting/jmbr")
 
+## Citation
+
+``` 
+
+To cite tmbr in publications use:
+
+  Joe Thorley (2018) tmbr: Analyses Using TMB. doi:
+  https://doi.org/10.5281/zenodo.1162374.
+
+A BibTeX entry for LaTeX users is
+
+  @Misc{,
+    author = {Joe Thorley},
+    year = {2018},
+    title = {tmbr: Analyses Using TMB},
+    doi = {https://doi.org/10.5281/zenodo.1162374},
+  }
+
+Please also cite TMB.
+```
+
 ## Contribution
 
 Please report any
@@ -131,7 +152,3 @@ abide by its terms.
 ## Inspiration
 
   - [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
-
-## Creditation
-
-  - [JAGS](http://mcmc-jags.sourceforge.net)

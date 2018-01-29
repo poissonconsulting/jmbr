@@ -68,7 +68,7 @@
 
 <section id="jmbr" class="level1"><div class="page-header"><h1>jmbr</h1></div>
 <section id="introduction" class="level2"><h2>Introduction</h2>
-<p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).</p>
+<p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (<a href="http://mcmc-jags.sourceforge.net"><code>JAGS</code></a>).</p>
 <p>It is part of the <a href="https://github.com/poissonconsulting/mbr">mbr</a> family of packages.</p>
 </section><section id="demonstration" class="level2"><h2>Demonstration</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
@@ -116,22 +116,22 @@
 <a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">#&gt; # A tibble: 1 x 8</span></a>
 <a class="sourceLine" id="cb2-41" data-line-number="41"><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></a>
 <a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
-<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt; 1    40     5       3    500     1    15  6.41 F</span></a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt; 1    40     5       3    500     1    15  4.30 F</span></a>
 <a class="sourceLine" id="cb2-44" data-line-number="44">analysis <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">reanalyse</span>()</a>
 <a class="sourceLine" id="cb2-45" data-line-number="45"><span class="co">#&gt; # A tibble: 1 x 8</span></a>
 <a class="sourceLine" id="cb2-46" data-line-number="46"><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></a>
 <a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></a>
-<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 1    40     5       3    500     2    60  1.11 F</span></a>
+<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 1    40     5       3    500     2    45  1.02 F</span></a>
 <a class="sourceLine" id="cb2-49" data-line-number="49"></a>
 <a class="sourceLine" id="cb2-50" data-line-number="50"><span class="kw">coef</span>(analysis)</a>
 <a class="sourceLine" id="cb2-51" data-line-number="51"><span class="co">#&gt; # A tibble: 5 x 7</span></a>
 <a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt;   term        estimate     sd   zscore   lower   upper   pvalue</span></a>
 <a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt; * &lt;S3: term&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; 1 alpha         4.27   0.0403  106      4.18    4.34   0.000700</span></a>
-<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; 2 beta1         1.20   0.0728   16.5    1.06    1.34   0.000700</span></a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; 3 beta2        -0.0235 0.0317 -  0.724 -0.0824  0.0414 0.441   </span></a>
-<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; 4 beta3        -0.275  0.0356 -  7.73  -0.345  -0.204  0.000700</span></a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; 5 log_sAnnual  -2.19   0.408  -  5.57  -3.55   -1.74   0.000700</span></a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; 1 alpha         4.26   0.0386  110      4.19    4.34   0.000700</span></a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; 2 beta1         1.19   0.0812   14.8    1.08    1.37   0.000700</span></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; 3 beta2        -0.0188 0.0290 -  0.675 -0.0747  0.0351 0.504   </span></a>
+<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; 4 beta3        -0.273  0.0415 -  6.69  -0.365  -0.212  0.000700</span></a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; 5 log_sAnnual  -2.22   0.284  -  7.92  -2.90   -1.75   0.000700</span></a>
 <a class="sourceLine" id="cb2-59" data-line-number="59"></a>
 <a class="sourceLine" id="cb2-60" data-line-number="60"><span class="kw">plot</span>(analysis)</a></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png" width="672"><img src="tools/README-unnamed-chunk-3-2.png" width="672"></p>
@@ -150,6 +150,23 @@
 <p>To install from GitHub</p>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github"># install.packages("devtools")
 devtools::install_github("poissonconsulting/jmbr")</a></code></pre>
+</section><section id="citation" class="level2"><h2>Citation</h2>
+<pre><code>
+To cite tmbr in publications use:
+
+  Joe Thorley (2018) tmbr: Analyses Using TMB. doi:
+  https://doi.org/10.5281/zenodo.1162374.
+
+A BibTeX entry for LaTeX users is
+
+  @Misc{,
+    author = {Joe Thorley},
+    year = {2018},
+    title = {tmbr: Analyses Using TMB},
+    doi = {https://doi.org/10.5281/zenodo.1162374},
+  }
+
+Please also cite TMB.</code></pre>
 </section><section id="contribution" class="level2"><h2>Contribution</h2>
 <p>Please report any <a href="https://github.com/poissonconsulting/jmbr/issues">issues</a>.</p>
 <p><a href="https://github.com/poissonconsulting/jmbr/pulls">Pull requests</a> are always welcome.</p>
@@ -157,9 +174,6 @@ devtools::install_github("poissonconsulting/jmbr")</a></code></pre>
 </section><section id="inspiration" class="level2"><h2>Inspiration</h2>
 <ul>
 <li><a href="https://github.com/poissonconsulting/jaggernaut">jaggernaut</a></li>
-</ul></section><section id="creditation" class="level2"><h2>Creditation</h2>
-<ul>
-<li><a href="http://mcmc-jags.sourceforge.net">JAGS</a></li>
 </ul></section></section>
 </div>
   </div>

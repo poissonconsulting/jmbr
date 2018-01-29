@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (JAGS).
+`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
 
 It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of packages.
 
@@ -103,6 +103,12 @@ To install from GitHub
 devtools::install_github("poissonconsulting/jmbr")
 ```
 
+## Citation
+
+```{r, comment="", echo=FALSE}
+citation(package = 'tmbr')
+```
+
 ## Contribution
 
 Please report any [issues](https://github.com/poissonconsulting/jmbr/issues).
@@ -114,7 +120,3 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 ## Inspiration
 
 - [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
-
-## Creditation
-
-- [JAGS](http://mcmc-jags.sourceforge.net)
