@@ -108,6 +108,6 @@ test_that("analyse", {
   expect_true(all(year$lower < year$estimate))
   expect_false(is.unsorted(year$estimate))
 
-  dd <- derive_data(analysis, new_data = c("Site", "Year"), ref_data = TRUE)
-  expect_true(is.mcmcr_data(dd))
+  dd <- mcmc_derive_data(analysis, new_data = c("Site", "Year"), ref_data = TRUE)
+  expect_true(is.mcmc_data(dd))
 })

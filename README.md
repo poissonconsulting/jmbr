@@ -72,22 +72,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    15  8.15 F
+#> 1    40     5       3    500     1     9  5.27 F
 analysis %<>% reanalyse()
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    60  3.90 F
+#> 1    40     5       3    500     2    18  11.1 F
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate     sd zscore   lower  upper   pvalue
-#> * <S3: term>     <dbl>  <dbl>  <dbl>   <dbl>  <dbl>    <dbl>
-#> 1 alpha        4.25    0.663   5.99   1.98    4.34  0.000700
-#> 2 beta1        1.17    0.382   2.69  -0.0694  1.32  0.123   
-#> 3 beta2       -0.00568 0.215   0.374 -0.0821  0.646 0.879   
-#> 4 beta3       -0.275   0.0425 -6.45  -0.362  -0.195 0.000700
-#> 5 log_sAnnual -2.14    1.02   -1.71  -2.68    0.799 0.265
+#>   term        estimate    sd zscore  lower   upper   pvalue
+#>   <S3: term>     <dbl> <dbl>  <dbl>  <dbl>   <dbl>    <dbl>
+#> 1 alpha         4.22   1.01   3.50   1.72   4.33   0.000700
+#> 2 beta1         1.12   0.485  1.72  -0.100  1.35   0.113   
+#> 3 beta2        -0.0328 0.168 -0.593 -0.521  0.106  0.472   
+#> 4 beta3        -0.269  0.126 -2.22  -0.578 -0.0102 0.0453  
+#> 5 log_sAnnual  -1.95   1.48  -0.718 -2.66   1.22   0.667
 
 plot(analysis)
 ```

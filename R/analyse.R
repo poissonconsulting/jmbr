@@ -46,13 +46,13 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
                        nthin = nthin,
                        quiet = quiet)
 
-  mcmcr <- llply(jags_chains, function(x) x$jags_samples)
-  mcmcr %<>% llply(mcmcr::as.mcmcr)
-  mcmcr %<>% purrr::reduce(mcmcr::bind_chains)
+  mcmc <- llply(jags_chains, function(x) x$jags_samples)
+  mcmc <- lapply(mcmc, function(x) mcmcr::as.mcmcr(lapply(x, mcmcr::as.mcmcarray)))
+  mcmc <- Reduce(mcmcr::bind_chains, mcmc)
 
   obj %<>% c(inits = list(inits),
              jags_chains = list(jags_chains),
-             mcmcr = list(mcmcr),
+             mcmcr = list(mcmc),
              nthin = nthin)
 
   obj$duration <- timer$elapsed()
