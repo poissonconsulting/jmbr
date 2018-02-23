@@ -24,8 +24,6 @@ of packages.
 ## Demonstration
 
 ``` r
-library(magrittr)
-library(ggplot2)
 library(jmbr)
 ```
 
@@ -51,13 +49,13 @@ model <- model("model {
 }")
 
 # add R code to calculate derived parameters
-model %<>% update_model(new_expr = "
+model <- update_model(model, new_expr = "
 for (i in 1:length(Pairs)) {
   log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
 }")
 
 # define data types and center year
-model %<>% update_model(
+model <- update_model(model, 
   select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
   derived = "sAnnual",
   random_effects = list(bAnnual = "Annual"))
@@ -72,22 +70,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    12  6.18 F
-analysis %<>% reanalyse()
+#> 1    40     5       3    500     1     9  4.06 F
+analysis <- reanalyse(analysis)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    57  2.50 F
+#> 1    40     5       3    500     2    58  1.07 F
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate     sd zscore   lower   upper   pvalue
-#>   <S3: term>     <dbl>  <dbl>  <dbl>   <dbl>   <dbl>    <dbl>
-#> 1 alpha        4.25    0.518   7.84   2.28    4.33   0.000700
-#> 2 beta1        1.15    0.400   2.52  -0.180   1.31   0.137   
-#> 3 beta2       -0.00868 0.107   0.226 -0.0736  0.347  0.796   
-#> 4 beta3       -0.253   0.0776 -3.01  -0.330  -0.0175 0.0400  
-#> 5 log_sAnnual -2.18    0.953  -1.99  -2.99    0.655  0.213
+#>   term        estimate     sd  zscore   lower   upper   pvalue
+#>   <S3: term>     <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
+#> 1 alpha         4.27   0.0427  99.9    4.18    4.35   0.000700
+#> 2 beta1         1.19   0.0946  12.6    1.04    1.34   0.000700
+#> 3 beta2        -0.0207 0.0326 - 0.627 -0.0836  0.0438 0.480   
+#> 4 beta3        -0.272  0.0475 - 5.66  -0.346  -0.188  0.0120  
+#> 5 log_sAnnual  -2.23   0.332  - 6.79  -2.99   -1.68   0.000700
 
 plot(analysis)
 ```
@@ -99,6 +97,8 @@ plot(analysis)
 year <- predict(analysis, new_data = "Year")
 
 # plot those predictions
+library(ggplot2)
+
 ggplot(data = year, aes(x = Year, y = estimate)) +
   geom_point(data = bauw::peregrine, aes(y = Pairs)) +
   geom_line() +
@@ -113,8 +113,15 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
 
 To install from GitHub
 
-    # install.packages("devtools")
+    install.packages("devtools")
     devtools::install_github("poissonconsulting/jmbr")
+
+or the Poisson drat
+[Repository](https://github.com/poissonconsulting/drat)
+
+    install.packages("drat")
+    drat::addRepo("poissonconsulting")
+    install.packages("jmbr")
 
 ## Citation
 

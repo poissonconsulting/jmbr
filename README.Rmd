@@ -30,8 +30,6 @@ It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of pack
 ## Demonstration
 
 ```{r, message = FALSE}
-library(magrittr)
-library(ggplot2)
 library(jmbr)
 ```
 
@@ -57,13 +55,13 @@ model <- model("model {
 }")
 
 # add R code to calculate derived parameters
-model %<>% update_model(new_expr = "
+model <- update_model(model, new_expr = "
 for (i in 1:length(Pairs)) {
   log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
 }")
 
 # define data types and center year
-model %<>% update_model(
+model <- update_model(model, 
   select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
   derived = "sAnnual",
   random_effects = list(bAnnual = "Annual"))
@@ -75,7 +73,7 @@ set_analysis_mode("report")
 
 # analyse
 analysis <- analyse(model, data = data)
-analysis %<>% reanalyse()
+analysis <- reanalyse(analysis)
 
 coef(analysis)
 
@@ -87,6 +85,8 @@ plot(analysis)
 year <- predict(analysis, new_data = "Year")
 
 # plot those predictions
+library(ggplot2)
+
 ggplot(data = year, aes(x = Year, y = estimate)) +
   geom_point(data = bauw::peregrine, aes(y = Pairs)) +
   geom_line() +
@@ -99,8 +99,16 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
 
 To install from GitHub
 ```
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("poissonconsulting/jmbr")
+```
+
+or the Poisson drat [Repository](https://github.com/poissonconsulting/drat)
+
+```
+install.packages("drat")
+drat::addRepo("poissonconsulting")
+install.packages("jmbr")
 ```
 
 ## Citation
