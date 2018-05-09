@@ -9,16 +9,16 @@
   "name": "jmbr: Analyses Using JAGS",
   "codeRepository": "https://github.com/poissonconsulting/jmbr",
   "issueTracker": "https://github.com/poissonconsulting/jmbr/issues",
-  "datePublished": "2018-01-29",
+  "datePublished": "2018-05-09",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.1",
+  "version": "0.0.0.9103",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.4.3",
+    "version": "3.5.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.4.3 Patched (2017-12-05 r73849)",
+  "runtimePlatform": "R version 3.5.0 (2018-04-23)",
   "author": [
     {
       "@type": "Person",
@@ -123,7 +123,13 @@
       "@type": "SoftwareApplication",
       "identifier": "mcmcr",
       "name": "mcmcr",
-      "version": "0.0.0.9004"
+      "version": "0.0.0.9004",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
     },
     {
       "@type": "SoftwareApplication",
@@ -212,7 +218,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": "3.3.1"
+      "version": "3.3.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -233,9 +239,8 @@
     }
   ],
   "contIntegration": "https://travis-ci.org/poissonconsulting/jmbr",
-  "releaseNotes": "https://github.com/poissonconsulting/jmbr/blob/master/NEWS.md",
   "readme": "https://github.com/poissonconsulting/jmbr/blob/master/README.md",
-  "fileSize": "145.689KB",
+  "fileSize": "289.919KB",
   "citation": [
     {
       "@type": "CreativeWork",
