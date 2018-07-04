@@ -89,7 +89,7 @@
       "@type": "SoftwareApplication",
       "identifier": "mbr",
       "name": "mbr",
-      "version": ">= 0.0.0.9066"
+      "version": ">= 0.0.1.9009"
     },
     {
       "@type": "SoftwareApplication",
@@ -155,7 +155,7 @@
       "@type": "SoftwareApplication",
       "identifier": "mcmcr",
       "name": "mcmcr",
-      "version": ">= 0.0.0.9004",
+      "version": ">= 0.0.1.9001",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -256,7 +256,7 @@
   ],
   "contIntegration": "https://travis-ci.org/poissonconsulting/jmbr",
   "readme": "https://github.com/poissonconsulting/jmbr/blob/master/README.md",
-  "fileSize": "144.108KB",
+  "fileSize": "145.871KB",
   "citation": [
     {
       "@type": "CreativeWork",
@@ -275,5 +275,9 @@
     }
   ],
   "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing",
-  "keywords": ["jags", "mbr", "rstats"]
+  "keywords": [
+    "jags",
+    "mbr",
+    "rstats"
+  ]
 }

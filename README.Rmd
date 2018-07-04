@@ -113,7 +113,7 @@ install.packages("jmbr")
 ## Citation
 
 ```{r, comment="", echo=FALSE}
-citation(package = 'tmbr')
+citation(package = 'jmbr')
 ```
 
 ## Contribution

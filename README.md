@@ -68,22 +68,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  5.24 FALSE
+#> 1    40     5       3    500     1     9  4.96 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    57  4.95 FALSE
+#> 1    40     5       3    500     2    32  7.99 FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate    sd zscore  lower  upper pvalue
-#>   <S3: term>     <dbl> <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
-#> 1 alpha         4.24   0.686  5.65   2.30  4.37   0.0007
-#> 2 beta1         1.16   0.909  0.688 -1.33  1.34   0.464 
-#> 3 beta2        -0.0330 0.284 -0.713 -0.811 0.0353 0.424 
-#> 4 beta3        -0.256  0.150 -1.22  -0.350 0.0844 0.439 
-#> 5 log_sAnnual  -2.05   1.43  -0.899 -2.82  1.21   0.564
+#>   term        estimate    sd zscore   lower upper pvalue
+#>   <S3: term>     <dbl> <dbl>  <dbl>   <dbl> <dbl>  <dbl>
+#> 1 alpha        4.24    0.806  4.68   1.88   4.32  0.0007
+#> 2 beta1        1.13    0.798  0.791 -0.757  1.32  0.627 
+#> 3 beta2       -0.00268 0.223  0.570 -0.0698 0.577 0.959 
+#> 4 beta3       -0.241   0.259 -0.371 -0.337  0.497 0.644 
+#> 5 log_sAnnual -2.07    1.28  -1.10  -2.85   0.884 0.488
 
 plot(analysis)
 ```
@@ -125,21 +125,21 @@ or the Poisson drat
 
 ``` 
 
-To cite tmbr in publications use:
+To cite jmbr in publications use:
 
-  Joe Thorley (2018) tmbr: Analyses Using TMB. doi:
-  https://doi.org/10.5281/zenodo.1162374.
+  Joe Thorley (2018) jmbr: Analyses Using JAGS. doi:
+  https://doi.org/10.5281/zenodo.1162355.
 
 A BibTeX entry for LaTeX users is
 
   @Misc{,
     author = {Joe Thorley},
     year = {2018},
-    title = {tmbr: Analyses Using TMB},
-    doi = {https://doi.org/10.5281/zenodo.1162374},
+    title = {jmbr: Analyses Using JAGS},
+    doi = {https://doi.org/10.5281/zenodo.1162355},
   }
 
-Please also cite TMB.
+Please also cite JAGS.
 ```
 
 ## Contribution
