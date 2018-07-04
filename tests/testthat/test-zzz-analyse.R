@@ -49,6 +49,19 @@ test_that("analyse", {
 
   analysis <- analyse(model, data = data)
 
+  expect_equal(data_set(analysis), data)
+  data2 <- data_set(analysis, marginalize_random_effects = TRUE)
+  expect_true(all(as.integer(data2$Site) == 1L))
+  expect_true(all(as.integer(data2$YearFactor) == 1L))
+  # need random seed so repeatable
+  R2c <- R2(analysis, "Density")
+  expect_gt(R2c, 0.6)
+  expect_lt(R2c, 0.8)
+
+  R2m <- R2(analysis, "Density", marginal = TRUE)
+  expect_gt(R2m, 0.0)
+  expect_lt(R2m, 0.01)
+
   expect_identical(class(analysis), c("jmb_analysis", "mb_analysis"))
   expect_true(is.jmb_analysis(analysis))
 

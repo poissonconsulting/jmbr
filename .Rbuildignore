@@ -3,10 +3,8 @@
 ^CONDUCT\.md$
 ^README\.Rmd$
 ^README-.*\.png$
-^appveyor\.yml$
 ^\.travis\.yml$
 ^codecov\.yml$
 ^LICENSE\.md$
-^document.R$
-^docs$
+^check.R$
 ^codemeta\.json$

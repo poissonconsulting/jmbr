@@ -1,35 +1,31 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
-
- [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/jmbr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/jmbr)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Travis-CI Build
+Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr)
 [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg)](https://doi.org/10.5281/zenodo.1162355)
 
 # jmbr
 
 ## Introduction
 
-`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
+`jmbr` (pronounced jimber) is an R package to facilitate analyses using
+Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
 
-It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of packages.
+It is part of the [mbr](https://github.com/poissonconsulting/mbr) family
+of packages.
 
 ## Demonstration
 
-
-```r
+``` r
 library(jmbr)
 ```
 
-
-```r
+``` r
 # define model in JAGS language
 model <- model("model {
   alpha ~ dnorm(0, 10^-2)
@@ -72,30 +68,29 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  2.67 FALSE
+#> 1    40     5       3    500     1     9  5.24 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    21  3.50 FALSE
+#> 1    40     5       3    500     2    57  4.95 FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term         estimate    sd zscore   lower  upper pvalue
-#>   <S3: term>      <dbl> <dbl>  <dbl>   <dbl>  <dbl>  <dbl>
-#> 1 alpha        4.24     0.811  4.69   1.59   4.33   0.0007
-#> 2 beta1        1.13     0.322  3.15   0.133  1.39   0.012 
-#> 3 beta2        0.000603 0.372  0.489 -0.0688 1.16   0.991 
-#> 4 beta3       -0.245    0.107 -2.02  -0.372  0.0141 0.0653
-#> 5 log_sAnnual -2.05     1.10  -1.39  -2.78   0.647  0.371
+#>   term        estimate    sd zscore  lower  upper pvalue
+#>   <S3: term>     <dbl> <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+#> 1 alpha         4.24   0.686  5.65   2.30  4.37   0.0007
+#> 2 beta1         1.16   0.909  0.688 -1.33  1.34   0.464 
+#> 3 beta2        -0.0330 0.284 -0.713 -0.811 0.0353 0.424 
+#> 4 beta3        -0.256  0.150 -1.22  -0.350 0.0844 0.439 
+#> 5 log_sAnnual  -2.05   1.43  -0.899 -2.82  1.21   0.564
 
 plot(analysis)
 ```
 
-![plot of chunk unnamed-chunk-3](tools/README-unnamed-chunk-3-1.png)![plot of chunk unnamed-chunk-3](tools/README-unnamed-chunk-3-2.png)
+![](tools/README-unnamed-chunk-3-1.png)<!-- -->![](tools/README-unnamed-chunk-3-2.png)<!-- -->
 
-
-```r
+``` r
 # make predictions by varying year with other predictors including the random effect of Annual held constant
 year <- predict(analysis, new_data = "Year")
 
@@ -110,28 +105,25 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
   expand_limits(y = 0)
 ```
 
-![plot of chunk unnamed-chunk-4](tools/README-unnamed-chunk-4-1.png)
+![](tools/README-unnamed-chunk-4-1.png)<!-- -->
 
 ## Installation
 
 To install from GitHub
-```
-install.packages("devtools")
-devtools::install_github("poissonconsulting/jmbr")
-```
 
-or the Poisson drat [Repository](https://github.com/poissonconsulting/drat)
+    install.packages("devtools")
+    devtools::install_github("poissonconsulting/jmbr")
 
-```
-install.packages("drat")
-drat::addRepo("poissonconsulting")
-install.packages("jmbr")
-```
+or the Poisson drat
+[Repository](https://github.com/poissonconsulting/drat)
+
+    install.packages("drat")
+    drat::addRepo("poissonconsulting")
+    install.packages("jmbr")
 
 ## Citation
 
-
-```
+``` 
 
 To cite tmbr in publications use:
 
@@ -152,12 +144,16 @@ Please also cite TMB.
 
 ## Contribution
 
-Please report any [issues](https://github.com/poissonconsulting/jmbr/issues).
+Please report any
+[issues](https://github.com/poissonconsulting/jmbr/issues).
 
-[Pull requests](https://github.com/poissonconsulting/jmbr/pulls) are always welcome.
+[Pull requests](https://github.com/poissonconsulting/jmbr/pulls) are
+always welcome.
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.
 
 ## Inspiration
 
-- [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
+  - [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
