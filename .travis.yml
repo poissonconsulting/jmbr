@@ -2,8 +2,6 @@ language: R
 cache: packages
 sudo: required
 
-r: devel
-
 r_packages:
   - covr
 
