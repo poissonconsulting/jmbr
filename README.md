@@ -23,6 +23,7 @@ of packages.
 
 ``` r
 library(jmbr)
+#> Warning: package 'dplyr' was built under R version 3.5.1
 ```
 
 ``` r
@@ -68,22 +69,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  4.96 FALSE
+#> 1    40     5       3    500     1     9  6.57 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    32  7.99 FALSE
+#> 1    40     5       3    500     2    36  1.17 FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate    sd zscore   lower upper pvalue
-#>   <S3: term>     <dbl> <dbl>  <dbl>   <dbl> <dbl>  <dbl>
-#> 1 alpha        4.24    0.806  4.68   1.88   4.32  0.0007
-#> 2 beta1        1.13    0.798  0.791 -0.757  1.32  0.627 
-#> 3 beta2       -0.00268 0.223  0.570 -0.0698 0.577 0.959 
-#> 4 beta3       -0.241   0.259 -0.371 -0.337  0.497 0.644 
-#> 5 log_sAnnual -2.07    1.28  -1.10  -2.85   0.884 0.488
+#>   term        estimate     sd  zscore   lower   upper pvalue
+#>   <S3: term>     <dbl>  <dbl>   <dbl>   <dbl>   <dbl>  <dbl>
+#> 1 alpha         4.25   0.0693  61.3    4.02    4.33   0.0007
+#> 2 beta1         1.20   0.173    6.83   0.524   1.39   0.0007
+#> 3 beta2        -0.0173 0.0296  -0.570 -0.0742  0.0422 0.571 
+#> 4 beta3        -0.278  0.0568  -4.84  -0.375  -0.108  0.0053
+#> 5 log_sAnnual  -2.23   0.489   -4.54  -3.16   -0.608  0.0007
 
 plot(analysis)
 ```
