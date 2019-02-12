@@ -17,7 +17,7 @@ test_that("analyse", {
   }
 
   log_sSiteYear ~ dlnorm(0, 5^-2)
-  log_sDensity ~ dnorm(0, 5^-2)
+  log_sDensity ~ dt(0, 5^-2, 4.5)
 
   log(sSiteYear) <- log_sSiteYear
   log(sDensity) <- log_sDensity
