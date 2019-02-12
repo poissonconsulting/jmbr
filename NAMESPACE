@@ -2,7 +2,7 @@
 
 S3method(analyse1,jmb_model)
 S3method(load_model,jmb_model)
-S3method(multiply_sd_normal_priors,jmb_code)
+S3method(sd_pps_by,jmb_code)
 export(is.jmb_analysis)
 export(is.jmb_code)
 export(is.jmb_model)

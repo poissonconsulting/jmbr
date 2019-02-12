@@ -9,14 +9,14 @@ test_that("analyse", {
   jags_template <- "model{
 
   bIntercept ~ dnorm(0, 5^-2)
-  bYear ~ dnorm(0, 5^-2)
+  bYear ~ dnorm(0, .5^-2) # bYear2 ~ dnorm(0, .5^-2)
 
   bHabitatQuality[1] <- 0
   for(i in 2:nHabitatQuality) {
-    bHabitatQuality[i] ~ dnorm(0, 5^-2)
+    bHabitatQuality[i] ~ dnorm(0, 5.^-2) T(0,)
   }
 
-  log_sSiteYear ~ dnorm(0, 5^-2)
+  log_sSiteYear ~ dlnorm(0, 5^-2)
   log_sDensity ~ dnorm(0, 5^-2)
 
   log(sSiteYear) <- log_sSiteYear
