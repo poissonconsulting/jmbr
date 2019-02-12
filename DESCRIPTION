@@ -1,6 +1,6 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9106
+Version: 0.0.0.9107
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE
@@ -9,28 +9,34 @@ BugReports: https://github.com/poissonconsulting/jmbr/issues
 Depends:
     R (>= 3.3.0),
     broom,
-    mbr (>= 0.0.1.9009)
+    mbr
 Imports:
     beepr,
     dplyr,
     checkr,
     lubridate,
     magrittr,
-    mcmcr (>= 0.0.1.9001),
+    mcmcr,
     plyr,
     purrr,
     pryr,
-    rescale (>= 0.0.0.9000),
+    rescale,
     rjags,
     stringr,
     tibble,
-    timer (>= 0.0.1),
+    timer,
     utils
 Suggests:
-    bauw (>= 0.0.0.9000),
+    bauw,
     ggplot2,
     testthat
-Additional_Repositories: http://poissonconsulting.github.io/drat
+Remotes:
+    poissonconsulting/checkr,
+    poissonconsulting/mcmcr,
+    poissonconsulting/timer,
+    poissonconsulting/rescale,
+    poissonconsulting/bauw,
+    poissonconsulting/mbr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
