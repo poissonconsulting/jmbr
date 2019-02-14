@@ -1,21 +1,34 @@
 #' @export
-sd_priors_by.jmb_code <- function(x, by = 2, ...) {
-  check_scalar(by, c(0.1, 10))
+sd_priors_by.jmb_code <- function(
+  x, by = 10, distributions = c("normal", "lognormal", "t"), ...) {
+  check_scalar(by, c(0.001, 1000))
   check_unused(...)
 
+  check_vector(distributions, c("laplace", "logistic", "lognormal",
+                                "normal", "t", "nt"), unique = TRUE)
+
+  if(!length(distributions)) {
+    wrn("No prior distributions included.")
+    return(x)
+  }
+
   x <- rm_comments(x)
-  x <- gsub(
-    "(~\\s*dl{0,1}norm\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)([)])",
-    str_c("\\1(\\2 * ", by, ")^-2\\6"), x)
-  x <- gsub(
-    "(~\\s*ddexp\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)([)])",
-    str_c("\\1(\\2 * ", by, ")^-2\\6"), x)
-  x <- gsub(
-    "(~\\s*dlogis\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)([)])",
-    str_c("\\1(\\2 * ", by, ")^-2\\6"), x)
-  x <- gsub(
-    "(~\\s*dn{0,1}t\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)(,[^,)]+[)])",
-    str_c("\\1(\\2 * ", by, ")^-2\\6"), x)
+
+  pattern2 <- "\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)([)])"
+  pattern3 <- "\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)(,[^,)]+[)])"
+  replacement <- paste0("\\1(\\2 * ", by, ")^-2\\6")
+  if("laplace" %in% distributions)
+      x <- gsub(paste0("(~\\s*ddexp", pattern2), replacement, x)
+  if("logistic" %in% distributions)
+      x <- gsub(paste0("(~\\s*dlogis", pattern2), replacement, x)
+  if("lognormal" %in% distributions)
+      x <- gsub(paste0("(~\\s*dlnorm", pattern2), replacement, x)
+  if("normal" %in% distributions)
+      x <- gsub(paste0("(~\\s*dnorm", pattern2), replacement, x)
+  if("t" %in% distributions)
+      x <- gsub(paste0("(~\\s*dt", pattern3), replacement, x)
+  if("nt" %in% distributions)
+      x <- gsub(paste0("(~\\s*dnt", pattern3), replacement, x)
 
   mb_code(x)
 }
