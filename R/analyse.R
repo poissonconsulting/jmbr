@@ -62,3 +62,4 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
 
   obj
 }
+
