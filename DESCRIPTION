@@ -1,6 +1,6 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9109
+Version: 0.0.0.9110
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Facilitates analyses using 'Just Another Gibbs Sampler'.
 License: MIT + file LICENSE
@@ -26,18 +26,23 @@ Imports:
     stringr,
     tibble,
     timer,
+    term,
+    nlist,
     utils
 Suggests:
     bauw,
     ggplot2,
     testthat
 Remotes:
+    poissonconsulting/err,
     poissonconsulting/checkr,
     poissonconsulting/mcmcr,
     poissonconsulting/timer,
     poissonconsulting/rescale,
     poissonconsulting/bauw,
-    poissonconsulting/mbr
+    poissonconsulting/mbr,
+    poissonconsulting/term,
+    poissonconsulting/nlist
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
