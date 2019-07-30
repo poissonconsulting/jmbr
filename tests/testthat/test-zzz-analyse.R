@@ -76,12 +76,12 @@ test_that("analyse", {
   expect_identical(ngens(analysis), 4000L)
 
 
-  expect_identical(parameters(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
-  expect_identical(parameters(analysis, "random"), "bSiteYear")
-  expect_identical(parameters(analysis, "derived"), "eDensity")
-  expect_identical(parameters(analysis, "primary"),
+  expect_identical(pars(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
+  expect_identical(pars(analysis, "random"), "bSiteYear")
+  expect_identical(pars(analysis, "derived"), "eDensity")
+  expect_identical(pars(analysis, "primary"),
                    c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "log_sDensity", "log_sSiteYear"))
-  expect_identical(parameters(analysis),
+  expect_identical(pars(analysis),
                    c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "eDensity", "log_sDensity", "log_sSiteYear"))
 
   expect_is(as.mcmcr(analysis), "mcmcr")
