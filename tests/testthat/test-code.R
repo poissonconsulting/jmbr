@@ -39,7 +39,7 @@ test_that("analyse", {
   expect_identical(length(pars(code)), 27L)
 
   expect_error(pars(code, param_type = "primary"))
-  expect_error(pars(code, scalar_only = TRUE))
+  expect_error(pars(code, scalar = TRUE))
 
   code10 <- sd_priors_by(code, 10, distributions = c("logistic", "normal", "lognormal", "t"))
   expect_true(is.jmb_code(code10))
