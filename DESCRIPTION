@@ -28,7 +28,9 @@ Imports:
     timer,
     term,
     nlist,
-    utils
+    utils,
+    universals,
+    extras
 Suggests:
     bauw,
     ggplot2,
@@ -42,7 +44,9 @@ Remotes:
     poissonconsulting/bauw,
     poissonconsulting/mbr,
     poissonconsulting/term,
-    poissonconsulting/nlist
+    poissonconsulting/nlist,
+    poissonconsulting/universals,
+    poissonconsulting/extras
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
