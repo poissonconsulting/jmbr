@@ -3,7 +3,7 @@
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis-CI Build
-Status](https://travis-ci.org/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.org/poissonconsulting/jmbr)
+Status](https://travis-ci.com/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.com/poissonconsulting/jmbr)
 [![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -65,25 +65,28 @@ set_analysis_mode("report")
 
 # analyse
 analysis <- analyse(model, data = data)
+#> Registered S3 method overwritten by 'rjags':
+#>   method               from 
+#>   as.mcmc.list.mcarray mcmcr
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    10  4.62 FALSE
+#> 1    40     5       3    500     1     9  3.41 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    54  1.10 FALSE
+#> 1    40     5       3    500     2    16  4.73 FALSE
 
 coef(analysis)
 #> # A tibble: 5 x 7
-#>   term        estimate     sd  zscore   lower   upper pvalue
-#>   <S3: term>     <dbl>  <dbl>   <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.26   0.0429  99.4    4.18    4.34   0.0007
-#> 2 beta1         1.19   0.0759  15.8    1.06    1.35   0.0007
-#> 3 beta2        -0.0189 0.0321  -0.601 -0.0889  0.0397 0.579 
-#> 4 beta3        -0.272  0.0394  -6.92  -0.349  -0.198  0.0007
-#> 5 log_sAnnual  -2.23   0.332   -6.84  -3.11   -1.74   0.0007
+#>   term        estimate    sd zscore   lower  upper pvalue
+#>   <term>         <dbl> <dbl>  <dbl>   <dbl>  <dbl>  <dbl>
+#> 1 alpha          2.92  1.24   2.44   0.951   4.33  0.0007
+#> 2 beta1          0.985 0.430  1.95  -0.119   1.32  0.148 
+#> 3 beta2          0.170 0.333  0.837 -0.0662  0.859 0.696 
+#> 4 beta3         -0.292 0.147 -2.32  -0.665  -0.132 0.0007
+#> 5 log_sAnnual    0.188 1.44  -0.429 -2.62    1.10  0.969
 
 plot(analysis)
 ```
@@ -93,6 +96,10 @@ plot(analysis)
 ``` r
 # make predictions by varying year with other predictors including the random effect of Annual held constant
 year <- predict(analysis, new_data = "Year")
+#> Warning: The following variables were not in expr and so were dropped from
+#> values: 'nAnnual' and 'nObs'.
+#> Warning: The following parameters were not in expr and so were dropped from
+#> object: 'log_sAnnual', 'sAnnual'.
 
 # plot those predictions
 library(ggplot2)
