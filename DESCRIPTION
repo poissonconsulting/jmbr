@@ -7,14 +7,12 @@ License: MIT + file LICENSE
 URL: https://github.com/poissonconsulting/jmbr
 BugReports: https://github.com/poissonconsulting/jmbr/issues
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.3),
     mbr (>= 0.0.1.9028)
 Imports:
     beepr,
-    dplyr,
     chk,
     generics,
-    lubridate,
     mcmcr,
     plyr,
     rescale,
