@@ -10,15 +10,12 @@ Depends:
     R (>= 3.3),
     mbr (>= 0.0.1.9028)
 Imports:
-    beepr,
     chk,
     generics,
     mcmcr,
     plyr,
     rescale,
     rjags,
-    stringr,
-    tibble,
     timer,
     term,
     nlist,
