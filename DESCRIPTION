@@ -13,8 +13,7 @@ Depends:
 Imports:
     beepr,
     dplyr,
-    err,
-    checkr,
+    chk,
     lubridate,
     magrittr,
     mcmcr,
@@ -36,8 +35,7 @@ Suggests:
     ggplot2,
     testthat
 Remotes:
-    poissonconsulting/err,
-    poissonconsulting/checkr,
+    poissonconsulting/chk,
     poissonconsulting/mcmcr,
     poissonconsulting/timer,
     poissonconsulting/rescale,

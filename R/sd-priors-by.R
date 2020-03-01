@@ -1,11 +1,14 @@
 #' @export
 sd_priors_by.jmb_code <- function(
   x, by = 10, distributions = c("normal", "lognormal", "t"), ...) {
-  check_scalar(by, c(0.001, 1000))
-  check_unused(...)
+  chk_number(by)
+  chk_range(by, c(0.001, 1000))
+  chk_unused(...)
 
-  check_vector(distributions, c("laplace", "logistic", "lognormal",
-                                "normal", "t", "nt"), unique = TRUE)
+  chk_s3_class(distributions, "character")
+  chk_unique(distributions)
+  chk_subset(distributions,  c("laplace", "logistic", "lognormal",
+                                "normal", "t", "nt"))
 
   if(!length(distributions)) {
     wrn("No prior distributions included.")

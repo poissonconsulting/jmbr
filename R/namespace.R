@@ -1,4 +1,4 @@
-#' @import err checkr mcmcr mbr stringr universals extras term nlist
+#' @import chk mcmcr mbr stringr universals extras term nlist
 #' @importFrom broom glance
 #' @importFrom lubridate dminutes dhours is.duration
 #' @importFrom magrittr %<>% %>%

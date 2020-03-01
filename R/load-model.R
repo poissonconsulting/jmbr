@@ -1,6 +1,6 @@
 #' @export
 load_model.jmb_model <- function(x, quiet, ...) {
-  check_flag(quiet)
+  chk_flag(quiet)
 
   rjags::load.module("basemod", quiet = quiet)
   rjags::load.module("bugs", quiet = quiet)
