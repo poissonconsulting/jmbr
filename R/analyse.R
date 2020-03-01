@@ -30,7 +30,7 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
 
   obj <- list(model = model, data = data)
 
-  data %<>% mbr::modify_data(model = model)
+  data <- mbr::modify_data(data, model = model)
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
@@ -50,7 +50,7 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
   mcmc <- lapply(mcmc, function(x) mcmcr::as.mcmcr(lapply(x, mcmcr::as.mcmcarray)))
   mcmc <- Reduce(mcmcr::bind_chains, mcmc)
 
-  obj %<>% c(inits = list(inits),
+  obj <- c(obj, inits = list(inits),
              jags_chains = list(jags_chains),
              mcmcr = list(mcmc),
              nthin = nthin)
