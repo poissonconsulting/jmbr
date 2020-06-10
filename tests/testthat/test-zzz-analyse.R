@@ -49,7 +49,7 @@ test_that("analyse", {
 
   analysis <- analyse(model, data = data)
 
-  expect_equal(data_set(analysis), data)
+  expect_equal(as.data.frame(data_set(analysis)), data)
   data2 <- data_set(analysis, marginalize_random_effects = TRUE)
   expect_true(all(as.integer(data2$Site) == 1L))
   expect_true(all(as.integer(data2$YearFactor) == 1L))
