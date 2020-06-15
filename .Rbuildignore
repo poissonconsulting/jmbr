@@ -8,3 +8,4 @@
 ^LICENSE\.md$
 ^check.R$
 ^codemeta\.json$
+^\.github$
