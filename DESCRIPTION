@@ -25,7 +25,8 @@ Imports:
 Suggests:
     bauw,
     ggplot2,
-    testthat
+    testthat,
+    covr
 Remotes:
     poissonconsulting/chk,
     poissonconsulting/mcmcr,
