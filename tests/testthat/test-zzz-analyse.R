@@ -36,8 +36,11 @@ test_that("analyse", {
 
   new_expr <- "
   for(i in 1:length(Density)) {
-    prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]])
-} "
+    fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
+    log(prediction[i]) <- fit[i]
+    residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
+    resample_residual[i] <- res_lnorm(rlnorm(1, fit[i], exp(log_sDensity)), fit[i], exp(log_sDensity))
+}"
 
   model <- model(jags_template,
                  select_data = list("Year+" = numeric(), YearFactor = factor(),
@@ -114,6 +117,12 @@ test_that("analyse", {
 
   year <- predict(analysis, new_data = "Year")
 
+  ppc <- posterior_predictive_check(analysis)
+
+  expect_is(ppc, "tbl_df")
+  expect_identical(colnames(ppc), c("moment", "observed", "median", "lower", "upper", "svalue"))
+  expect_identical(ppc$moment, structure(1:5, .Label = c("zeros", "mean", "variance", "skewness",
+                                                         "kurtosis"), class = "factor"))
   expect_is(year, "tbl")
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
                                         "Density", "YearFactor",
