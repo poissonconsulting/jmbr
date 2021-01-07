@@ -39,7 +39,7 @@ test_that("analyse", {
     fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
     log(prediction[i]) <- fit[i]
     residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
-    resample_residual[i] <- res_lnorm(rlnorm(1, fit[i], exp(log_sDensity)), fit[i], exp(log_sDensity))
+    resample_residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity), resample = TRUE)
 }"
 
   model <- model(jags_template,
