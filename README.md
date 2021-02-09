@@ -1,10 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis-CI Build
-Status](https://travis-ci.com/poissonconsulting/jmbr.svg?branch=master)](https://travis-ci.com/poissonconsulting/jmbr)
-[![codecov](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![R build
+status](https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/jmbr/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg)](https://doi.org/10.5281/zenodo.1162355)
@@ -68,25 +70,34 @@ analysis <- analyse(model, data = data)
 #> Registered S3 method overwritten by 'rjags':
 #>   method               from 
 #>   as.mcmc.list.mcarray mcmcr
+#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
+
+#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  3.41 FALSE
+#> 1    40     5       3    500     1     9  2.50 FALSE
 analysis <- reanalyse(analysis)
+#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
+
+#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    16  4.73 FALSE
+#> 1    40     5       3    500     2    13  2.23 FALSE
 
 coef(analysis)
+#> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 #> # A tibble: 5 x 7
-#>   term        estimate    sd zscore   lower  upper pvalue
-#>   <term>         <dbl> <dbl>  <dbl>   <dbl>  <dbl>  <dbl>
-#> 1 alpha          2.92  1.24   2.44   0.951   4.33  0.0007
-#> 2 beta1          0.985 0.430  1.95  -0.119   1.32  0.148 
-#> 3 beta2          0.170 0.333  0.837 -0.0662  0.859 0.696 
-#> 4 beta3         -0.292 0.147 -2.32  -0.665  -0.132 0.0007
-#> 5 log_sAnnual    0.188 1.44  -0.429 -2.62    1.10  0.969
+#>   term        estimate    sd zscore  lower upper   pvalue
+#>   <term>         <dbl> <dbl>  <dbl>  <dbl> <dbl>    <dbl>
+#> 1 alpha        4.22    0.703  5.37   2.08  4.36  0.000666
+#> 2 beta1        0.966   0.655  0.899 -0.483 1.34  0.592   
+#> 3 beta2       -0.00264 0.171  0.338 -0.150 0.538 0.972   
+#> 4 beta3       -0.211   0.201 -0.546 -0.348 0.302 0.623   
+#> 5 log_sAnnual -1.63    1.24  -0.902 -2.84  0.771 0.626
 
 plot(analysis)
 ```
@@ -96,10 +107,6 @@ plot(analysis)
 ``` r
 # make predictions by varying year with other predictors including the random effect of Annual held constant
 year <- predict(analysis, new_data = "Year")
-#> Warning: The following variables were not in expr and so were dropped from
-#> values: 'nAnnual' and 'nObs'.
-#> Warning: The following parameters were not in expr and so were dropped from
-#> object: 'log_sAnnual', 'sAnnual'.
 
 # plot those predictions
 library(ggplot2)
@@ -130,24 +137,22 @@ or the Poisson drat
 
 ## Citation
 
-``` 
 
-To cite jmbr in publications use:
+    To cite jmbr in publications use:
 
-  Joe Thorley (2018) jmbr: Analyses Using JAGS. doi:
-  https://doi.org/10.5281/zenodo.1162355.
+      Joe Thorley (2018) jmbr: Analyses Using JAGS. doi:
+      https://doi.org/10.5281/zenodo.1162355.
 
-A BibTeX entry for LaTeX users is
+    A BibTeX entry for LaTeX users is
 
-  @Misc{,
-    author = {Joe Thorley},
-    year = {2018},
-    title = {jmbr: Analyses Using JAGS},
-    doi = {https://doi.org/10.5281/zenodo.1162355},
-  }
+      @Misc{,
+        author = {Joe Thorley},
+        year = {2018},
+        title = {jmbr: Analyses Using JAGS},
+        doi = {https://doi.org/10.5281/zenodo.1162355},
+      }
 
-Please also cite JAGS.
-```
+    Please also cite JAGS.
 
 ## Contribution
 
@@ -157,10 +162,13 @@ Please report any
 [Pull requests](https://github.com/poissonconsulting/jmbr/pulls) are
 always welcome.
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+## Code of Conduct
+
+Please note that the jmbr project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
 
 ## Inspiration
 
-  - [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
+-   [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
