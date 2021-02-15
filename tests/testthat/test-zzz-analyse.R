@@ -1,5 +1,3 @@
-context("analyse")
-
 test_that("analyse", {
   set_analysis_mode("check")
 
