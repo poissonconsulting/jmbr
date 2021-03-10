@@ -70,34 +70,26 @@ analysis <- analyse(model, data = data)
 #> Registered S3 method overwritten by 'rjags':
 #>   method               from 
 #>   as.mcmc.list.mcarray mcmcr
-#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
-
-#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  2.50 FALSE
+#> 1    40     5       3    500     1    10  5.70 FALSE
 analysis <- reanalyse(analysis)
-#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
-
-#> Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    13  2.23 FALSE
+#> 1    40     5       3    500     2    24  1.25 FALSE
 
 coef(analysis)
 #> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 #> # A tibble: 5 x 7
-#>   term        estimate    sd zscore  lower upper   pvalue
-#>   <term>         <dbl> <dbl>  <dbl>  <dbl> <dbl>    <dbl>
-#> 1 alpha        4.22    0.703  5.37   2.08  4.36  0.000666
-#> 2 beta1        0.966   0.655  0.899 -0.483 1.34  0.592   
-#> 3 beta2       -0.00264 0.171  0.338 -0.150 0.538 0.972   
-#> 4 beta3       -0.211   0.201 -0.546 -0.348 0.302 0.623   
-#> 5 log_sAnnual -1.63    1.24  -0.902 -2.84  0.771 0.626
+#>   term        estimate     sd  zscore   lower  upper   pvalue
+#>   <term>         <dbl>  <dbl>   <dbl>   <dbl>  <dbl>    <dbl>
+#> 1 alpha         4.25   0.235  17.8     3.28   4.33   0.000666
+#> 2 beta1         1.20   0.294   3.78    0.122  1.35   0.000666
+#> 3 beta2        -0.0124 0.0854  0.0842 -0.0737 0.316  0.707   
+#> 4 beta3        -0.274  0.0926 -2.71   -0.355  0.0213 0.0819  
+#> 5 log_sAnnual  -2.14   0.641  -3.12   -2.80   0.0571 0.0606
 
 plot(analysis)
 ```
@@ -127,13 +119,6 @@ To install from GitHub
 
     install.packages("devtools")
     devtools::install_github("poissonconsulting/jmbr")
-
-or the Poisson drat
-[Repository](https://github.com/poissonconsulting/drat)
-
-    install.packages("drat")
-    drat::addRepo("poissonconsulting")
-    install.packages("jmbr")
 
 ## Citation
 

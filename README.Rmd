@@ -102,14 +102,6 @@ install.packages("devtools")
 devtools::install_github("poissonconsulting/jmbr")
 ```
 
-or the Poisson drat [Repository](https://github.com/poissonconsulting/drat)
-
-```
-install.packages("drat")
-drat::addRepo("poissonconsulting")
-install.packages("jmbr")
-```
-
 ## Citation
 
 ```{r, comment="", echo=FALSE}
