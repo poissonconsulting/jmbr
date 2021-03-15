@@ -1,15 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
 
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R build
-status](https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/jmbr/actions)
+[![R-CMD-check](https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/jmbr/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg)](https://doi.org/10.5281/zenodo.1162355)
+<!-- badges: end -->
 
 # jmbr
 
@@ -73,23 +74,23 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    10  5.70 FALSE
+#> 1    40     5       3    500     1    21  9.79 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 x 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    24  1.25 FALSE
+#> 1    40     5       3    500     2    56  4.24 FALSE
 
 coef(analysis)
 #> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
 #> # A tibble: 5 x 7
-#>   term        estimate     sd  zscore   lower  upper   pvalue
-#>   <term>         <dbl>  <dbl>   <dbl>   <dbl>  <dbl>    <dbl>
-#> 1 alpha         4.25   0.235  17.8     3.28   4.33   0.000666
-#> 2 beta1         1.20   0.294   3.78    0.122  1.35   0.000666
-#> 3 beta2        -0.0124 0.0854  0.0842 -0.0737 0.316  0.707   
-#> 4 beta3        -0.274  0.0926 -2.71   -0.355  0.0213 0.0819  
-#> 5 log_sAnnual  -2.14   0.641  -3.12   -2.80   0.0571 0.0606
+#>   term        estimate     sd zscore   lower  upper   pvalue
+#>   <term>         <dbl>  <dbl>  <dbl>   <dbl>  <dbl>    <dbl>
+#> 1 alpha         4.25   0.453   9.02   2.66   4.34   0.000666
+#> 2 beta1         1.17   0.426   2.33  -0.0941 1.32   0.134   
+#> 3 beta2        -0.0262 0.0642 -0.623 -0.228  0.0356 0.458   
+#> 4 beta3        -0.258  0.108  -2.06  -0.334  0.0819 0.162   
+#> 5 log_sAnnual  -2.18   1.39   -1.48  -5.38   0.668  0.280
 
 plot(analysis)
 ```
