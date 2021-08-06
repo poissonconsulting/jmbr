@@ -1,7 +1,7 @@
 test_that("analyse", {
   set_analysis_mode("check")
 
-  data <- density99
+  data <- mbr::density99
   data$YearFactor <- factor(data$Year)
 
   jags_template <- "model{
@@ -128,5 +128,5 @@ test_that("analyse", {
   expect_false(is.unsorted(year$estimate))
 
   dd <- mcmc_derive_data(analysis, new_data = c("Site", "Year"), ref_data = TRUE)
-  expect_true(is.mcmc_data(dd))
+  expect_true(mcmcdata::is.mcmc_data(dd))
 })
