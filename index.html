@@ -66,16 +66,16 @@
 
 <div id="jmbr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#jmbr" class="anchor"></a>jmbr</h1></div>
+<a href="#jmbr" class="anchor" aria-hidden="true"></a>jmbr</h1></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h2>
 <p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (<a href="http://mcmc-jags.sourceforge.net" class="external-link"><code>JAGS</code></a>).</p>
 <p>It is part of the <a href="https://github.com/poissonconsulting/mbr" class="external-link">mbr</a> family of packages.</p>
 </div>
 <div id="demonstration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#demonstration" class="anchor"></a>Demonstration</h2>
+<a href="#demonstration" class="anchor" aria-hidden="true"></a>Demonstration</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/poissonconsulting/jmbr" class="external-link">jmbr</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -121,34 +121,26 @@ for (i in 1:length(Pairs)) {
 <span class="co">#&gt; Registered S3 method overwritten by 'rjags':</span>
 <span class="co">#&gt;   method               from </span>
 <span class="co">#&gt;   as.mcmc.list.mcarray mcmcr</span>
-<span class="co">#&gt; Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''</span>
-
-<span class="co">#&gt; Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''</span>
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1    40     5       3    500     1     9  2.50 FALSE</span>
+<span class="co">#&gt; 1    40     5       3    500     1    21  9.79 FALSE</span>
 <span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu">reanalyse</span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span>
-<span class="co">#&gt; Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''</span>
-
-<span class="co">#&gt; Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''</span>
 <span class="co">#&gt; # A tibble: 1 x 8</span>
 <span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1    40     5       3    500     2    13  2.23 FALSE</span>
+<span class="co">#&gt; 1    40     5       3    500     2    56  4.24 FALSE</span>
 
 <span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span>
 <span class="co">#&gt; Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
 <span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;   term        estimate    sd zscore  lower upper   pvalue</span>
-<span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 alpha        4.22    0.703  5.37   2.08  4.36  0.000666</span>
-<span class="co">#&gt; 2 beta1        0.966   0.655  0.899 -0.483 1.34  0.592   </span>
-<span class="co">#&gt; 3 beta2       -0.00264 0.171  0.338 -0.150 0.538 0.972   </span>
-<span class="co">#&gt; 4 beta3       -0.211   0.201 -0.546 -0.348 0.302 0.623   </span>
-<span class="co">#&gt; 5 log_sAnnual -1.63    1.24  -0.902 -2.84  0.771 0.626</span>
+<span class="co">#&gt;   term        estimate     sd zscore   lower  upper   pvalue</span>
+<span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 alpha         4.25   0.453   9.02   2.66   4.34   0.000666</span>
+<span class="co">#&gt; 2 beta1         1.17   0.426   2.33  -0.0941 1.32   0.134   </span>
+<span class="co">#&gt; 3 beta2        -0.0262 0.0642 -0.623 -0.228  0.0356 0.458   </span>
+<span class="co">#&gt; 4 beta3        -0.258  0.108  -2.06  -0.334  0.0819 0.162   </span>
+<span class="co">#&gt; 5 log_sAnnual  -2.18   1.39   -1.48  -5.38   0.668  0.280</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png"><!-- --><img src="tools/README-unnamed-chunk-3-2.png"><!-- --></p>
@@ -169,48 +161,44 @@ for (i in 1:length(Pairs)) {
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
 <p>To install from GitHub</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"poissonconsulting/jmbr"</span>)</span></code></pre></div>
-<p>or the Poisson drat <a href="https://github.com/poissonconsulting/drat" class="external-link">Repository</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">install.packages</span>(<span class="st">"drat"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>drat<span class="op">::</span><span class="kw">addRepo</span>(<span class="st">"poissonconsulting"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">install.packages</span>(<span class="st">"jmbr"</span>)</span></code></pre></div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>To cite jmbr <span class="cf">in</span> publications use<span class="op">:</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span>Joe <span class="kw">Thorley</span> (<span class="dv">2018</span>) jmbr<span class="op">:</span><span class="st"> </span>Analyses Using JAGS. doi<span class="op">:</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span>https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.5281</span><span class="op">/</span>zenodo.<span class="fl">1162355.</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
-<span id="cb6-7"><a href="#cb6-7"></a></span>
-<span id="cb6-8"><a href="#cb6-8"></a>  <span class="op">@</span>Misc{,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>    author =<span class="st"> </span>{Joe Thorley},</span>
-<span id="cb6-10"><a href="#cb6-10"></a>    year =<span class="st"> </span>{<span class="dv">2018</span>},</span>
-<span id="cb6-11"><a href="#cb6-11"></a>    title =<span class="st"> </span>{jmbr<span class="op">:</span><span class="st"> </span>Analyses Using JAGS},</span>
-<span id="cb6-12"><a href="#cb6-12"></a>    doi =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.5281</span><span class="op">/</span>zenodo<span class="fl">.1162355</span>},</span>
-<span id="cb6-13"><a href="#cb6-13"></a>  }</span>
-<span id="cb6-14"><a href="#cb6-14"></a></span>
-<span id="cb6-15"><a href="#cb6-15"></a>Please also cite JAGS.</span></code></pre></div>
+<a href="#citation" class="anchor" aria-hidden="true"></a>Citation</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>To cite jmbr <span class="cf">in</span> publications use<span class="op">:</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span>Joe <span class="kw">Thorley</span> (<span class="dv">2018</span>) jmbr<span class="op">:</span><span class="st"> </span>Analyses Using JAGS. doi<span class="op">:</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span>https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.5281</span><span class="op">/</span>zenodo.<span class="fl">1162355.</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="op">@</span>Misc{,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    author =<span class="st"> </span>{Joe Thorley},</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    year =<span class="st"> </span>{<span class="dv">2018</span>},</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    title =<span class="st"> </span>{jmbr<span class="op">:</span><span class="st"> </span>Analyses Using JAGS},</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    doi =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.5281</span><span class="op">/</span>zenodo<span class="fl">.1162355</span>},</span>
+<span id="cb5-13"><a href="#cb5-13"></a>  }</span>
+<span id="cb5-14"><a href="#cb5-14"></a></span>
+<span id="cb5-15"><a href="#cb5-15"></a>Please also cite JAGS.</span></code></pre></div>
 </div>
 <div id="contribution" class="section level2">
 <h2 class="hasAnchor">
-<a href="#contribution" class="anchor"></a>Contribution</h2>
+<a href="#contribution" class="anchor" aria-hidden="true"></a>Contribution</h2>
 <p>Please report any <a href="https://github.com/poissonconsulting/jmbr/issues" class="external-link">issues</a>.</p>
 <p><a href="https://github.com/poissonconsulting/jmbr/pulls" class="external-link">Pull requests</a> are always welcome.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<a href="#code-of-conduct" class="anchor" aria-hidden="true"></a>Code of Conduct</h2>
 <p>Please note that the jmbr project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 <div id="inspiration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#inspiration" class="anchor"></a>Inspiration</h2>
+<a href="#inspiration" class="anchor" aria-hidden="true"></a>Inspiration</h2>
 <ul>
 <li><a href="https://github.com/poissonconsulting/jaggernaut" class="external-link">jaggernaut</a></li>
 </ul>
@@ -264,7 +252,7 @@ for (i in 1:length(Pairs)) {
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
-<li><a href="https://github.com/poissonconsulting/jmbr/actions" class="external-link"><img src="https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/poissonconsulting/jmbr/actions" class="external-link"><img src="https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/gh/poissonconsulting/jmbr?branch=master" class="external-link"><img src="https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
 <li><a href="https://doi.org/10.5281/zenodo.1162355" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg" alt="DOI"></a></li>
@@ -282,7 +270,7 @@ for (i in 1:length(Pairs)) {
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
