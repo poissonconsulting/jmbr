@@ -118,7 +118,7 @@ test_that("analyse", {
 
   expect_is(ppc, "tbl_df")
   expect_identical(colnames(ppc), c("moment", "observed", "median", "lower", "upper", "svalue"))
-  expect_identical(ppc$moment, structure(1:5, .Label = c("zeros", "mean", "variance", "skewness",
+  expect_identical(ppc$moment, structure(1:4, .Label = c("mean", "variance", "skewness",
                                                          "kurtosis"), class = "factor"))
   expect_is(year, "tbl")
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
