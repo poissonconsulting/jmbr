@@ -1,0 +1,208 @@
+---
+title: "jmbr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{jmbr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+`jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
+
+It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of packages.
+
+## Model
+
+The first part of the model is where priors, random effects and the relationships of interest are set in JAGS.
+
+Example model:
+
+```{r, eval = FALSE}
+model <- model("model {
+# Priors
+  alpha ~ dnorm(0, 10^-2) T(0,)
+  beta1 ~ dnorm(0, 10^-2)
+  beta2 ~ dnorm(0, 10^-2)
+  beta3 ~ dnorm(0, 10^-2)
+
+# Random Effect
+  sAnnual ~ dnorm(0, 10^-2) 
+  for(i in 1:nAnnual) {
+    bAnnual[i] ~ dnorm(0, sAnnual^-2)
+  }
+# Prediction of Interest
+  for (i in 1:length(Pairs)) {
+    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+    Pairs[i] ~ dpois(ePairs[i])
+  }
+}")
+```
+
+- Priors include the mean and SD value, which is converted to precision by doing $SD^-2$.
+- __T(0,)__ Truncates the value at zero. 
+
+### New Expression
+
+The new expression is written in R Code and is used to calculate derived parameters.
+
+```{r, eval = FALSE}
+new_expr = "
+for (i in 1:length(Pairs)) {
+  log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+  
+  fit[i] <- prediction[i] 
+  residual[i] <- res_pois(Pairs[i], fit[i])
+}"
+```
+
+### Modify Data
+
+This section modifies a data frame to the form it will be passed to the analysis code. The modified data is passed in list form.
+
+```{r, eval = FALSE}
+modify_data = function(data) {
+   data <- bauw::peregrine
+   data$Annual <- factor(data$Year)
+   data
+}
+```
+
+### Select Data & Random Effects
+
+Select data is a named list specifying the columns to select and their associated classes and values as well as transformations and scaling options. 
+Random effects gets the random effects definitions for an object as a named list, where `bAnnual` refers to the column name `Annual` in the data.
+
+```{r, eval = FALSE}
+select_data = list("Pairs" = c(15L, 200L), 
+                   "Year*" = 1L,
+                   Annual = factor()),
+random_effects = list(bAnnual = "Annual"),
+```
+
+All parameters in the data that are included in the model must be listed here. 
+- If there are values in the Pairs column outside of the specified range, including NA's, an error is thrown. 
+- `"Year*" = 1L` indicates Year is of class integer.
+
+#### Transformations 
+
+- `Year-` = subtracts the minimum value (the first year) 
+- `Year+` = subtracts the average value (centering)
+- `Year*` = subtracts the average value and divides by the SD (standardizing)
+
+### Initial Values
+
+Initial values of a parameter can be set prior to the analysis as a single argument function taking the modified data and returning a named list of initial values.
+
+Unspecified initial values for each chain are drawn from the prior distributions.
+
+```{r, eval = FALSE}
+gen_inits = function(data) {
+  inits <-  list()
+  inits$ePairs <- data$Pairs + 1
+  inits
+},
+```
+
+### nthin
+
+At the end of the script is where the thinning rate is set, i.e. how much the MCMC chains should be thinned out before storing them. 
+
+Setting `nthin = 1` corresponds to keeping all values.
+
+Setting `nthin = 100` would result in keeping every 100th value and discarding all other values.
+
+```{r, message = FALSE}
+library(jmbr)
+library(mbr)
+```
+```{r, echo = FALSE}
+model <- model("model {
+  alpha ~ dnorm(0, 10^-2)
+  beta1 ~ dnorm(0, 10^-2)
+  beta2 ~ dnorm(0, 10^-2)
+  beta3 ~ dnorm(0, 10^-2)
+
+  log_sAnnual ~ dnorm(0, 10^-2)
+  log(sAnnual) <- log_sAnnual
+
+  for(i in 1:nAnnual) {
+    bAnnual[i] ~ dnorm(0, sAnnual^-2)
+  }
+
+  for (i in 1:length(Pairs)) {
+    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+    Pairs[i] ~ dpois(ePairs[i])
+  }
+}")
+
+model <- update_model(model, new_expr = "
+for (i in 1:length(Pairs)) {
+  log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+}")
+
+model <- update_model(model, 
+  select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
+  derived = "sAnnual",
+  random_effects = list(bAnnual = "Annual"))
+
+data <- bauw::peregrine
+data$Annual <- factor(data$Year)
+```
+
+## Analysis Mode
+
+Analysis mode can be set depending on the desired output.
+
+```{r, eval = FALSE}
+set_analysis_mode("report")
+```
+
+Modes:
+
+- `quick`: To quickly test code runs.
+  - Chains = 2L, Iterations = 10L, Thinning = 1L
+- `report`: To produce results for a report. 
+  - Chains = 3L, Iterations = 500L
+- `paper`: To produce results for a peer-reviewed paper.
+  - Chains = 4L, iterations = 1000L
+
+Iterations = A count of the number of simulations to save per chain.
+Chains = A count of the number of chains.
+
+## Analyse
+
+Analyse or reanalyse the model.
+
+```{r, }
+analysis <- analyse(model, data = data)
+analysis <- reanalyse(analysis)
+
+coef(analysis)
+
+plot(analysis)
+```
+The `zscore` is $mean / sd$.
+
+```{r, message = FALSE}
+# make predictions by varying year with other predictors including the random effect of Annual held constant
+year <- predict(analysis, new_data = "Year")
+
+# plot those predictions
+library(ggplot2)
+
+ggplot(data = year, aes(x = Year, y = estimate)) +
+  geom_point(data = bauw::peregrine, aes(y = Pairs)) +
+  geom_line() +
+  geom_line(aes(y = lower), linetype = "dotted") +
+  geom_line(aes(y = upper), linetype = "dotted") +
+  expand_limits(y = 0)
+```
