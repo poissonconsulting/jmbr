@@ -3,7 +3,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/jmbr/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
@@ -26,6 +26,7 @@ of packages.
 
 ``` r
 library(jmbr)
+library(mbr)
 ```
 
 ``` r
@@ -71,26 +72,28 @@ analysis <- analyse(model, data = data)
 #> Registered S3 method overwritten by 'rjags':
 #>   method               from 
 #>   as.mcmc.list.mcarray mcmcr
-#> # A tibble: 1 x 8
+#> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    21  9.79 FALSE
+#> 1    40     5       3    500     1    22  15.4 FALSE
 analysis <- reanalyse(analysis)
-#> # A tibble: 1 x 8
+#> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    56  4.24 FALSE
+#> 1    40     5       3    500     2    28  1.81 FALSE
 
 coef(analysis)
 #> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
-#> # A tibble: 5 x 7
-#>   term        estimate     sd zscore   lower  upper   pvalue
-#>   <term>         <dbl>  <dbl>  <dbl>   <dbl>  <dbl>    <dbl>
-#> 1 alpha         4.25   0.453   9.02   2.66   4.34   0.000666
-#> 2 beta1         1.17   0.426   2.33  -0.0941 1.32   0.134   
-#> 3 beta2        -0.0262 0.0642 -0.623 -0.228  0.0356 0.458   
-#> 4 beta3        -0.258  0.108  -2.06  -0.334  0.0819 0.162   
-#> 5 log_sAnnual  -2.18   1.39   -1.48  -5.38   0.668  0.280
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+#> # A tibble: 5 × 7
+#>   term        estimate    sd  zscore   lower  upper   pvalue
+#>   <term>         <dbl> <dbl>   <dbl>   <dbl>  <dbl>    <dbl>
+#> 1 alpha         4.26   0.247 17.0     3.24    4.38  0.000666
+#> 2 beta1         1.16   0.346  3.09    0.0627  1.46  0.0233  
+#> 3 beta2        -0.0144 0.121  0.0465 -0.134   0.408 0.699   
+#> 4 beta3        -0.258  0.171 -1.24   -0.435   0.286 0.229   
+#> 5 log_sAnnual  -2.22   0.778 -2.68   -3.71   -0.126 0.0286
 
 plot(analysis)
 ```

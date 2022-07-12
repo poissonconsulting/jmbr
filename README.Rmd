@@ -32,6 +32,7 @@ It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of pack
 
 ```{r, message = FALSE}
 library(jmbr)
+library(mbr)
 ```
 
 ```{r}
