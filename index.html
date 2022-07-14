@@ -128,25 +128,25 @@
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></span>
-<span><span class="co">#&gt; 1    40     5       3    500     1    22  15.4 FALSE</span></span>
+<span><span class="co">#&gt; 1    40     5       3    500     1    10  6.14 FALSE</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mbr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></span>
-<span><span class="co">#&gt; 1    40     5       3    500     2    28  1.81 FALSE</span></span>
+<span><span class="co">#&gt; 1    40     5       3    500     2    72  1.03 FALSE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.</span></span>
 <span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
 <span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
-<span><span class="co">#&gt;   term        estimate    sd  zscore   lower  upper   pvalue</span></span>
-<span><span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 alpha         4.26   0.247 17.0     3.24    4.38  0.000666</span></span>
-<span><span class="co">#&gt; 2 beta1         1.16   0.346  3.09    0.0627  1.46  0.0233  </span></span>
-<span><span class="co">#&gt; 3 beta2        -0.0144 0.121  0.0465 -0.134   0.408 0.699   </span></span>
-<span><span class="co">#&gt; 4 beta3        -0.258  0.171 -1.24   -0.435   0.286 0.229   </span></span>
-<span><span class="co">#&gt; 5 log_sAnnual  -2.22   0.778 -2.68   -3.71   -0.126 0.0286</span></span>
+<span><span class="co">#&gt;   term        estimate     sd  zscore   lower   upper   pvalue</span></span>
+<span><span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 alpha         4.26   0.0385 111.     4.18    4.33   0.000666</span></span>
+<span><span class="co">#&gt; 2 beta1         1.20   0.0647  18.6    1.08    1.33   0.000666</span></span>
+<span><span class="co">#&gt; 3 beta2        -0.0147 0.0295  -0.488 -0.0737  0.0438 0.619   </span></span>
+<span><span class="co">#&gt; 4 beta3        -0.276  0.0325  -8.52  -0.344  -0.215  0.000666</span></span>
+<span><span class="co">#&gt; 5 log_sAnnual  -2.22   0.279   -8.04  -2.86   -1.76   0.000666</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png"><!-- --><img src="tools/README-unnamed-chunk-3-2.png"><!-- --></p>
