@@ -75,25 +75,25 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    22  15.4 FALSE
+#> 1    40     5       3    500     1    10  6.14 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    28  1.81 FALSE
+#> 1    40     5       3    500     2    72  1.03 FALSE
 
 coef(analysis)
 #> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
 #> This warning is displayed once every 8 hours.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 #> # A tibble: 5 × 7
-#>   term        estimate    sd  zscore   lower  upper   pvalue
-#>   <term>         <dbl> <dbl>   <dbl>   <dbl>  <dbl>    <dbl>
-#> 1 alpha         4.26   0.247 17.0     3.24    4.38  0.000666
-#> 2 beta1         1.16   0.346  3.09    0.0627  1.46  0.0233  
-#> 3 beta2        -0.0144 0.121  0.0465 -0.134   0.408 0.699   
-#> 4 beta3        -0.258  0.171 -1.24   -0.435   0.286 0.229   
-#> 5 log_sAnnual  -2.22   0.778 -2.68   -3.71   -0.126 0.0286
+#>   term        estimate     sd  zscore   lower   upper   pvalue
+#>   <term>         <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
+#> 1 alpha         4.26   0.0385 111.     4.18    4.33   0.000666
+#> 2 beta1         1.20   0.0647  18.6    1.08    1.33   0.000666
+#> 3 beta2        -0.0147 0.0295  -0.488 -0.0737  0.0438 0.619   
+#> 4 beta3        -0.276  0.0325  -8.52  -0.344  -0.215  0.000666
+#> 5 log_sAnnual  -2.22   0.279   -8.04  -2.86   -1.76   0.000666
 
 plot(analysis)
 ```
