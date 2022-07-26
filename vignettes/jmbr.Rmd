@@ -238,7 +238,7 @@ The s-value is the __suprisal__ value, which is a measure of directionality with
 The s-value is zero (unsurprising) when _p-value_ = 1.0 and increases exponentially as _p_ approaches zero.  
 
 $$s = -log_2(p-value)$$
-ex.: how surprising it would be to throw 10 heads in 10 coin tosses.
+Example: How surprising it would be to throw 10 heads in 10 coin tosses.
 
 A larger s-value provides more evidence against the null hypothesis and support that the data is in the direction of the posterior.
 
