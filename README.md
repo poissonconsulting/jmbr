@@ -4,12 +4,11 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/jmbr/actions)
+[![R-CMD-check](https://github.com/poissonconsulting/jmbr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/jmbr/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg)](https://doi.org/10.5281/zenodo.1162355)
 <!-- badges: end -->
 
 # jmbr
@@ -75,25 +74,25 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    10  6.14 FALSE
+#> 1    40     5       3    500     1    10  5.61 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    72  1.03 FALSE
+#> 1    40     5       3    500     2    50  5.64 FALSE
 
 coef(analysis)
 #> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+#> ℹ The deprecated feature was likely used in the base package.
+#>   Please report the issue to the authors.
 #> # A tibble: 5 × 7
-#>   term        estimate     sd  zscore   lower   upper   pvalue
-#>   <term>         <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#> 1 alpha         4.26   0.0385 111.     4.18    4.33   0.000666
-#> 2 beta1         1.20   0.0647  18.6    1.08    1.33   0.000666
-#> 3 beta2        -0.0147 0.0295  -0.488 -0.0737  0.0438 0.619   
-#> 4 beta3        -0.276  0.0325  -8.52  -0.344  -0.215  0.000666
-#> 5 log_sAnnual  -2.22   0.279   -8.04  -2.86   -1.76   0.000666
+#>   term        estimate    sd zscore  lower upper   pvalue
+#>   <term>         <dbl> <dbl>  <dbl>  <dbl> <dbl>    <dbl>
+#> 1 alpha         4.21   1.49   2.05   0.745 4.60  0.000666
+#> 2 beta1        -0.539  1.18  -0.168 -1.90  1.29  0.820   
+#> 3 beta2         0.0127 0.543  0.556 -0.375 1.34  0.920   
+#> 4 beta3         0.155  0.299  0.267 -0.324 0.560 0.767   
+#> 5 log_sAnnual  -0.156  1.46  -0.308 -2.75  1.29  0.929
 
 plot(analysis)
 ```
@@ -160,4 +159,4 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Inspiration
 
--   [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
+- [jaggernaut](https://github.com/poissonconsulting/jaggernaut)

@@ -14,10 +14,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/jmbr/actions)
+[![R-CMD-check](https://github.com/poissonconsulting/jmbr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/jmbr/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg)](https://doi.org/10.5281/zenodo.1162355)
 <!-- badges: end -->
 
 # jmbr
