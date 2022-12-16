@@ -7,14 +7,12 @@ License: MIT + file LICENSE
 URL: https://github.com/poissonconsulting/jmbr
 BugReports: https://github.com/poissonconsulting/jmbr/issues
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports:
     chk,
-    generics,
     mbr,
     mcmcr,
     plyr,
-    rescale,
     rjags,
     timer,
     term,
@@ -31,7 +29,6 @@ Suggests:
     rmarkdown
 Remotes:
     poissonconsulting/timer,
-    poissonconsulting/rescale,
     poissonconsulting/bauw,
     poissonconsulting/mbr
 Encoding: UTF-8
