@@ -128,25 +128,25 @@
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></span>
-<span><span class="co">#&gt; 1    40     5       3    500     1    10  6.14 FALSE</span></span>
+<span><span class="co">#&gt; 1    40     5       3    500     1    10  5.61 FALSE</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mbr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></span>
-<span><span class="co">#&gt; 1    40     5       3    500     2    72  1.03 FALSE</span></span>
+<span><span class="co">#&gt; 1    40     5       3    500     2    50  5.64 FALSE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.</span></span>
-<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
-<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
+<span><span class="co">#&gt; ℹ The deprecated feature was likely used in the base package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
-<span><span class="co">#&gt;   term        estimate     sd  zscore   lower   upper   pvalue</span></span>
-<span><span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 alpha         4.26   0.0385 111.     4.18    4.33   0.000666</span></span>
-<span><span class="co">#&gt; 2 beta1         1.20   0.0647  18.6    1.08    1.33   0.000666</span></span>
-<span><span class="co">#&gt; 3 beta2        -0.0147 0.0295  -0.488 -0.0737  0.0438 0.619   </span></span>
-<span><span class="co">#&gt; 4 beta3        -0.276  0.0325  -8.52  -0.344  -0.215  0.000666</span></span>
-<span><span class="co">#&gt; 5 log_sAnnual  -2.22   0.279   -8.04  -2.86   -1.76   0.000666</span></span>
+<span><span class="co">#&gt;   term        estimate    sd zscore  lower upper   pvalue</span></span>
+<span><span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 alpha         4.21   1.49   2.05   0.745 4.60  0.000666</span></span>
+<span><span class="co">#&gt; 2 beta1        -0.539  1.18  -0.168 -1.90  1.29  0.820   </span></span>
+<span><span class="co">#&gt; 3 beta2         0.0127 0.543  0.556 -0.375 1.34  0.920   </span></span>
+<span><span class="co">#&gt; 4 beta3         0.155  0.299  0.267 -0.324 0.560 0.767   </span></span>
+<span><span class="co">#&gt; 5 log_sAnnual  -0.156  1.46  -0.308 -2.75  1.29  0.929</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png"><!-- --><img src="tools/README-unnamed-chunk-3-2.png"><!-- --></p>
@@ -169,27 +169,27 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>To install from GitHub</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"poissonconsulting/jmbr"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"poissonconsulting/jmbr"</span>)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>To cite jmbr <span class="cf">in</span> publications use<span class="op">:</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span>Joe <span class="kw">Thorley</span> (<span class="dv">2018</span>) jmbr<span class="op">:</span><span class="st"> </span>Analyses Using JAGS. doi<span class="op">:</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span>https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.5281</span><span class="op">/</span>zenodo.<span class="fl">1162355.</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a>  <span class="op">@</span>Misc{,</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    author =<span class="st"> </span>{Joe Thorley},</span>
-<span id="cb5-10"><a href="#cb5-10"></a>    year =<span class="st"> </span>{<span class="dv">2018</span>},</span>
-<span id="cb5-11"><a href="#cb5-11"></a>    title =<span class="st"> </span>{jmbr<span class="op">:</span><span class="st"> </span>Analyses Using JAGS},</span>
-<span id="cb5-12"><a href="#cb5-12"></a>    doi =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.5281</span><span class="op">/</span>zenodo<span class="fl">.1162355</span>},</span>
-<span id="cb5-13"><a href="#cb5-13"></a>  }</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a>Please also cite JAGS.</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>To cite jmbr <span class="cf">in</span> publications use<span class="sc">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  Joe <span class="fu">Thorley</span> (<span class="dv">2018</span>) jmbr<span class="sc">:</span> Analyses Using JAGS. doi<span class="sc">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  https<span class="sc">:</span><span class="er">//</span>doi.org<span class="sc">/</span><span class="fl">10.5281</span><span class="sc">/</span>zenodo.<span class="fl">1162355.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="sc">@</span>Misc{,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {Joe Thorley},</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2018</span>},</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {jmbr<span class="sc">:</span> Analyses Using JAGS},</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    doi <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>doi.org<span class="sc">/</span><span class="fl">10.5281</span><span class="sc">/</span>zenodo<span class="fl">.1162355</span>},</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>Please also cite JAGS.</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contribution">Contribution<a class="anchor" aria-label="anchor" href="#contribution"></a>
@@ -205,7 +205,9 @@
 <div class="section level2">
 <h2 id="inspiration">Inspiration<a class="anchor" aria-label="anchor" href="#inspiration"></a>
 </h2>
-<ul><li><a href="https://github.com/poissonconsulting/jaggernaut" class="external-link">jaggernaut</a></li></ul>
+<ul>
+<li><a href="https://github.com/poissonconsulting/jaggernaut" class="external-link">jaggernaut</a></li>
+</ul>
 </div>
 </div>
 
@@ -255,10 +257,9 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/poissonconsulting/jmbr/actions" class="external-link"><img src="https://github.com/poissonconsulting/jmbr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/poissonconsulting/jmbr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/poissonconsulting/jmbr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/gh/poissonconsulting/jmbr?branch=master" class="external-link"><img src="https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
-<li><a href="https://doi.org/10.5281/zenodo.1162355" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1162355.svg" alt="DOI"></a></li>
 </ul>
 </div>
 
@@ -273,7 +274,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

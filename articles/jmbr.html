@@ -63,7 +63,7 @@
 
       
 
-      </header><script src="jmbr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>jmbr</h1>
@@ -79,13 +79,16 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><code>jmbr</code> (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler (<a href="http://mcmc-jags.sourceforge.net" class="external-link"><code>JAGS</code></a>).</p>
-<p>It is part of the <a href="https://github.com/poissonconsulting/mbr" class="external-link">mbr</a> family of packages.</p>
+<p><code>jmbr</code> (pronounced jimber) is an R package to facilitate
+analyses using Just Another Gibbs Sampler (<a href="http://mcmc-jags.sourceforge.net" class="external-link"><code>JAGS</code></a>).</p>
+<p>It is part of the <a href="https://github.com/poissonconsulting/mbr" class="external-link">mbr</a> family of
+packages.</p>
 </div>
 <div class="section level2">
 <h2 id="model">Model<a class="anchor" aria-label="anchor" href="#model"></a>
 </h2>
-<p>The first part of the model is where priors, random effects and the relationships of interest are set in JAGS.</p>
+<p>The first part of the model is where priors, random effects and the
+relationships of interest are set in JAGS.</p>
 <p>Example model:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/poissonconsulting/jmbr" class="external-link">jmbr</a></span><span class="op">)</span></span>
@@ -112,14 +115,16 @@
 <span><span class="st">  }</span></span>
 <span><span class="st">}"</span><span class="op">)</span></span></code></pre></div>
 <ul>
-<li>Priors include the mean and SD value, which is converted to precision by doing <span class="math inline">\(SD^-2\)</span>.</li>
+<li>Priors include the mean and SD value, which is converted to
+precision by doing <span class="math inline">\(SD^-2\)</span>.</li>
 <li>
 <strong>T(0,)</strong> Truncates the value at zero.</li>
 </ul>
 <div class="section level3">
 <h3 id="new-expression">New Expression<a class="anchor" aria-label="anchor" href="#new-expression"></a>
 </h3>
-<p>The new expression is written in R Code and is used to calculate derived parameters.</p>
+<p>The new expression is written in R Code and is used to calculate
+derived parameters.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_expr</span> <span class="op">=</span> <span class="st">"</span></span>
 <span><span class="st">for (i in 1:length(Pairs)) {</span></span>
@@ -132,7 +137,8 @@
 <div class="section level3">
 <h3 id="modify-data">Modify Data<a class="anchor" aria-label="anchor" href="#modify-data"></a>
 </h3>
-<p>This section modifies a data frame to the form it will be passed to the analysis code. The modified data is passed in list form.</p>
+<p>This section modifies a data frame to the form it will be passed to
+the analysis code. The modified data is passed in list form.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modify_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span> <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
@@ -144,42 +150,56 @@
 <div class="section level3">
 <h3 id="select-data-random-effects">Select Data &amp; Random Effects<a class="anchor" aria-label="anchor" href="#select-data-random-effects"></a>
 </h3>
-<p>Select data is a named list specifying the columns to select and their associated classes and values as well as transformations and scaling options. Random effects gets the random effects definitions for an object as a named list, where <code>bAnnual</code> refers to the column name <code>Annual</code> in the data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>select_data =<span class="st"> </span><span class="kw">list</span>(<span class="st">"Pairs"</span> =<span class="st"> </span><span class="kw">c</span>(15L, 200L), </span>
-<span id="cb5-2"><a href="#cb5-2"></a>                   <span class="st">"Year*"</span> =<span class="st"> </span>1L,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                   <span class="dt">Annual =</span> <span class="kw">factor</span>()),</span>
-<span id="cb5-4"><a href="#cb5-4"></a>random_effects =<span class="st"> </span><span class="kw">list</span>(<span class="dt">bAnnual =</span> <span class="st">"Annual"</span>),</span></code></pre></div>
-<p>All parameters in the data that are included in the model must be listed here. - If there are values in the Pairs column outside of the specified range, including NA’s, an error is thrown. - <code>"Year*" = 1L</code> indicates Year is of class integer.</p>
+<p>Select data is a named list specifying the columns to select and
+their associated classes and values as well as transformations and
+scaling options. Random effects gets the random effects definitions for
+an object as a named list, where <code>bAnnual</code> refers to the
+column name <code>Annual</code> in the data.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>select_data <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"Pairs"</span> <span class="ot">=</span> <span class="fu">c</span>(15L, 200L), </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Year*"</span> <span class="ot">=</span> 1L,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Annual =</span> <span class="fu">factor</span>()),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>random_effects <span class="ot">=</span> <span class="fu">list</span>(<span class="at">bAnnual =</span> <span class="st">"Annual"</span>),</span></code></pre></div>
+<p>All parameters in the data that are included in the model must be
+listed here. - If there are values in the Pairs column outside of the
+specified range, including NA’s, an error is thrown. -
+<code>"Year*" = 1L</code> indicates Year is of class integer.</p>
 <div class="section level4">
 <h4 id="transformations">Transformations<a class="anchor" aria-label="anchor" href="#transformations"></a>
 </h4>
 <ul>
 <li>
-<code>Year-</code> = subtracts the minimum value (the first year)</li>
+<code>Year-</code> = subtracts the minimum value (the first
+year)</li>
 <li>
 <code>Year+</code> = subtracts the average value (centering)</li>
 <li>
-<code>Year*</code> = subtracts the average value and divides by the SD (standardizing)</li>
+<code>Year*</code> = subtracts the average value and divides by the
+SD (standardizing)</li>
 </ul>
 </div>
 </div>
 <div class="section level3">
 <h3 id="initial-values">Initial Values<a class="anchor" aria-label="anchor" href="#initial-values"></a>
 </h3>
-<p>Initial values of a parameter can be set prior to the analysis as a single argument function taking the modified data and returning a named list of initial values.</p>
-<p>Unspecified initial values for each chain are drawn from the prior distributions.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>gen_inits =<span class="st"> </span><span class="cf">function</span>(data) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  inits &lt;-<span class="st">  </span><span class="kw">list</span>()</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  inits<span class="op">$</span>ePairs &lt;-<span class="st"> </span>data<span class="op">$</span>Pairs <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  inits</span>
-<span id="cb6-5"><a href="#cb6-5"></a>},</span></code></pre></div>
+<p>Initial values of a parameter can be set prior to the analysis as a
+single argument function taking the modified data and returning a named
+list of initial values.</p>
+<p>Unspecified initial values for each chain are drawn from the prior
+distributions.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gen_inits <span class="ot">=</span> <span class="cf">function</span>(data) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  inits <span class="ot">&lt;-</span>  <span class="fu">list</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  inits<span class="sc">$</span>ePairs <span class="ot">&lt;-</span> data<span class="sc">$</span>Pairs <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  inits</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>},</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="nthin">nthin<a class="anchor" aria-label="anchor" href="#nthin"></a>
 </h3>
-<p>At the end of the script is where the thinning rate is set, i.e. how much the MCMC chains should be thinned out before storing them.</p>
+<p>At the end of the script is where the thinning rate is set, i.e. how
+much the MCMC chains should be thinned out before storing them.</p>
 <p>Setting <code>nthin = 1</code> corresponds to keeping all values.</p>
-<p>Setting <code>nthin = 100</code> would result in keeping every 100th value and discarding all other values.</p>
+<p>Setting <code>nthin = 100</code> would result in keeping every 100th
+value and discarding all other values.</p>
 </div>
 </div>
 <div class="section level2">
@@ -270,12 +290,16 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   204  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   248  1.08 FALSE</span></span>
+<span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
+<span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mbr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   204  1.01 TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    20   454  1.00 TRUE</span></span>
+<span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
+<span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span></code></pre></div>
 <p><strong>Analysis Table:</strong></p>
 <ul>
 <li>
@@ -285,16 +309,21 @@
 <li>
 <strong>nchains:</strong> A count of the number of chains.</li>
 <li>
-<strong>niters:</strong> Number of iterations. A count of the number of simulations to save per chain.</li>
+<strong>niters:</strong> Number of iterations. A count of the number
+of simulations to save per chain.</li>
 <li>
-<strong>ess:</strong> Effective sample size. The number of independent samples with the same estimation power as the <code>n</code> autocorrelated samples.
+<strong>ess:</strong> Effective sample size. The number of
+independent samples with the same estimation power as the <code>n</code>
+autocorrelated samples.
 <ul>
-<li>Measure of how much independent information there is in autocorrelated chains.</li>
+<li>Measure of how much independent information there is in
+autocorrelated chains.</li>
 <li>Doubling the thinning rate doubles the <code>ess</code>.</li>
 </ul>
 </li>
 <li>
-<strong>rhat:</strong> R-hat convergence diagnostic, compares the between- and within-chain estimates for model parameters.
+<strong>rhat:</strong> R-hat convergence diagnostic, compares the
+between- and within-chain estimates for model parameters.
 <ul>
 <li>Evaluates whether the chains agreed on the same values.</li>
 <li>Close to 1 is ideal.</li>
@@ -310,17 +339,17 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   term        estimate     sd  zscore   lower   upper   pvalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26   0.039<span style="text-decoration: underline;">2</span> 109.     4.19    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19   0.071<span style="text-decoration: underline;">5</span>  16.7    1.05    1.34   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">8</span> 0.030<span style="text-decoration: underline;">3</span>  -<span style="color: #BB0000;">0.641</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">7</span>  0.038<span style="text-decoration: underline;">3</span> 0.514   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.273</span>  0.036<span style="text-decoration: underline;">9</span>  -<span style="color: #BB0000;">7.38</span>  -<span style="color: #BB0000;">0.344</span>  -<span style="color: #BB0000;">0.202</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   0.315   -<span style="color: #BB0000;">7.20</span>  -<span style="color: #BB0000;">3.00</span>   -<span style="color: #BB0000;">1.76</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.107  0.031<span style="text-decoration: underline;">1</span>   3.49   0.049<span style="text-decoration: underline;">8</span>  0.173  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26   0.039<span style="text-decoration: underline;">9</span> 107.     4.19    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19   0.070<span style="text-decoration: underline;">6</span>  16.9    1.06    1.34   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">8</span> 0.030<span style="text-decoration: underline;">5</span>  -<span style="color: #BB0000;">0.632</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">3</span>  0.038<span style="text-decoration: underline;">4</span> 0.536   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.270</span>  0.036<span style="text-decoration: underline;">2</span>  -<span style="color: #BB0000;">7.50</span>  -<span style="color: #BB0000;">0.346</span>  -<span style="color: #BB0000;">0.207</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.24</span>   0.337   -<span style="color: #BB0000;">6.75</span>  -<span style="color: #BB0000;">3.06</span>   -<span style="color: #BB0000;">1.75</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.107  0.031<span style="text-decoration: underline;">8</span>   3.40   0.046<span style="text-decoration: underline;">9</span>  0.175  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
 <p>The estimate is the <strong>median</strong> by default.</p>
 <p>The zscore is <span class="math inline">\(mean / sd\)</span>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -329,23 +358,30 @@
 <span><span class="co">#&gt;   term        estimate   lower   upper svalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.19    4.34   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19    1.05    1.34   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">7</span>  0.038<span style="text-decoration: underline;">3</span>  0.961</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.273</span>  -<span style="color: #BB0000;">0.344</span>  -<span style="color: #BB0000;">0.202</span>  10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   -<span style="color: #BB0000;">3.00</span>   -<span style="color: #BB0000;">1.76</span>   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.107   0.049<span style="text-decoration: underline;">8</span>  0.173  10.6</span></span></code></pre></div>
-<p>The s-value is the <strong>suprisal</strong> value, which is a measure of directionality with respect to zero.</p>
-<p>The s-value is zero (unsurprising) when <em>p-value</em> = 1.0 and increases exponentially as <em>p</em> approaches zero.</p>
-<p><span class="math display">\[s = -log_2(p-value)\]</span> Example: How surprising it would be to throw 10 heads in 10 coin tosses.</p>
-<p>A larger s-value provides more evidence against the null hypothesis and support that the data is in the direction of the posterior.</p>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19    1.06    1.34   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">3</span>  0.038<span style="text-decoration: underline;">4</span>  0.899</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.270</span>  -<span style="color: #BB0000;">0.346</span>  -<span style="color: #BB0000;">0.207</span>  10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.24</span>   -<span style="color: #BB0000;">3.06</span>   -<span style="color: #BB0000;">1.75</span>   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.107   0.046<span style="text-decoration: underline;">9</span>  0.175  10.6</span></span></code></pre></div>
+<p>The s-value is the <strong>suprisal</strong> value, which is a
+measure of directionality with respect to zero.</p>
+<p>The s-value is zero (unsurprising) when <em>p-value</em> = 1.0 and
+increases exponentially as <em>p</em> approaches zero.</p>
+<p><span class="math display">\[s = -log_2(p-value)\]</span> Example:
+How surprising it would be to throw 10 heads in 10 coin tosses.</p>
+<p>A larger s-value provides more evidence against the null hypothesis
+and support that the data is in the direction of the posterior.</p>
 </div>
 <div class="section level2">
 <h2 id="predictions">Predictions<a class="anchor" aria-label="anchor" href="#predictions"></a>
 </h2>
 <p>Example prediction:</p>
-<p>Make predictions by varying <code>Year</code> with other predictors, including the random effect of <code>Annual</code> held constant.</p>
+<p>Make predictions by varying <code>Year</code> with other predictors,
+including the random effect of <code>Annual</code> held constant.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">analysis</span>, new_data <span class="op">=</span> <span class="st">"Year"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
+<span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
@@ -359,8 +395,11 @@
 <div class="section level3">
 <h3 id="predict">Predict<a class="anchor" aria-label="anchor" href="#predict"></a>
 </h3>
-<p><code>Predict()</code> queries the model and tells you what the expected number would be for that combination of values specified by <a href="#new-data">new data</a>.</p>
-<p>The example below would calculate the annual number of pairs for a typical number of fledged young of 50 (if <code>Eyasses</code> was a parameter in the model).</p>
+<p><code>Predict()</code> queries the model and tells you what the
+expected number would be for that combination of values specified by <a href="#new-data">new data</a>.</p>
+<p>The example below would calculate the annual number of pairs for a
+typical number of fledged young of 50 (if <code>Eyasses</code> was a
+parameter in the model).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu">new_data</span><span class="op">(</span><span class="va">data</span>, <span class="st">"Year"</span>, ref <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Eyasses <span class="op">=</span> <span class="fl">50L</span><span class="op">)</span>,</span>
 <span>                 obs_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -368,24 +407,32 @@
 <p><strong>Arguments</strong></p>
 <ul>
 <li>
-<strong><code>new_data</code></strong>: Creates a new data frame to calculate the predictions for.</li>
+<strong><code>new_data</code></strong>: Creates a new data frame to
+calculate the predictions for.</li>
 <li>
-<strong><code>ref_data</code></strong>: A data frame with 1 row indicating the reference values for calculating the effects size.
+<strong><code>ref_data</code></strong>: A data frame with 1 row
+indicating the reference values for calculating the effects size.
 <ul>
-<li>This allows you to calculate the average change relative to something else. In this case <code>ref = list(Eyasses = 50L)</code>.</li>
+<li>This allows you to calculate the average change relative to
+something else. In this case
+<code>ref = list(Eyasses = 50L)</code>.</li>
 </ul>
 </li>
 </ul>
 <p>Predict can also take the form:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">analysis</span>, new_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, term <span class="op">=</span> <span class="st">"ePairs"</span><span class="op">)</span></span></code></pre></div>
-<p>Where <strong><code>term</code></strong> calls the string of a term in the <a href="#new-expression">new expression</a> of the model. By default it is the <code>prediction[i]</code>.</p>
+<p>Where <strong><code>term</code></strong> calls the string of a term
+in the <a href="#new-expression">new expression</a> of the model. By
+default it is the <code>prediction[i]</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="new-data">New Data<a class="anchor" aria-label="anchor" href="#new-data"></a>
 </h3>
 <p>Creates a new data frame to be passed to the <a href="#predict">predict</a> function.</p>
-<p>The idea is that most variables are held <strong>constant</strong> at a reference level while the variables of interest <strong>vary</strong> across their range.</p>
+<p>The idea is that most variables are held <strong>constant</strong> at
+a reference level while the variables of interest <strong>vary</strong>
+across their range.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu">new_data</span><span class="op">(</span></span>
 <span>      <span class="va">data</span>, </span>
@@ -396,28 +443,40 @@
 <p><strong>Arguments</strong></p>
 <ul>
 <li>
-<strong><code>seq</code></strong>: The name of columns to vary over. In this example, <code>Year</code>.
+<strong><code>seq</code></strong>: The name of columns to vary over.
+In this example, <code>Year</code>.
 <ul>
-<li>If a factor is named in <code>seq</code> then all levels of the factor are represented.</li>
+<li>If a factor is named in <code>seq</code> then all levels of the
+factor are represented.</li>
 </ul>
 </li>
 <li>
-<strong><code>ref</code></strong>: A named list of reference values for variables not in <code>seq</code>.
+<strong><code>ref</code></strong>: A named list of reference values
+for variables not in <code>seq</code>.
 <ul>
-<li>In this case, it is holding the column <code>Eyasses</code> <strong>constant</strong> at 50L.</li>
+<li>In this case, it is holding the column <code>Eyasses</code>
+<strong>constant</strong> at 50L.</li>
 </ul>
 </li>
 <li>
-<strong><code>obs_only</code></strong>: A list of character vectors indicating the sets of variables to only keep <strong>combinations</strong> for, i.e. combinations that were observed in the data.
+<strong><code>obs_only</code></strong>: A list of character vectors
+indicating the sets of variables to only keep
+<strong>combinations</strong> for, i.e. combinations that were observed
+in the data.
 <ul>
-<li>If <code>obs_only = TRUE</code> then <code>obs_only</code> is set to be <code>seq</code>.</li>
+<li>If <code>obs_only = TRUE</code> then <code>obs_only</code> is set to
+be <code>seq</code>.</li>
 </ul>
 </li>
 <li>
-<strong><code>length_out</code></strong>: A count indicating the length of numeric/integer sequences.
+<strong><code>length_out</code></strong>: A count indicating the
+length of numeric/integer sequences.
 <ul>
-<li>If a factor is named in <code>seq</code> then all levels of the factor are represented (<code>length_out</code> is ignored).</li>
-<li>The exception to this is if the factor is named in <code>obs_only</code>, then only observed factor levels are represented in sequences.</li>
+<li>If a factor is named in <code>seq</code> then all levels of the
+factor are represented (<code>length_out</code> is ignored).</li>
+<li>The exception to this is if the factor is named in
+<code>obs_only</code>, then only observed factor levels are represented
+in sequences.</li>
 </ul>
 </li>
 </ul>
@@ -442,7 +501,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
