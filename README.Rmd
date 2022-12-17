@@ -76,7 +76,7 @@ set_analysis_mode("report")
 analysis <- analyse(model, data = data)
 analysis <- reanalyse(analysis)
 
-coef(analysis)
+coef(analysis, simplify = TRUE)
 
 plot(analysis)
 ```

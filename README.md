@@ -74,25 +74,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    10  5.61 FALSE
+#> 1    40     5       3    500     1    16  13.1 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    50  5.64 FALSE
+#> 1    40     5       3    500     2    24  3.06 FALSE
 
-coef(analysis)
-#> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
-#> ℹ The deprecated feature was likely used in the base package.
-#>   Please report the issue to the authors.
-#> # A tibble: 5 × 7
-#>   term        estimate    sd zscore  lower upper   pvalue
-#>   <term>         <dbl> <dbl>  <dbl>  <dbl> <dbl>    <dbl>
-#> 1 alpha         4.21   1.49   2.05   0.745 4.60  0.000666
-#> 2 beta1        -0.539  1.18  -0.168 -1.90  1.29  0.820   
-#> 3 beta2         0.0127 0.543  0.556 -0.375 1.34  0.920   
-#> 4 beta3         0.155  0.299  0.267 -0.324 0.560 0.767   
-#> 5 log_sAnnual  -0.156  1.46  -0.308 -2.75  1.29  0.929
+coef(analysis, simplify = TRUE)
+#> # A tibble: 5 × 5
+#>   term        estimate   lower  upper svalue
+#>   <term>         <dbl>   <dbl>  <dbl>  <dbl>
+#> 1 alpha         4.24    1.65   4.36   10.6  
+#> 2 beta1         1.20   -0.0724 1.92    3.08 
+#> 3 beta2        -0.0142 -0.302  0.789   0.388
+#> 4 beta3        -0.281  -0.778  0.0792  2.84 
+#> 5 log_sAnnual  -2.04   -2.91   0.849   1.21
 
 plot(analysis)
 ```
