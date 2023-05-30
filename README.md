@@ -74,22 +74,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1    16  13.1 FALSE
+#> 1    40     5       3    500     1     9  5.11 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    24  3.06 FALSE
+#> 1    40     5       3    500     2    44  3.47 FALSE
 
 coef(analysis, simplify = TRUE)
 #> # A tibble: 5 × 5
-#>   term        estimate   lower  upper svalue
-#>   <term>         <dbl>   <dbl>  <dbl>  <dbl>
-#> 1 alpha         4.24    1.65   4.36   10.6  
-#> 2 beta1         1.20   -0.0724 1.92    3.08 
-#> 3 beta2        -0.0142 -0.302  0.789   0.388
-#> 4 beta3        -0.281  -0.778  0.0792  2.84 
-#> 5 log_sAnnual  -2.04   -2.91   0.849   1.21
+#>   term        estimate  lower upper svalue
+#>   <term>         <dbl>  <dbl> <dbl>  <dbl>
+#> 1 alpha         4.25    3.05  4.35  10.6  
+#> 2 beta1         1.16   -1.13  1.33   1.55 
+#> 3 beta2        -0.0160 -0.205 0.419  0.520
+#> 4 beta3        -0.254  -0.338 0.768  1.35 
+#> 5 log_sAnnual  -2.10   -2.82  0.366  1.78
 
 plot(analysis)
 ```
@@ -121,7 +121,6 @@ To install from GitHub
     devtools::install_github("poissonconsulting/jmbr")
 
 ## Citation
-
 
     To cite jmbr in publications use:
 
