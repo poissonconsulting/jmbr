@@ -128,22 +128,22 @@
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></span>
-<span><span class="co">#&gt; 1    40     5       3    500     1    16  13.1 FALSE</span></span>
+<span><span class="co">#&gt; 1    40     5       3    500     1     9  5.11 FALSE</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mbr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;    </span></span>
-<span><span class="co">#&gt; 1    40     5       3    500     2    24  3.06 FALSE</span></span>
+<span><span class="co">#&gt; 1    40     5       3    500     2    44  3.47 FALSE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">analysis</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 5</span></span>
-<span><span class="co">#&gt;   term        estimate   lower  upper svalue</span></span>
-<span><span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 alpha         4.24    1.65   4.36   10.6  </span></span>
-<span><span class="co">#&gt; 2 beta1         1.20   -0.0724 1.92    3.08 </span></span>
-<span><span class="co">#&gt; 3 beta2        -0.0142 -0.302  0.789   0.388</span></span>
-<span><span class="co">#&gt; 4 beta3        -0.281  -0.778  0.0792  2.84 </span></span>
-<span><span class="co">#&gt; 5 log_sAnnual  -2.04   -2.91   0.849   1.21</span></span>
+<span><span class="co">#&gt;   term        estimate  lower upper svalue</span></span>
+<span><span class="co">#&gt;   &lt;term&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 alpha         4.25    3.05  4.35  10.6  </span></span>
+<span><span class="co">#&gt; 2 beta1         1.16   -1.13  1.33   1.55 </span></span>
+<span><span class="co">#&gt; 3 beta2        -0.0160 -0.205 0.419  0.520</span></span>
+<span><span class="co">#&gt; 4 beta3        -0.254  -0.338 0.768  1.35 </span></span>
+<span><span class="co">#&gt; 5 log_sAnnual  -2.10   -2.82  0.366  1.78</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tools/README-unnamed-chunk-3-1.png"><!-- --><img src="tools/README-unnamed-chunk-3-2.png"><!-- --></p>
