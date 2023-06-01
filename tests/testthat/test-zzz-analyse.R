@@ -9,6 +9,11 @@ test_that("analyse", {
   bIntercept ~ dnorm(0, 5^-2)
   bYear ~ dnorm(0, .5^-2) # bYear2 ~ dnorm(0, .5^-2)
 
+  sYearFactor ~ dexp(1)
+  for (i in 1:nYearFactor) {
+    bYearFactor[i] ~ dnorm(0, sYearFactor^-2)
+  }
+
   bHabitatQuality[1] <- 0
   for(i in 2:nHabitatQuality) {
     bHabitatQuality[i] ~ dnorm(0, 5.^-2) T(0,)
@@ -27,14 +32,14 @@ test_that("analyse", {
   }
 
   for(i in 1:length(Density)) {
-    eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
+    eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]] + bYearFactor[YearFactor[i]]
     Density[i] ~ dlnorm(eDensity[i], sDensity^-2)
   }
 }"
 
   new_expr <- "
   for(i in 1:length(Density)) {
-    fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
+    fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]] + bYearFactor[YearFactor[i]]
     log(prediction[i]) <- fit[i]
     residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
 }"
@@ -43,8 +48,9 @@ test_that("analyse", {
                  select_data = list("Year+" = numeric(), YearFactor = factor(),
                                     Site = factor(), Density = numeric(),
                                     HabitatQuality = factor()),
-                 fixed = "^(b|l)", derived = "eDensity",
-                 random_effects = list(bSiteYear = c("Site", "YearFactor")),
+                 fixed = "^(b|l|sYearFactor)", derived = "eDensity",
+                 random_effects = list(bSiteYear = c("Site", "YearFactor"),
+                                       bYearFactor = "YearFactor"),
                  new_expr = new_expr)
 
   analysis <- analyse(model, data = data)
@@ -76,13 +82,13 @@ test_that("analyse", {
   expect_identical(ngens(analysis), 4000L)
 
 
-  expect_identical(pars(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
-  expect_identical(pars(analysis, "random"), "bSiteYear")
+  expect_identical(pars(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear", "sYearFactor")))
+  expect_identical(pars(analysis, "random"), c("bSiteYear", "bYearFactor"))
   expect_identical(pars(analysis, "derived"), "eDensity")
   expect_identical(pars(analysis, "primary"),
-                   c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "log_sDensity", "log_sSiteYear"))
+                   c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "bYearFactor", "log_sDensity", "log_sSiteYear", "sYearFactor"))
   expect_identical(pars(analysis),
-                   c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "eDensity", "log_sDensity", "log_sSiteYear"))
+                   c("bHabitatQuality", "bIntercept", "bSiteYear", "bYear", "bYearFactor", "eDensity", "log_sDensity", "log_sSiteYear", "sYearFactor"))
 
   expect_is(as.mcmcr(analysis), "mcmcr")
 
@@ -91,7 +97,7 @@ test_that("analyse", {
   expect_identical(colnames(glance), c("n", "K", "nchains", "niters", "nthin", "ess", "rhat", "converged"))
   expect_identical(glance$n, 300L)
   expect_identical(glance$nthin, 2L)
-  expect_identical(glance$K, 5L)
+  expect_identical(glance$K, 6L)
 
   derived <- coef(analysis, param_type = "derived", simplify = TRUE)
   expect_identical(colnames(derived), c("term", "estimate", "lower", "upper", "svalue"))
@@ -104,10 +110,11 @@ test_that("analyse", {
 
   expect_identical(coef$term, as.term(c("bHabitatQuality[1]", "bHabitatQuality[2]",
                                 "bIntercept", "bYear",
-                                "log_sDensity", "log_sSiteYear")))
+                                "log_sDensity", "log_sSiteYear",
+                                "sYearFactor")))
 
-  expect_identical(nrow(coef(analysis, "primary", simplify = TRUE)), 66L)
-  expect_identical(nrow(coef(analysis, "all", simplify = TRUE)), 366L)
+  expect_identical(nrow(coef(analysis, "primary", simplify = TRUE)), 77L)
+  expect_identical(nrow(coef(analysis, "all", simplify = TRUE)), 377L)
 
   tidy <- tidy(analysis)
   expect_identical(colnames(tidy), c("term", "estimate", "lower", "upper", "esr", "rhat"))
