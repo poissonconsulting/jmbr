@@ -1,6 +1,6 @@
 #' @export
 sd_priors_by.jmb_code <- function(
-  x, by = 10, distributions = c("normal", "lognormal", "t"), ...) {
+    x, by = 10, distributions = c("normal", "lognormal", "t", "exponential"), ...) {
   chk_number(by)
   chk_range(by, c(0.001, 1000))
   chk_unused(...)
@@ -8,7 +8,7 @@ sd_priors_by.jmb_code <- function(
   chk_s3_class(distributions, "character")
   chk_unique(distributions)
   chk_subset(distributions,  c("laplace", "logistic", "lognormal",
-                                "normal", "t", "nt"))
+                               "normal", "t", "nt", "exponential"))
 
   if(!length(distributions)) {
     wrn("No prior distributions included.")
@@ -17,9 +17,13 @@ sd_priors_by.jmb_code <- function(
 
   x <- rm_comments(x)
 
+  pattern1 <- "\\s*[(]\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*)([)])"
   pattern2 <- "\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)([)])"
   pattern3 <- "\\s*[(][^,)]+,\\s*)((\\d+[.]{0,1}\\d*)|(\\d*[.]{0,1}\\d+))(\\s*\\^\\s*-\\s*2\\s*)(,[^,)]+[)])"
   replacement <- paste0("\\1(\\2 * ", by, ")^-2\\6")
+  replacement_exp <- paste0("\\1\\2 * ", 1 / by, "\\6")
+  if("exponential" %in% distributions)
+      x <- gsub(paste0("(~\\s*dexp", pattern1), replacement_exp, x)
   if("laplace" %in% distributions)
       x <- gsub(paste0("(~\\s*ddexp", pattern2), replacement, x)
   if("logistic" %in% distributions)

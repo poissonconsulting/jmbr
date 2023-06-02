@@ -4,6 +4,11 @@ test_that("analyse", {
   bIntercept ~ dnorm(0, 5^-2)
   bYear ~ dnorm(0, 5^-2)
 
+  sYearFactor ~ dexp(1)
+  for (i in 1:nYearFactor) {
+    bYearFactor[i] ~ dnorm(0, sYearFactor^-2)
+  }
+
   bHabitatQuality[1] <- 0
   for(i in 2:nHabitatQuality) {
     bHabitatQuality[i] ~ dnorm(0, 5^-2)
@@ -29,23 +34,24 @@ test_that("analyse", {
 
   new_expr <- "
   for(i in 1:length(Density)) {
-    prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]])
+    prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]) + bYearFactor[YearFactor[i]]
 } "
 
   model <- model(template,
                  select_data = list("Year+" = numeric(), YearFactor = factor(),
                                     Site = factor(), Density = numeric(),
                                     HabitatQuality = factor()),
-                 fixed = "^(b|l)", derived = "eDensity",
-                 random_effects = list(bSiteYear = c("Site", "YearFactor")),
+                 fixed = "^(b|l|sYearFactor)", derived = "eDensity",
+                 random_effects = list(bSiteYear = c("Site", "YearFactor"),
+                                       bYearFactor = "YearFactor"),
                  new_expr = new_expr)
 
   expect_identical(class(model), c("jmb_model", "mb_model"))
   expect_true(is.jmb_model(model))
 
-  expect_identical(length(pars(model)), 24L)
-  expect_identical(length(pars(model, "fixed")), 22L)
-  expect_identical(length(pars(model, "primary")), 23L)
-  expect_identical(pars(model, "random"), "bSiteYear")
+  expect_identical(length(pars(model)), 27L)
+  expect_identical(length(pars(model, "fixed")), 24L)
+  expect_identical(length(pars(model, "primary")), 26L)
+  expect_identical(pars(model, "random"), c("bSiteYear", "bYearFactor"))
   expect_identical(pars(model, "derived"), "eDensity")
 })
