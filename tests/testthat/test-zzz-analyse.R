@@ -1,7 +1,7 @@
 test_that("analyse", {
-  set_analysis_mode("check")
+  set_analysis_mode("quick")
 
-  data <- mbr::density99
+  data <- embr::density99
   data$YearFactor <- factor(data$Year)
 
   jags_template <- "model{
@@ -47,7 +47,7 @@ test_that("analyse", {
                  random_effects = list(bSiteYear = c("Site", "YearFactor")),
                  new_expr = new_expr)
 
-  analysis <- analyse(model, data = data)
+  expect_output(expect_warning(analysis <- analyse(model, data = data)))
 
   expect_equal(as.data.frame(data_set(analysis)), data)
   data2 <- data_set(analysis, marginalize_random_effects = TRUE)
@@ -63,17 +63,16 @@ test_that("analyse", {
   expect_lt(R2m, 0.01)
 
   expect_identical(class(analysis), c("jmb_analysis", "mb_analysis"))
-  expect_true(is.jmb_analysis(analysis))
 
-  expect_identical(niters(analysis), 500L)
+  expect_identical(niters(analysis), 10L)
   expect_identical(nchains(analysis), 2L)
-  expect_identical(nsims(analysis), 1000L)
-  expect_identical(ngens(analysis), 2000L)
+  expect_identical(nsims(analysis), 20L)
+  expect_identical(ngens(analysis), 40L)
 
-  analysis <- reanalyse(analysis)
+  expect_output(analysis <- reanalyse(analysis))
 
-  expect_identical(niters(analysis), 500L)
-  expect_identical(ngens(analysis), 4000L)
+  expect_identical(niters(analysis), 10L)
+  expect_identical(ngens(analysis), 40L)
 
 
   expect_identical(pars(analysis, "fixed"), sort(c("bHabitatQuality", "bIntercept", "bYear", "log_sDensity", "log_sSiteYear")))
@@ -90,7 +89,7 @@ test_that("analyse", {
   expect_is(glance, "tbl")
   expect_identical(colnames(glance), c("n", "K", "nchains", "niters", "nthin", "ess", "rhat", "converged"))
   expect_identical(glance$n, 300L)
-  expect_identical(glance$nthin, 2L)
+  expect_identical(glance$nthin, 1L)
   expect_identical(glance$K, 5L)
 
   derived <- coef(analysis, param_type = "derived", simplify = TRUE)
@@ -103,8 +102,8 @@ test_that("analyse", {
   expect_identical(colnames(coef), c("term", "estimate", "lower", "upper", "svalue"))
 
   expect_identical(coef$term, as.term(c("bHabitatQuality[1]", "bHabitatQuality[2]",
-                                "bIntercept", "bYear",
-                                "log_sDensity", "log_sSiteYear")))
+                                        "bIntercept", "bYear",
+                                        "log_sDensity", "log_sSiteYear")))
 
   expect_identical(nrow(coef(analysis, "primary", simplify = TRUE)), 66L)
   expect_identical(nrow(coef(analysis, "all", simplify = TRUE)), 366L)
@@ -122,7 +121,7 @@ test_that("analyse", {
                                                          "kurtosis"), class = "factor"))
   expect_is(year, "tbl")
   expect_identical(colnames(year), c("Site", "HabitatQuality", "Year", "Visit",
-                                        "Density", "YearFactor",
+                                     "Density", "YearFactor",
                                      "estimate", "lower", "upper", "svalue"))
   expect_true(all(year$lower < year$estimate))
   expect_false(is.unsorted(year$estimate))
