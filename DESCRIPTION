@@ -10,16 +10,16 @@ Depends:
     R (>= 4.1)
 Imports:
     chk,
-    mbr,
+    embr,
+    extras,
     mcmcr,
+    nlist,
     plyr,
     rjags,
-    timer,
     term,
-    nlist,
-    utils,
+    timer,
     universals,
-    extras
+    utils
 Suggests:
     bauw,
     ggplot2,
@@ -30,7 +30,7 @@ Suggests:
 Remotes:
     poissonconsulting/timer,
     poissonconsulting/bauw,
-    poissonconsulting/mbr
+    poissonconsulting/embr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
