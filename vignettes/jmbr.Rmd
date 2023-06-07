@@ -28,7 +28,7 @@ Example model:
 
 ```{r, message = FALSE}
 library(jmbr)
-library(mbr)
+library(embr)
 ```
 ```{r, eval = FALSE}
 model <- model("model {

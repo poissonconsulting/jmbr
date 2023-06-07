@@ -30,11 +30,11 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
 
   obj <- list(model = model, data = data)
 
-  data <- mbr::modify_data(data, model = model)
+  data <- embr::modify_data(data, model = model)
 
   inits <- inits(data, model$gen_inits, nchains = nchains)
 
-  monitor <- mbr::monitor(model)
+  monitor <- embr::monitor(model)
   monitor <- monitor[!monitor %in% names(data)]
 
   jags_chains <- llply(inits, .fun = jmb_analyse_chain,
