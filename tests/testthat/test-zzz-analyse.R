@@ -164,12 +164,12 @@ test_that("analyse vectorized stand alone character", {
   }
 }"
 
-  new_expr <- mcmcderive::expression_convert("
+  new_expr <- "
   for(i in 1:length(Density)) {
     fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
     log(prediction[i]) <- fit[i]
     residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
-}")
+}"
 
   model <- model(jags_template,
                  select_data = list("Year+" = numeric(), YearFactor = factor(),
@@ -295,12 +295,11 @@ test_that("analyse vectorized embedded expression", {
     Density[i] ~ dlnorm(eDensity[i], sDensity^-2)
   }
 }",
-new_expr = mcmcderive::expression_convert(rlang::expr(
-  for(i in 1:length(Density)) {
+new_expr = for(i in 1:length(Density)) {
     fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
     log(prediction[i]) <- fit[i]
     residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
-  })),
+  },
 select_data = list("Year+" = numeric(), YearFactor = factor(),
                    Site = factor(), Density = numeric(),
                    HabitatQuality = factor()),
