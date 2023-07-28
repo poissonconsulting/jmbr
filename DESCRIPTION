@@ -10,7 +10,7 @@ Depends:
     R (>= 4.1)
 Imports:
     chk,
-    embr (>= 0.0.1.9032),
+    embr (>= 0.0.1.9035),
     extras,
     mcmcr,
     nlist,

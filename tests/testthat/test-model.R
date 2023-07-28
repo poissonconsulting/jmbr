@@ -43,9 +43,9 @@ test_that("analyse", {
   expect_identical(class(model), c("jmb_model", "mb_model"))
   expect_true(is.jmb_model(model))
 
-  expect_identical(length(pars(model)), 24L)
-  expect_identical(length(pars(model, "fixed")), 22L)
-  expect_identical(length(pars(model, "primary")), 23L)
+  expect_identical(length(pars(model)), 9L)
+  expect_identical(length(pars(model, "fixed")), 7L)
+  expect_identical(length(pars(model, "primary")), 8L)
   expect_identical(pars(model, "random"), "bSiteYear")
   expect_identical(pars(model, "derived"), "eDensity")
 })
