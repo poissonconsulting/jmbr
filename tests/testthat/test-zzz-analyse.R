@@ -387,4 +387,14 @@ random_effects = list(bSiteYear = c("Site", "YearFactor")))
 
   dd <- mcmc_derive_data(analysis, new_data = c("Site", "Year"), ref_data = TRUE)
   expect_true(mcmcdata::is.mcmc_data(dd))
+
+  sensitivity <- sd_priors_by(analysis, by = 10, glance = FALSE)
+
+  analyses <- analyses(analysis, sensitivity)
+
+  glance <- glance(analyses, bound = TRUE)
+
+  expect_is(glance, "tbl")
+  expect_identical(nrow(glance), 1L)
+  expect_identical(colnames(glance), c("all",	"analysis",	"sensitivity",	"bound"))
 })
