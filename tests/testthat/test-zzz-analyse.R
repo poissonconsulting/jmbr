@@ -396,5 +396,5 @@ random_effects = list(bSiteYear = c("Site", "YearFactor")))
 
   expect_is(glance, "tbl")
   expect_identical(nrow(glance), 1L)
-  expect_identical(colnames(glance), c("all",	"analysis",	"sensitivity",	"bound"))
+  expect_identical(colnames(glance), c("n", "K", "nchains", "niters", "rhat_1", "rhat_2", "rhat_all", "converged"))
 })
