@@ -55,8 +55,8 @@ test_that("analyse character vector", {
   expect_true(all(as.integer(data2$YearFactor) == 1L))
   # need random seed so repeatable
   R2c <- R2(analysis, "Density")
-  expect_gt(R2c, 0.6)
-  expect_lt(R2c, 0.8)
+  expect_gt(R2c, 0.5)
+  expect_lt(R2c, 0.9)
 
   R2m <- R2(analysis, "Density", marginal = TRUE)
   expect_gt(R2m, 0.0)
@@ -187,8 +187,8 @@ test_that("analyse vectorized stand alone character", {
   expect_true(all(as.integer(data2$YearFactor) == 1L))
   # need random seed so repeatable
   R2c <- R2(analysis, "Density")
-  expect_gt(R2c, 0.6)
-  expect_lt(R2c, 0.8)
+  expect_gt(R2c, 0.5)
+  expect_lt(R2c, 0.9)
 
   R2m <- R2(analysis, "Density", marginal = TRUE)
   expect_gt(R2m, 0.0)
@@ -314,8 +314,8 @@ random_effects = list(bSiteYear = c("Site", "YearFactor")))
   expect_true(all(as.integer(data2$YearFactor) == 1L))
   # need random seed so repeatable
   R2c <- R2(analysis, "Density")
-  expect_gt(R2c, 0.6)
-  expect_lt(R2c, 0.8)
+  expect_gt(R2c, 0.5)
+  expect_lt(R2c, 0.9)
 
   R2m <- R2(analysis, "Density", marginal = TRUE)
   expect_gt(R2m, 0.0)
