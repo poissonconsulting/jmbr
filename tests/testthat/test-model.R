@@ -32,7 +32,7 @@ test_that("analyse", {
     prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]])
 } "
 
-  model <- model(template,
+  model <- model(code = template,
                  select_data = list("Year+" = numeric(), YearFactor = factor(),
                                     Site = factor(), Density = numeric(),
                                     HabitatQuality = factor()),
