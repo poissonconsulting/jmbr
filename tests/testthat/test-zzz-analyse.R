@@ -503,7 +503,6 @@ random_effects = list(bSiteYear = c("Site", "YearFactor")))
   tidy <- tidy(analysis)
   expect_identical(colnames(tidy), c("term", "estimate", "lower", "upper", "esr", "rhat"))
 
-  skip("Vectorization of the above embedded nested expression not working due to  {{ }}")
   year <- predict(analysis, new_data = "Year")
 
   ppc <- posterior_predictive_check(analysis)
