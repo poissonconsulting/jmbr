@@ -1,5 +1,4 @@
 jmb_analyse_chain <- function(inits, loaded, data, monitor, niters, ngens, nthin, quiet) {
-
   capture_output <- if (quiet) function(x) suppressWarnings(capture.output(x)) else eval
 
   capture_output(
@@ -7,8 +6,10 @@ jmb_analyse_chain <- function(inits, loaded, data, monitor, niters, ngens, nthin
   )
 
   niters <- niters * nthin
-  adapted <- rjags::adapt(jags_model, n.iter = floor(niters / 2),
-                          progress.bar = "none", end.adaptation = TRUE)
+  adapted <- rjags::adapt(jags_model,
+    n.iter = floor(niters / 2),
+    progress.bar = "none", end.adaptation = TRUE
+  )
 
   if (!adapted) warning("incomplete adaptation")
 
@@ -16,15 +17,16 @@ jmb_analyse_chain <- function(inits, loaded, data, monitor, niters, ngens, nthin
 
   monitor <- monitor[monitor %in% stats::variable.names(jags_model)]
 
-  jags_samples <- rjags::jags.samples(model = jags_model, variable.names = monitor,
-                                      n.iter = niters, thin = nthin, progress.bar = "none")
+  jags_samples <- rjags::jags.samples(
+    model = jags_model, variable.names = monitor,
+    n.iter = niters, thin = nthin, progress.bar = "none"
+  )
 
   list(jags_model = jags_model, jags_samples = jags_samples)
 }
 
 #' @export
 analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quiet, glance, parallel, ...) {
-
   timer <- timer::Timer$new()
   timer$start()
 
@@ -37,23 +39,27 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
   monitor <- embr::monitor(model)
   monitor <- monitor[!monitor %in% names(data)]
 
-  jags_chains <- llply(inits, .fun = jmb_analyse_chain,
-                       .parallel = parallel,
-                       loaded = loaded,
-                       data = data,
-                       monitor = monitor,
-                       niters = niters,
-                       nthin = nthin,
-                       quiet = quiet)
+  jags_chains <- llply(inits,
+    .fun = jmb_analyse_chain,
+    .parallel = parallel,
+    loaded = loaded,
+    data = data,
+    monitor = monitor,
+    niters = niters,
+    nthin = nthin,
+    quiet = quiet
+  )
 
   mcmc <- llply(jags_chains, function(x) x$jags_samples)
   mcmc <- lapply(mcmc, function(x) mcmcr::as.mcmcr(lapply(x, mcmcr::as.mcmcarray)))
   mcmc <- Reduce(mcmcr::bind_chains, mcmc)
 
-  obj <- c(obj, inits = list(inits),
-             jags_chains = list(jags_chains),
-             mcmcr = list(mcmc),
-             nthin = nthin)
+  obj <- c(obj,
+    inits = list(inits),
+    jags_chains = list(jags_chains),
+    mcmcr = list(mcmc),
+    nthin = nthin
+  )
 
   obj$duration <- timer$elapsed()
   class(obj) <- c("jmb_analysis", "mb_analysis")
@@ -62,4 +68,3 @@ analyse1.jmb_model <- function(model, data, loaded, nchains, niters, nthin, quie
 
   obj
 }
-

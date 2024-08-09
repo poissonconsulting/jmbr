@@ -1,5 +1,4 @@
 test_that("analyse", {
-
   template <- "model{
 
   bIntercept ~ dlogis(0, 5^-2)
@@ -42,12 +41,16 @@ test_that("analyse", {
   code10 <- sd_priors_by(code, 10, distributions = c("logistic", "normal", "lognormal", "t"))
   expect_true(is.jmb_code(code10))
   expect_identical(pars(code10), pars(code))
-  expect_identical(as.character(code10),
-                   "model{\n\n  bIntercept ~ dlogis(0, (5 * 10)^-2)\n  bYear ~ dnorm(0, (.5 * 10)^-2)\n\n  bHabitatQuality[1] <- 0\n  for(i in 2:nHabitatQuality) {\n    bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)\n  }\n\n  log_sSiteYear ~ dlnorm(0, (5 * 10)^-2)\n  log_sDensity ~ dt(0, (5 * 10)^-2, 4.5)\n\n  log(sSiteYear) <- log_sSiteYear\n  log(sDensity) <- log_sDensity\n\n  for(i in 1:nSite) {\n    for(j in 1:nYearFactor) {\n      bSiteYear[i,j] ~ dnorm(0, sSiteYear^-2)\n    }\n  }\n\n  for(i in 1:length(Density)) {\n    eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]\n    Density[i] ~ dlnorm(eDensity[i], sDensity^-2)\n  }\n}")
+  expect_identical(
+    as.character(code10),
+    "model{\n\n  bIntercept ~ dlogis(0, (5 * 10)^-2)\n  bYear ~ dnorm(0, (.5 * 10)^-2)\n\n  bHabitatQuality[1] <- 0\n  for(i in 2:nHabitatQuality) {\n    bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)\n  }\n\n  log_sSiteYear ~ dlnorm(0, (5 * 10)^-2)\n  log_sDensity ~ dt(0, (5 * 10)^-2, 4.5)\n\n  log(sSiteYear) <- log_sSiteYear\n  log(sDensity) <- log_sDensity\n\n  for(i in 1:nSite) {\n    for(j in 1:nYearFactor) {\n      bSiteYear[i,j] ~ dnorm(0, sSiteYear^-2)\n    }\n  }\n\n  for(i in 1:length(Density)) {\n    eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]\n    Density[i] ~ dlnorm(eDensity[i], sDensity^-2)\n  }\n}"
+  )
 
   coder <- sd_priors_by(code, 10, distributions = "normal")
   expect_true(is.jmb_code(coder))
   expect_identical(pars(coder), pars(code))
-  expect_identical(as.character(coder),
-                   "model{\n\n  bIntercept ~ dlogis(0, 5^-2)\n  bYear ~ dnorm(0, (.5 * 10)^-2)\n\n  bHabitatQuality[1] <- 0\n  for(i in 2:nHabitatQuality) {\n    bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)\n  }\n\n  log_sSiteYear ~ dlnorm(0, 5^-2)\n  log_sDensity ~ dt(0, 5^-2, 4.5)\n\n  log(sSiteYear) <- log_sSiteYear\n  log(sDensity) <- log_sDensity\n\n  for(i in 1:nSite) {\n    for(j in 1:nYearFactor) {\n      bSiteYear[i,j] ~ dnorm(0, sSiteYear^-2)\n    }\n  }\n\n  for(i in 1:length(Density)) {\n    eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]\n    Density[i] ~ dlnorm(eDensity[i], sDensity^-2)\n  }\n}")
+  expect_identical(
+    as.character(coder),
+    "model{\n\n  bIntercept ~ dlogis(0, 5^-2)\n  bYear ~ dnorm(0, (.5 * 10)^-2)\n\n  bHabitatQuality[1] <- 0\n  for(i in 2:nHabitatQuality) {\n    bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)\n  }\n\n  log_sSiteYear ~ dlnorm(0, 5^-2)\n  log_sDensity ~ dt(0, 5^-2, 4.5)\n\n  log(sSiteYear) <- log_sSiteYear\n  log(sDensity) <- log_sDensity\n\n  for(i in 1:nSite) {\n    for(j in 1:nYearFactor) {\n      bSiteYear[i,j] ~ dnorm(0, sSiteYear^-2)\n    }\n  }\n\n  for(i in 1:length(Density)) {\n    eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]\n    Density[i] ~ dlnorm(eDensity[i], sDensity^-2)\n  }\n}"
+  )
 })
