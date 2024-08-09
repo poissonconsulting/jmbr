@@ -62,10 +62,11 @@ for (i in 1:length(Pairs)) {
 }")
 
 # define data types and center year
-model <- update_model(model, 
+model <- update_model(model,
   select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
   derived = "sAnnual",
-  random_effects = list(bAnnual = "Annual"))
+  random_effects = list(bAnnual = "Annual")
+)
 
 data <- bauw::peregrine
 data$Annual <- factor(data$Year)
@@ -107,7 +108,7 @@ devtools::install_github("poissonconsulting/jmbr")
 ## Citation
 
 ```{r, comment="", echo=FALSE}
-citation(package = 'jmbr')
+citation(package = "jmbr")
 ```
 
 ## Contribution

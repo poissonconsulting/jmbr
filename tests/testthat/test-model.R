@@ -32,13 +32,17 @@ test_that("analyse", {
     prediction[i] <- exp(bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]])
 } "
 
-  model <- model(code = template,
-                 select_data = list("Year+" = numeric(), YearFactor = factor(),
-                                    Site = factor(), Density = numeric(),
-                                    HabitatQuality = factor()),
-                 fixed = "^(b|l)", derived = "eDensity",
-                 random_effects = list(bSiteYear = c("Site", "YearFactor")),
-                 new_expr = new_expr)
+  model <- model(
+    code = template,
+    select_data = list(
+      "Year+" = numeric(), YearFactor = factor(),
+      Site = factor(), Density = numeric(),
+      HabitatQuality = factor()
+    ),
+    fixed = "^(b|l)", derived = "eDensity",
+    random_effects = list(bSiteYear = c("Site", "YearFactor")),
+    new_expr = new_expr
+  )
 
   expect_identical(class(model), c("jmb_model", "mb_model"))
   expect_true(is.jmb_model(model))
