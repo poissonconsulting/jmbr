@@ -300,14 +300,14 @@ value and discarding all other values.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   292  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   262  1.12 FALSE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/embr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   292  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    20   465  1.01 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span></code></pre></div>
 <p><strong>Analysis Table:</strong></p>
@@ -357,12 +357,12 @@ between- and within-chain estimates for model parameters.
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   term        estimate     sd  zscore   lower   upper   pvalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26   0.039<span style="text-decoration: underline;">9</span> 107.     4.18    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20   0.075<span style="text-decoration: underline;">9</span>  15.8    1.06    1.35   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">3</span> 0.030<span style="text-decoration: underline;">1</span>  -<span style="color: #BB0000;">0.607</span> -<span style="color: #BB0000;">0.076</span><span style="color: #BB0000; text-decoration: underline;">1</span>  0.038<span style="text-decoration: underline;">8</span> 0.540   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.274</span>  0.038<span style="text-decoration: underline;">7</span>  -<span style="color: #BB0000;">7.13</span>  -<span style="color: #BB0000;">0.354</span>  -<span style="color: #BB0000;">0.200</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   0.310   -<span style="color: #BB0000;">7.28</span>  -<span style="color: #BB0000;">2.99</span>   -<span style="color: #BB0000;">1.73</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.108  0.031<span style="text-decoration: underline;">1</span>   3.52   0.050<span style="text-decoration: underline;">3</span>  0.177  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26   0.039<span style="text-decoration: underline;">7</span> 107.     4.18    4.33   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20   0.073<span style="text-decoration: underline;">1</span>  16.5    1.07    1.36   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.016</span><span style="color: #BB0000; text-decoration: underline;">0</span> 0.030<span style="text-decoration: underline;">6</span>  -<span style="color: #BB0000;">0.529</span> -<span style="color: #BB0000;">0.078</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.044<span style="text-decoration: underline;">0</span> 0.576   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.276</span>  0.037<span style="text-decoration: underline;">4</span>  -<span style="color: #BB0000;">7.44</span>  -<span style="color: #BB0000;">0.354</span>  -<span style="color: #BB0000;">0.210</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.21</span>   0.294   -<span style="color: #BB0000;">7.59</span>  -<span style="color: #BB0000;">2.90</span>   -<span style="color: #BB0000;">1.77</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.110  0.029<span style="text-decoration: underline;">9</span>   3.72   0.055<span style="text-decoration: underline;">0</span>  0.171  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
 <p>The estimate is the <strong>median</strong> by default.</p>
 <p>The zscore is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>e</mi><mi>a</mi><mi>n</mi><mi>/</mi><mi>s</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mean / sd</annotation></semantics></math>.</p>
@@ -371,12 +371,12 @@ between- and within-chain estimates for model parameters.
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   term        estimate   lower   upper svalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.18    4.34   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20    1.06    1.35   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.076</span><span style="color: #BB0000; text-decoration: underline;">1</span>  0.038<span style="text-decoration: underline;">8</span>  0.888</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.274</span>  -<span style="color: #BB0000;">0.354</span>  -<span style="color: #BB0000;">0.200</span>  10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   -<span style="color: #BB0000;">2.99</span>   -<span style="color: #BB0000;">1.73</span>   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.108   0.050<span style="text-decoration: underline;">3</span>  0.177  10.6</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.18    4.33   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20    1.07    1.36   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.016</span><span style="color: #BB0000; text-decoration: underline;">0</span> -<span style="color: #BB0000;">0.078</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.044<span style="text-decoration: underline;">0</span>  0.795</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.276</span>  -<span style="color: #BB0000;">0.354</span>  -<span style="color: #BB0000;">0.210</span>  10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.21</span>   -<span style="color: #BB0000;">2.90</span>   -<span style="color: #BB0000;">1.77</span>   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.110   0.055<span style="text-decoration: underline;">0</span>  0.171  10.6</span></span></code></pre></div>
 <p>The s-value is the <strong>suprisal</strong> value, which is a
 measure of directionality with respect to zero.</p>
 <p>The s-value is zero (unsurprising) when <em>p-value</em> = 1.0 and
@@ -514,7 +514,7 @@ in sequences.</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
       </footer>
