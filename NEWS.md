@@ -1,5 +1,28 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9115 (2024-08-10)
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/poissonconsulting/jmbr/actions/runs/10326788569
+
+## Continuous integration
+
+- Use workflows from actions-sync.
+
+- Sync rcc workflows.
+
+- Sync pkgdown workflows.
+
+- Sync codecov workflows.
+
+## Uncategorized
+
+- Merge pull request #22 from poissonconsulting/f-style.
+
+
 # jmbr 0.0.0.9114 (2023-10-02)
 
 ## Bug fixes
