@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9116 (2024-08-11)
+
+## Continuous integration
+
+- Fix edge case of no suggested packages.
+
+
 # jmbr 0.0.0.9115 (2024-08-10)
 
 ## Chore
