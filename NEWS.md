@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9117 (2024-08-17)
+
+## Continuous integration
+
+- Sync with latest developments.
+
+
 # jmbr 0.0.0.9116 (2024-08-11)
 
 ## Continuous integration
