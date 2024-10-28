@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9120 (2024-10-28)
+
+## Continuous integration
+
+  - Trigger run (#26).
+
+  - Use pkgdown branch (#25).
+    
+      - ci: Use pkgdown branch
+    
+      - ci: Updates from duckdb
+
+
 # jmbr 0.0.0.9119 (2024-09-15)
 
 ## Continuous integration
