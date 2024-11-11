@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9122 (2024-11-11)
+
+## Continuous integration
+
+  - Trigger run (#27).
+    
+      - ci: Trigger run
+    
+      - ci: Latest changes
+
+
 # jmbr 0.0.0.9121 (2024-11-02)
 
   - Internal changes only.
