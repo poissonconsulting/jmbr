@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9124 (2024-11-22)
+
+## Continuous integration
+
+  - Correctly detect branch protection (#29).
+
+
 # jmbr 0.0.0.9123 (2024-11-18)
 
 ## Continuous integration
