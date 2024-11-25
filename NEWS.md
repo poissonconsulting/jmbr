@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9125 (2024-11-25)
+
+## Continuous integration
+
+- Need to install R on Ubuntu 24.04 (#33).
+
+- Use Ubuntu 24.04 and styler PR (#31).
+
+
 # jmbr 0.0.0.9124 (2024-11-22)
 
 ## Continuous integration
