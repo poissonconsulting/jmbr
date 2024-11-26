@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9126 (2024-11-26)
+
+## Continuous integration
+
+- Use styler from main branch (#34).
+
+
 # jmbr 0.0.0.9125 (2024-11-25)
 
 ## Continuous integration
