@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9127 (2024-11-27)
+
+## Continuous integration
+
+- Explicit permissions (#35).
+
+- Download JAGS on Windows follows HTTP redirects (#24, #30).
+
+
 # jmbr 0.0.0.9126 (2024-11-26)
 
 ## Continuous integration
