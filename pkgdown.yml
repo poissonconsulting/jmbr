@@ -1,6 +1,6 @@
 pandoc: 3.1.11
 pkgdown: 2.1.1.9000
-pkgdown_sha: dd777ee8e3be5777a067d71940989b9a9982b2be
+pkgdown_sha: dfa28bef27858bd442334b5cce8f645d555914be
 articles:
   jmbr: jmbr.html
-last_built: 2024-11-26T18:53Z
+last_built: 2024-12-07T07:13Z
