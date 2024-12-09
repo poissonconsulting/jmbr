@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9129 (2024-12-09)
+
+## Continuous integration
+
+- Avoid failure in fledge workflow if no changes (#37).
+
+
 # jmbr 0.0.0.9128 (2024-12-08)
 
 ## Continuous integration
