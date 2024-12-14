@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9130 (2024-12-14)
+
+## Continuous integration
+
+- Update macOS installation to avoid failures (#39).
+
+- Update locking workflow to avoid failures (#38).
+
+
 # jmbr 0.0.0.9129 (2024-12-09)
 
 ## Continuous integration
