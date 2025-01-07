@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9132 (2025-01-07)
+
+## Continuous integration
+
+- Check if rjags can be loaded (#43).
+
+
 # jmbr 0.0.0.9131 (2024-12-22)
 
 - Updated to testthat3 (#40).
