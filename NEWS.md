@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9133 (2025-01-08)
+
+## fledge
+
+- Bump version to 0.0.0.9132 (#44).
+
+
 # jmbr 0.0.0.9132 (2025-01-07)
 
 ## Continuous integration
