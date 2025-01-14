@@ -42,3 +42,4 @@ LazyData: true
 RoxygenNote: 7.3.2.9000
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Config/Needs/website: poissonconsulting/poissontemplate
