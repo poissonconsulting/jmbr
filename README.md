@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
@@ -8,7 +7,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 <!-- badges: end -->
 
 # jmbr
@@ -23,95 +22,124 @@ of packages.
 
 ## Demonstration
 
-``` r
-library(jmbr)
-library(mbr)
-```
+    library(jmbr)
+    library(mbr)
 
-``` r
-# define model in JAGS language
-model <- model("model {
-  alpha ~ dnorm(0, 10^-2)
-  beta1 ~ dnorm(0, 10^-2)
-  beta2 ~ dnorm(0, 10^-2)
-  beta3 ~ dnorm(0, 10^-2)
+    # define model in JAGS language
+    model <- model("model {
+      alpha ~ dnorm(0, 10^-2)
+      beta1 ~ dnorm(0, 10^-2)
+      beta2 ~ dnorm(0, 10^-2)
+      beta3 ~ dnorm(0, 10^-2)
 
-  log_sAnnual ~ dnorm(0, 10^-2)
-  log(sAnnual) <- log_sAnnual
+      log_sAnnual ~ dnorm(0, 10^-2)
+      log(sAnnual) <- log_sAnnual
 
-  for(i in 1:nAnnual) {
-    bAnnual[i] ~ dnorm(0, sAnnual^-2)
-  }
+      for(i in 1:nAnnual) {
+        bAnnual[i] ~ dnorm(0, sAnnual^-2)
+      }
 
-  for (i in 1:length(Pairs)) {
-    log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
-    Pairs[i] ~ dpois(ePairs[i])
-  }
-}")
+      for (i in 1:length(Pairs)) {
+        log(ePairs[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+        Pairs[i] ~ dpois(ePairs[i])
+      }
+    }")
+    #> Warning: The `x` argument of `model()` character() as of embr 0.0.1.9036.
+    #> ℹ Please use the `code` argument instead.
+    #> ℹ Passing a string to model() is deprecated. Use model(code = ...) or model(mb_code("..."), ...) instead.
+    #> This warning is displayed once every 8 hours.
+    #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 
-# add R code to calculate derived parameters
-model <- update_model(model, new_expr = "
-for (i in 1:length(Pairs)) {
-  log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
-}")
+    # add R code to calculate derived parameters
+    model <- update_model(model, new_expr = "
+    for (i in 1:length(Pairs)) {
+      log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
+    }")
 
-# define data types and center year
-model <- update_model(model, 
-  select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
-  derived = "sAnnual",
-  random_effects = list(bAnnual = "Annual"))
+    # define data types and center year
+    model <- update_model(model,
+      select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
+      derived = "sAnnual",
+      random_effects = list(bAnnual = "Annual")
+    )
 
-data <- bauw::peregrine
-data$Annual <- factor(data$Year)
+    data <- bauw::peregrine
+    data$Annual <- factor(data$Year)
 
-set_analysis_mode("report")
+    set_analysis_mode("report")
 
-# analyse
-analysis <- analyse(model, data = data)
-#> Registered S3 method overwritten by 'rjags':
-#>   method               from 
-#>   as.mcmc.list.mcarray mcmcr
-#> # A tibble: 1 × 8
-#>       n     K nchains niters nthin   ess  rhat converged
-#>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  5.11 FALSE
-analysis <- reanalyse(analysis)
-#> # A tibble: 1 × 8
-#>       n     K nchains niters nthin   ess  rhat converged
-#>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    44  3.47 FALSE
+    # analyse
+    analysis <- analyse(model, data = data)
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = ans): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = variable.names[type == t]): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = ans): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = variable.names[type == t]): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = ans): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = variable.names[type == t]): partial argument match of 'along' to 'along.with'
+    #> # A tibble: 1 × 8
+    #>       n     K nchains niters nthin   ess  rhat converged
+    #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
+    #> 1    40     5       3    500     1     9  7.54 FALSE
+    analysis <- reanalyse(analysis)
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = ans): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = variable.names[type == t]): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = ans): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = variable.names[type == t]): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = ans): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = varnames): partial argument match of 'along' to 'along.with'
+    #> Warning in seq.default(along = variable.names[type == t]): partial argument match of 'along' to 'along.with'
+    #> # A tibble: 1 × 8
+    #>       n     K nchains niters nthin   ess  rhat converged
+    #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
+    #> 1    40     5       3    500     2    24  3.58 FALSE
 
-coef(analysis, simplify = TRUE)
-#> # A tibble: 5 × 5
-#>   term        estimate  lower upper svalue
-#>   <term>         <dbl>  <dbl> <dbl>  <dbl>
-#> 1 alpha         4.25    3.05  4.35  10.6  
-#> 2 beta1         1.16   -1.13  1.33   1.55 
-#> 3 beta2        -0.0160 -0.205 0.419  0.520
-#> 4 beta3        -0.254  -0.338 0.768  1.35 
-#> 5 log_sAnnual  -2.10   -2.82  0.366  1.78
+    coef(analysis, simplify = TRUE)
+    #> # A tibble: 5 × 5
+    #>   term        estimate   lower upper  svalue
+    #>   <term>         <dbl>   <dbl> <dbl>   <dbl>
+    #> 1 alpha        4.23     2.37   4.34  10.6   
+    #> 2 beta1        1.15    -0.790  1.35   0.775 
+    #> 3 beta2       -0.00247 -0.0971 0.594  0.0529
+    #> 4 beta3       -0.246   -0.355  0.551  0.500 
+    #> 5 log_sAnnual -1.88    -2.73   0.657  1.01
 
-plot(analysis)
-```
+    plot(analysis)
+    #> Warning in rep(col, length = nchain(x)): partial argument match of 'length' to 'length.out'
+    #> Warning in rep(col, length = nchain(x)): partial argument match of 'length' to 'length.out'
+    #> Warning in rep(col, length = nchain(x)): partial argument match of 'length' to 'length.out'
 
-![](tools/README-unnamed-chunk-3-1.png)<!-- -->![](tools/README-unnamed-chunk-3-2.png)<!-- -->
+![](tools/README-unnamed-chunk-3-1.png)
 
-``` r
-# make predictions by varying year with other predictors including the random effect of Annual held constant
-year <- predict(analysis, new_data = "Year")
+    #> Warning in rep(col, length = nchain(x)): partial argument match of 'length' to 'length.out'
+    #> Warning in rep(col, length = nchain(x)): partial argument match of 'length' to 'length.out'
 
-# plot those predictions
-library(ggplot2)
+![](tools/README-unnamed-chunk-3-2.png)
 
-ggplot(data = year, aes(x = Year, y = estimate)) +
-  geom_point(data = bauw::peregrine, aes(y = Pairs)) +
-  geom_line() +
-  geom_line(aes(y = lower), linetype = "dotted") +
-  geom_line(aes(y = upper), linetype = "dotted") +
-  expand_limits(y = 0)
-```
+    # make predictions by varying year with other predictors including the random effect of Annual held constant
+    year <- predict(analysis, new_data = "Year")
 
-![](tools/README-unnamed-chunk-4-1.png)<!-- -->
+    # plot those predictions
+    library(ggplot2)
+
+    ggplot(data = year, aes(x = Year, y = estimate)) +
+      geom_point(data = bauw::peregrine, aes(y = Pairs)) +
+      geom_line() +
+      geom_line(aes(y = lower), linetype = "dotted") +
+      geom_line(aes(y = upper), linetype = "dotted") +
+      expand_limits(y = 0)
+
+![](tools/README-unnamed-chunk-4-1.png)
 
 ## Installation
 
@@ -124,8 +152,7 @@ To install from GitHub
 
     To cite jmbr in publications use:
 
-      Joe Thorley (2018) jmbr: Analyses Using JAGS. doi:
-      https://doi.org/10.5281/zenodo.1162355.
+      Joe Thorley (2018) jmbr: Analyses Using JAGS. doi: https://doi.org/10.5281/zenodo.1162355.
 
     A BibTeX entry for LaTeX users is
 
@@ -155,4 +182,4 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Inspiration
 
-- [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
+-   [jaggernaut](https://github.com/poissonconsulting/jaggernaut)
