@@ -328,7 +328,7 @@ test_that("analyse vectorized embedded expression", {
     Density[i] ~ dlnorm(eDensity[i], sDensity^-2)
   }
 }",
-    new_expr = for (i in seq_along(Density)) {
+    new_expr = for (i in 1:length(Density)) {
       fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
       log(prediction[i]) <- fit[i]
       residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
@@ -482,7 +482,7 @@ test_that("analyse vectorized embedded nested expression", {
   }
 }",
     new_expr = {
-      for (i in seq_along(Density)) {
+      for (i in 1:length(Density)) {
         fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
         log(prediction[i]) <- fit[i]
         residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
@@ -621,13 +621,13 @@ test_that("analyse full nimble notation vectorized embedded nested expression", 
         }
       }
 
-      for (i in seq_along(Density)) {
+      for (i in 1:length(Density)) {
         eDensity[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
         Density[i] ~ dlnorm(eDensity[i], sd = sDensity)
       }
     },
     new_expr = {
-      for (i in seq_along(Density)) {
+      for (i in 1:length(Density)) {
         fit[i] <- bIntercept + bYear * Year[i] + bHabitatQuality[HabitatQuality[i]] + bSiteYear[Site[i], YearFactor[i]]
         log(prediction[i]) <- fit[i]
         residual[i] <- res_lnorm(Density[i], fit[i], exp(log_sDensity))
