@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9134 (2025-02-12)
+
+## Bug fixes
+
+- Get JAGS from GitHub (#45, #48).
+
+
 # jmbr 0.0.0.9133 (2025-01-08)
 
 ## fledge
