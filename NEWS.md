@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9135 (2025-02-13)
+
+## Continuous integration
+
+- Fix if ggplot2 is not installed (#50).
+
+
 # jmbr 0.0.0.9134 (2025-02-12)
 
 ## Bug fixes
