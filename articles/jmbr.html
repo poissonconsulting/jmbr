@@ -285,14 +285,14 @@ value and discarding all other values.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   255  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   255  1.04 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/embr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   255  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   255  1.04 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span></code></pre></div>
 <p><strong>Analysis Table:</strong></p>
@@ -328,7 +328,7 @@ between- and within-chain estimates for model parameters.
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
-<p><img src="jmbr_files/figure-html/unnamed-chunk-11-1.png" width="700"><img src="jmbr_files/figure-html/unnamed-chunk-11-2.png" width="700"></p>
+<p><img src="jmbr_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" width="700"><img src="jmbr_files/figure-html/unnamed-chunk-11-2.png" class="r-plt" width="700"></p>
 <p><strong>Coefficient Table</strong></p>
 <p>Summary table of the posterior probability distribution.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -342,12 +342,12 @@ between- and within-chain estimates for model parameters.
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   term        estimate     sd  zscore   lower   upper   pvalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26   0.039<span style="text-decoration: underline;">3</span> 109.     4.19    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20   0.072<span style="text-decoration: underline;">8</span>  16.5    1.07    1.35   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.017</span><span style="color: #BB0000; text-decoration: underline;">5</span> 0.030<span style="text-decoration: underline;">4</span>  -<span style="color: #BB0000;">0.584</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.040<span style="text-decoration: underline;">5</span> 0.566   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.274</span>  0.036<span style="text-decoration: underline;">8</span>  -<span style="color: #BB0000;">7.48</span>  -<span style="color: #BB0000;">0.352</span>  -<span style="color: #BB0000;">0.207</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.22</span>   0.291   -<span style="color: #BB0000;">7.72</span>  -<span style="color: #BB0000;">2.87</span>   -<span style="color: #BB0000;">1.72</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.109  0.030<span style="text-decoration: underline;">8</span>   3.59   0.056<span style="text-decoration: underline;">9</span>  0.179  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.27   0.040<span style="text-decoration: underline;">5</span> 105.     4.18    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.18   0.076<span style="text-decoration: underline;">9</span>  15.5    1.05    1.35   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">6</span> 0.031<span style="text-decoration: underline;">3</span>  -<span style="color: #BB0000;">0.595</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">4</span>  0.042<span style="text-decoration: underline;">8</span> 0.548   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.268</span>  0.039<span style="text-decoration: underline;">1</span>  -<span style="color: #BB0000;">6.91</span>  -<span style="color: #BB0000;">0.352</span>  -<span style="color: #BB0000;">0.197</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   0.345   -<span style="color: #BB0000;">6.60</span>  -<span style="color: #BB0000;">3.12</span>   -<span style="color: #BB0000;">1.71</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.108  0.033<span style="text-decoration: underline;">1</span>   3.28   0.044<span style="text-decoration: underline;">1</span>  0.181  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
 <p>The estimate is the <strong>median</strong> by default.</p>
 <p>The zscore is <span class="math inline">mean / sd</span>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -355,12 +355,12 @@ between- and within-chain estimates for model parameters.
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   term        estimate   lower   upper svalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.19    4.34   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20    1.07    1.35   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.017</span><span style="color: #BB0000; text-decoration: underline;">5</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.040<span style="text-decoration: underline;">5</span>  0.822</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.274</span>  -<span style="color: #BB0000;">0.352</span>  -<span style="color: #BB0000;">0.207</span>  10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.22</span>   -<span style="color: #BB0000;">2.87</span>   -<span style="color: #BB0000;">1.72</span>   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.109   0.056<span style="text-decoration: underline;">9</span>  0.179  10.6</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.27    4.18    4.34   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.18    1.05    1.35   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">4</span>  0.042<span style="text-decoration: underline;">8</span>  0.867</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.268</span>  -<span style="color: #BB0000;">0.352</span>  -<span style="color: #BB0000;">0.197</span>  10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   -<span style="color: #BB0000;">3.12</span>   -<span style="color: #BB0000;">1.71</span>   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.108   0.044<span style="text-decoration: underline;">1</span>  0.181  10.6</span></span></code></pre></div>
 <p>The s-value is the <strong>suprisal</strong> value, which is a
 measure of directionality with respect to zero.</p>
 <p>The s-value is zero (unsurprising) when <em>p-value</em> = 1.0 and
@@ -389,7 +389,7 @@ including the random effect of <code>Annual</code> held constant.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">lower</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html" class="external-link">expand_limits</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="jmbr_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="jmbr_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" width="700"></p>
 <div class="section level3">
 <h3 id="predict">Predict<a class="anchor" aria-label="anchor" href="#predict"></a>
 </h3>
@@ -491,7 +491,7 @@ in sequences.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer>
