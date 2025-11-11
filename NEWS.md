@@ -1,5 +1,32 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9136 (2025-11-11)
+
+## Chore
+
+- Auto-update from GitHub Actions (#61).
+
+## Continuous integration
+
+- Use workflows for fledge (#63).
+
+- Sync (#62).
+
+- Cleanup and fix macOS (#60).
+
+- Format with air, check detritus, better handling of `extra-packages` (#59).
+
+- Enhance permissions for workflow (#56).
+
+- Permissions, better tests for missing suggests, lints (#55).
+
+- Always use `_R_CHECK_FORCE_SUGGESTS_=false` (#54).
+
+- Correct installation of xml2 (#53).
+
+- Sync (#52).
+
+
 # jmbr 0.0.0.9135 (2025-02-13)
 
 ## Continuous integration
