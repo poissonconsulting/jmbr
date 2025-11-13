@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9137 (2025-11-13)
+
+## Continuous integration
+
+- Fix reviewdog and add commenting workflow (#65).
+
+
 # jmbr 0.0.0.9136 (2025-11-11)
 
 ## Chore
