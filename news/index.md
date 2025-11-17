@@ -1,5 +1,12 @@
 # Changelog
 
+## jmbr 0.0.0.9137 (2025-11-13)
+
+### Continuous integration
+
+- Fix reviewdog and add commenting workflow
+  ([\#65](https://github.com/poissonconsulting/jmbr/issues/65)).
+
 ## jmbr 0.0.0.9136 (2025-11-11)
 
 ### Chore
