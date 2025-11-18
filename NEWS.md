@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9138 (2025-11-18)
+
+## Continuous integration
+
+- Install binaries from r-universe for dev workflow (#67).
+
+
 # jmbr 0.0.0.9137 (2025-11-13)
 
 ## Continuous integration
