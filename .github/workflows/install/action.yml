@@ -112,6 +112,8 @@ runs:
     
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
       with:
         limit-access-to-actor: true
 
