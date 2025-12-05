@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9139 (2025-12-05)
+
+## Continuous integration
+
+- Use installed packages as source for dependencies.
+
+
 # jmbr 0.0.0.9138 (2025-11-18)
 
 ## Continuous integration
