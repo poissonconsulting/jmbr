@@ -1,6 +1,6 @@
 Package: jmbr
 Title: Analyses Using JAGS
-Version: 0.0.0.9138
+Version: 0.0.0.9139
 Authors@R: c(
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7683-4592")),
