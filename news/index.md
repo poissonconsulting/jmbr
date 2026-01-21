@@ -1,5 +1,12 @@
 # Changelog
 
+## jmbr 0.0.0.9140 (2026-01-21)
+
+### Continuous integration
+
+- Test all R versions on branches that start with cran-
+  ([\#71](https://github.com/poissonconsulting/jmbr/issues/71)).
+
 ## jmbr 0.0.0.9139 (2025-12-05)
 
 ### Continuous integration
