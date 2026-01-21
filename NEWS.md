@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9140 (2026-01-21)
+
+## Continuous integration
+
+- Test all R versions on branches that start with cran- (#71).
+
+
 # jmbr 0.0.0.9139 (2025-12-05)
 
 ## Continuous integration
