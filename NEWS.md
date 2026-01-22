@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9141 (2026-01-22)
+
+## Testing
+
+- Snapshot updates for rcc-smoke (null) (#75).
+
+- Snapshot updates for R-CMD-check-base (null) (#74).
+
+- Snapshot updates for rcc-smoke (null) (#73).
+
+
 # jmbr 0.0.0.9140 (2026-01-21)
 
 ## Continuous integration
