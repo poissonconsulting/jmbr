@@ -103,6 +103,22 @@ runs:
         http-user-agent: ${{ matrix.config.http-user-agent }}
         use-public-rspm: true
 
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+      with:
+        pak-version: stable
+        needs: ${{ inputs.needs }}
+        packages: poissonconsulting/newdata
+
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+      with:
+        pak-version: stable
+        needs: ${{ inputs.needs }}
+        packages: poissonconsulting/rescale
+
     - id: get-extra
       run: |
         set -x
