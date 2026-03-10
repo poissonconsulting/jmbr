@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9142 (2026-03-10)
+
+## Chore
+
+- Auto-update from GitHub Actions (#77).
+
+
 # jmbr 0.0.0.9141 (2026-01-22)
 
 ## Testing
