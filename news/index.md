@@ -1,5 +1,32 @@
 # Changelog
 
+## jmbr 0.0.0.9143 (2026-05-05)
+
+### Chore
+
+- Auto-update from GitHub Actions
+  ([\#80](https://github.com/poissonconsulting/jmbr/issues/80)).
+
+## jmbr 0.0.0.9142 (2026-03-10)
+
+### Chore
+
+- Auto-update from GitHub Actions
+  ([\#77](https://github.com/poissonconsulting/jmbr/issues/77)).
+
+## jmbr 0.0.0.9141 (2026-01-22)
+
+### Testing
+
+- Snapshot updates for rcc-smoke (null)
+  ([\#75](https://github.com/poissonconsulting/jmbr/issues/75)).
+
+- Snapshot updates for R-CMD-check-base (null)
+  ([\#74](https://github.com/poissonconsulting/jmbr/issues/74)).
+
+- Snapshot updates for rcc-smoke (null)
+  ([\#73](https://github.com/poissonconsulting/jmbr/issues/73)).
+
 ## jmbr 0.0.0.9140 (2026-01-21)
 
 ### Continuous integration

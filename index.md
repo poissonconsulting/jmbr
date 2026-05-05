@@ -11,11 +11,13 @@ of packages.
 ## Demonstration
 
 ``` r
+
 library(jmbr)
 library(mbr)
 ```
 
 ``` r
+
 # define model in JAGS language
 model <- model("model {
   alpha ~ dnorm(0, 10^-2)
@@ -84,6 +86,7 @@ plot(analysis)
 ![](tools/README-unnamed-chunk-3-1.png)![](tools/README-unnamed-chunk-3-2.png)
 
 ``` r
+
 # make predictions by varying year with other predictors including the random effect of Annual held constant
 year <- predict(analysis, new_data = "Year")
 

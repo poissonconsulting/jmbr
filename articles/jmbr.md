@@ -16,11 +16,13 @@ relationships of interest are set in JAGS.
 Example model:
 
 ``` r
+
 library(jmbr)
 library(embr)
 ```
 
 ``` r
+
 model <- model("model {
 # Priors
   alpha ~ dnorm(0, 10^-2) T(0,)
@@ -53,6 +55,7 @@ The new expression is written in R Code and is used to calculate derived
 parameters.
 
 ``` r
+
 new_expr = "
 for (i in 1:length(Pairs)) {
   log(prediction[i]) <- alpha + beta1 * Year[i] + beta2 * Year[i]^2 + beta3 * Year[i]^3 + bAnnual[Annual[i]]
@@ -68,6 +71,7 @@ This section modifies a data frame to the form it will be passed to the
 analysis code. The modified data is passed in list form.
 
 ``` r
+
 modify_data = function(data) {
  data <- data |>
    select(-Eyasses)
@@ -133,6 +137,7 @@ discarding all other values.
 ## Full Model
 
 ``` r
+
 model <- model("model {
   alpha ~ dnorm(0, 10^-2) 
   beta1 ~ dnorm(0, 10^-2)
@@ -190,6 +195,7 @@ set_analysis_mode("report")
 Analysis mode can be set depending on the desired output.
 
 ``` r
+
 set_analysis_mode("report")
 ```
 
@@ -207,6 +213,7 @@ Modes:
 Analyse or reanalyse the model.
 
 ``` r
+
 analysis <- analyse(model, data = data)
 #> Registered S3 method overwritten by 'rjags':
 #>   method               from 
@@ -214,14 +221,14 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   242  1.02 TRUE
+#> 1    40     6       3    500    10   154  1.18 FALSE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   242  1.02 TRUE
+#> 1    40     6       3    500    20   507  1.00 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 ```
@@ -244,6 +251,7 @@ analysis <- reanalyse(analysis)
   - Close to 1 is ideal.
 
 ``` r
+
 par(mar=c(1, 1, 1, 1))
 plot(analysis)
 ```
@@ -255,6 +263,7 @@ plot(analysis)
 Summary table of the posterior probability distribution.
 
 ``` r
+
 coef(analysis)
 #> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
 #> ℹ The deprecated feature was likely used in the base package.
@@ -265,12 +274,12 @@ coef(analysis)
 #> # A tibble: 6 × 7
 #>   term        estimate     sd  zscore   lower   upper   pvalue
 #>   <term>         <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#> 1 alpha         4.26   0.0403 106.     4.18    4.33   0.000666
-#> 2 beta1         1.19   0.0739  16.1    1.06    1.34   0.000666
-#> 3 beta2        -0.0167 0.0309  -0.554 -0.0764  0.0452 0.542   
-#> 4 beta3        -0.270  0.0376  -7.23  -0.351  -0.205  0.000666
-#> 5 log_sAnnual  -2.25   0.332   -6.90  -3.06   -1.76   0.000666
-#> 6 sAnnual       0.106  0.0318   3.34   0.0467  0.173  0.000666
+#> 1 alpha         4.26   0.0415 103.     4.18    4.34   0.000666
+#> 2 beta1         1.19   0.0695  17.2    1.06    1.34   0.000666
+#> 3 beta2        -0.0180 0.0316  -0.561 -0.0763  0.0452 0.566   
+#> 4 beta3        -0.273  0.0352  -7.77  -0.344  -0.207  0.000666
+#> 5 log_sAnnual  -2.22   0.298   -7.57  -2.92   -1.73   0.000666
+#> 6 sAnnual       0.108  0.0311   3.52   0.0540  0.178  0.000666
 ```
 
 The estimate is the **median** by default.
@@ -278,16 +287,17 @@ The estimate is the **median** by default.
 The zscore is mean / sd.
 
 ``` r
+
 coef(analysis, simplify = TRUE)
 #> # A tibble: 6 × 5
 #>   term        estimate   lower   upper svalue
 #>   <term>         <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.26    4.18    4.33   10.6  
+#> 1 alpha         4.26    4.18    4.34   10.6  
 #> 2 beta1         1.19    1.06    1.34   10.6  
-#> 3 beta2        -0.0167 -0.0764  0.0452  0.885
-#> 4 beta3        -0.270  -0.351  -0.205  10.6  
-#> 5 log_sAnnual  -2.25   -3.06   -1.76   10.6  
-#> 6 sAnnual       0.106   0.0467  0.173  10.6
+#> 3 beta2        -0.0180 -0.0763  0.0452  0.822
+#> 4 beta3        -0.273  -0.344  -0.207  10.6  
+#> 5 log_sAnnual  -2.22   -2.92   -1.73   10.6  
+#> 6 sAnnual       0.108   0.0540  0.178  10.6
 ```
 
 The s-value is the **suprisal** value, which is a measure of
@@ -310,9 +320,8 @@ Make predictions by varying `Year` with other predictors, including the
 random effect of `Annual` held constant.
 
 ``` r
+
 year <- predict(analysis, new_data = "Year")
-#> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
-#> Error in play.default(x, rate, ...): no audio drivers are available
 
 library(ggplot2)
 
@@ -337,6 +346,7 @@ typical number of fledged young of 50 (if `Eyasses` was a parameter in
 the model).
 
 ``` r
+
 year <- new_data(data, "Year", ref = list(Eyasses = 50L),
                  obs_only = TRUE) %>%
         predict(analysis, new_data = ., ref_data = ref)
@@ -354,6 +364,7 @@ year <- new_data(data, "Year", ref = list(Eyasses = 50L),
 Predict can also take the form:
 
 ``` r
+
 year <- predict(analysis, new_data = character(0), term = "ePairs")
 ```
 
@@ -370,6 +381,7 @@ The idea is that most variables are held **constant** at a reference
 level while the variables of interest **vary** across their range.
 
 ``` r
+
 year <- new_data(
       data, 
       seq = "Year", 
