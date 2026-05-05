@@ -221,14 +221,14 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   154  1.18 FALSE
+#> 1    40     6       3    500    10   194  1.02 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    20   507  1.00 TRUE
+#> 1    40     6       3    500    10   194  1.02 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 ```
@@ -274,12 +274,12 @@ coef(analysis)
 #> # A tibble: 6 × 7
 #>   term        estimate     sd  zscore   lower   upper   pvalue
 #>   <term>         <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#> 1 alpha         4.26   0.0415 103.     4.18    4.34   0.000666
-#> 2 beta1         1.19   0.0695  17.2    1.06    1.34   0.000666
-#> 3 beta2        -0.0180 0.0316  -0.561 -0.0763  0.0452 0.566   
-#> 4 beta3        -0.273  0.0352  -7.77  -0.344  -0.207  0.000666
-#> 5 log_sAnnual  -2.22   0.298   -7.57  -2.92   -1.73   0.000666
-#> 6 sAnnual       0.108  0.0311   3.52   0.0540  0.178  0.000666
+#> 1 alpha         4.26   0.0422 101.     4.17    4.33   0.000666
+#> 2 beta1         1.21   0.0774  15.6    1.06    1.36   0.000666
+#> 3 beta2        -0.0175 0.0309  -0.544 -0.0774  0.0470 0.584   
+#> 4 beta3        -0.279  0.0397  -7.06  -0.359  -0.203  0.000666
+#> 5 log_sAnnual  -2.21   0.442   -5.13  -3.17   -1.73   0.000666
+#> 6 sAnnual       0.110  0.0338   3.28   0.0418  0.178  0.000666
 ```
 
 The estimate is the **median** by default.
@@ -292,12 +292,12 @@ coef(analysis, simplify = TRUE)
 #> # A tibble: 6 × 5
 #>   term        estimate   lower   upper svalue
 #>   <term>         <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.26    4.18    4.34   10.6  
-#> 2 beta1         1.19    1.06    1.34   10.6  
-#> 3 beta2        -0.0180 -0.0763  0.0452  0.822
-#> 4 beta3        -0.273  -0.344  -0.207  10.6  
-#> 5 log_sAnnual  -2.22   -2.92   -1.73   10.6  
-#> 6 sAnnual       0.108   0.0540  0.178  10.6
+#> 1 alpha         4.26    4.17    4.33   10.6  
+#> 2 beta1         1.21    1.06    1.36   10.6  
+#> 3 beta2        -0.0175 -0.0774  0.0470  0.775
+#> 4 beta3        -0.279  -0.359  -0.203  10.6  
+#> 5 log_sAnnual  -2.21   -3.17   -1.73   10.6  
+#> 6 sAnnual       0.110   0.0418  0.178  10.6
 ```
 
 The s-value is the **suprisal** value, which is a measure of
