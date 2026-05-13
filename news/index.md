@@ -1,5 +1,19 @@
 # Changelog
 
+## jmbr 0.0.0.9144 (2026-05-06)
+
+### Continuous integration
+
+- Cosmetics.
+
+- Bump action versions.
+
+- Install clang-format-21.
+
+- Align fledge workflow.
+
+- Harmonize.
+
 ## jmbr 0.0.0.9143 (2026-05-05)
 
 ### Chore
