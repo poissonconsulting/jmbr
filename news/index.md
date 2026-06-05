@@ -1,5 +1,13 @@
 # Changelog
 
+## jmbr 0.0.0.9146 (2026-05-24)
+
+### Continuous integration
+
+- Update ccache-action reference.
+
+- Bump action version.
+
 ## jmbr 0.0.0.9145 (2026-05-22)
 
 ### Chore
