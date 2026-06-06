@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# jmbr 0.0.0.9147 (2026-06-06)
+
+- Merge pull request #97 from poissonconsulting/add-codeowners.
+
+  Add CODEOWNERS assigning @joethorley
+
+
 # jmbr 0.0.0.9146 (2026-05-24)
 
 ## Continuous integration
