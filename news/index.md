@@ -1,5 +1,26 @@
 # Changelog
 
+## jmbr 0.0.0.9148 (2026-06-18)
+
+- Add fledge-bump workflow
+- Add fledge-tag-on-merge workflow
+- ci: Test all R versions on branches that start with cran-
+- ci: Tweaks
+- ci: Fix comment
+- ci: Use workflows for fledge
+- ci: Review env vers when installing, more careful foreign runs, format
+  with `clang-format`
+- ci: Sync
+- ci: Sync
+- ci: Cleanup and fix macOS
+- ci: Use reviewdog for external PRs
+- ci: Always use `_R_CHECK_FORCE_SUGGESTS_=false`
+- ci: Only fail covr builds if token is given
+- ci: Sync
+- ci: Fix
+- ci: Add xml2 for covr, print testthat results
+- ci: Explain
+
 ## jmbr 0.0.0.9147 (2026-06-06)
 
 - Merge pull request
