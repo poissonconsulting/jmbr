@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# jmbr 0.0.0.9153 (2026-07-07)
+
+- Same as previous version.
+
+
 # jmbr 0.0.0.9152 (2026-06-23)
 
 - Same as previous version.
