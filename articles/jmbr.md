@@ -221,14 +221,14 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   220  1.01 TRUE
+#> 1    40     6       3    500    10   232  1.03 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   220  1.01 TRUE
+#> 1    40     6       3    500    10   232  1.03 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 ```
@@ -274,12 +274,12 @@ coef(analysis)
 #> # A tibble: 6 × 7
 #>   term        estimate     sd  zscore   lower   upper   pvalue
 #>   <term>         <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#> 1 alpha         4.27   0.0398 107.     4.18    4.34   0.000666
-#> 2 beta1         1.19   0.0763  15.6    1.05    1.35   0.000666
-#> 3 beta2        -0.0206 0.0304  -0.669 -0.0788  0.0394 0.497   
-#> 4 beta3        -0.269  0.0385  -7.06  -0.351  -0.199  0.000666
-#> 5 log_sAnnual  -2.23   0.351   -6.45  -3.07   -1.74   0.000666
-#> 6 sAnnual       0.108  0.0317   3.43   0.0466  0.176  0.000666
+#> 1 alpha         4.26   0.0403 106.     4.19    4.34   0.000666
+#> 2 beta1         1.20   0.0750  16.0    1.05    1.36   0.000666
+#> 3 beta2        -0.0190 0.0304  -0.650 -0.0799  0.0391 0.519   
+#> 4 beta3        -0.274  0.0388  -7.10  -0.356  -0.206  0.000666
+#> 5 log_sAnnual  -2.22   0.427   -5.36  -3.28   -1.72   0.000666
+#> 6 sAnnual       0.109  0.0344   3.17   0.0376  0.179  0.000666
 ```
 
 The estimate is the **median** by default.
@@ -289,15 +289,22 @@ The zscore is mean / sd.
 ``` r
 
 coef(analysis, simplify = TRUE)
+#> Warning: The `directional_information` argument of `coef()` should be explicitly set as
+#> of embr 1.1.0.
+#> ℹ The default value of `directional_information` will change from `FALSE` to
+#>   `TRUE` in a future release.
+#> This warning is displayed once per session.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 #> # A tibble: 6 × 5
 #>   term        estimate   lower   upper svalue
 #>   <term>         <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.27    4.18    4.34    10.6 
-#> 2 beta1         1.19    1.05    1.35    10.6 
-#> 3 beta2        -0.0206 -0.0788  0.0394   1.01
-#> 4 beta3        -0.269  -0.351  -0.199   10.6 
-#> 5 log_sAnnual  -2.23   -3.07   -1.74    10.6 
-#> 6 sAnnual       0.108   0.0466  0.176   10.6
+#> 1 alpha         4.26    4.19    4.34   10.6  
+#> 2 beta1         1.20    1.05    1.36   10.6  
+#> 3 beta2        -0.0190 -0.0799  0.0391  0.947
+#> 4 beta3        -0.274  -0.356  -0.206  10.6  
+#> 5 log_sAnnual  -2.22   -3.28   -1.72   10.6  
+#> 6 sAnnual       0.109   0.0376  0.179  10.6
 ```
 
 The s-value is the **suprisal** value, which is a measure of
@@ -322,6 +329,13 @@ random effect of `Annual` held constant.
 ``` r
 
 year <- predict(analysis, new_data = "Year")
+#> Warning: `zero()` was deprecated in mcmcr 0.2.1.
+#> ℹ Please use `fill_all()` instead.
+#> ℹ The deprecated feature was likely used in the purrr package.
+#>   Please report the issue at <https://github.com/tidyverse/purrr/issues>.
+#> This warning is displayed once per session.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 
 library(ggplot2)
 

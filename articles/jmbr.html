@@ -285,14 +285,14 @@ value and discarding all other values.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   220  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   232  1.03 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/embr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   220  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   232  1.03 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span></code></pre></div>
 <p><strong>Analysis Table:</strong></p>
@@ -342,25 +342,32 @@ between- and within-chain estimates for model parameters.
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   term        estimate     sd  zscore   lower   upper   pvalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.27   0.039<span style="text-decoration: underline;">8</span> 107.     4.18    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19   0.076<span style="text-decoration: underline;">3</span>  15.6    1.05    1.35   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">6</span> 0.030<span style="text-decoration: underline;">4</span>  -<span style="color: #BB0000;">0.669</span> -<span style="color: #BB0000;">0.078</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.039<span style="text-decoration: underline;">4</span> 0.497   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.269</span>  0.038<span style="text-decoration: underline;">5</span>  -<span style="color: #BB0000;">7.06</span>  -<span style="color: #BB0000;">0.351</span>  -<span style="color: #BB0000;">0.199</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   0.351   -<span style="color: #BB0000;">6.45</span>  -<span style="color: #BB0000;">3.07</span>   -<span style="color: #BB0000;">1.74</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.108  0.031<span style="text-decoration: underline;">7</span>   3.43   0.046<span style="text-decoration: underline;">6</span>  0.176  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26   0.040<span style="text-decoration: underline;">3</span> 106.     4.19    4.34   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20   0.075<span style="text-decoration: underline;">0</span>  16.0    1.05    1.36   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.019</span><span style="color: #BB0000; text-decoration: underline;">0</span> 0.030<span style="text-decoration: underline;">4</span>  -<span style="color: #BB0000;">0.650</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">9</span>  0.039<span style="text-decoration: underline;">1</span> 0.519   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.274</span>  0.038<span style="text-decoration: underline;">8</span>  -<span style="color: #BB0000;">7.10</span>  -<span style="color: #BB0000;">0.356</span>  -<span style="color: #BB0000;">0.206</span>  0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.22</span>   0.427   -<span style="color: #BB0000;">5.36</span>  -<span style="color: #BB0000;">3.28</span>   -<span style="color: #BB0000;">1.72</span>   0.000<span style="text-decoration: underline;">666</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.109  0.034<span style="text-decoration: underline;">4</span>   3.17   0.037<span style="text-decoration: underline;">6</span>  0.179  0.000<span style="text-decoration: underline;">666</span></span></span></code></pre></div>
 <p>The estimate is the <strong>median</strong> by default.</p>
 <p>The zscore is <span class="math inline">mean / sd</span>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">analysis</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `directional_information` argument of `coef()` should be explicitly set as</span></span>
+<span><span class="co">#&gt; of embr 1.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The default value of `directional_information` will change from `FALSE` to</span></span>
+<span><span class="co">#&gt;   `TRUE` in a future release.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   term        estimate   lower   upper svalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.27    4.18    4.34    10.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19    1.05    1.35    10.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.078</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.039<span style="text-decoration: underline;">4</span>   1.01</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.269</span>  -<span style="color: #BB0000;">0.351</span>  -<span style="color: #BB0000;">0.199</span>   10.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.23</span>   -<span style="color: #BB0000;">3.07</span>   -<span style="color: #BB0000;">1.74</span>    10.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.108   0.046<span style="text-decoration: underline;">6</span>  0.176   10.6</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.19    4.34   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20    1.05    1.36   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.019</span><span style="color: #BB0000; text-decoration: underline;">0</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">9</span>  0.039<span style="text-decoration: underline;">1</span>  0.947</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.274</span>  -<span style="color: #BB0000;">0.356</span>  -<span style="color: #BB0000;">0.206</span>  10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.22</span>   -<span style="color: #BB0000;">3.28</span>   -<span style="color: #BB0000;">1.72</span>   10.6  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.109   0.037<span style="text-decoration: underline;">6</span>  0.179  10.6</span></span></code></pre></div>
 <p>The s-value is the <strong>suprisal</strong> value, which is a
 measure of directionality with respect to zero.</p>
 <p>The s-value is zero (unsurprising) when <em>p-value</em> = 1.0 and
@@ -378,6 +385,13 @@ and support that the data is in the direction of the posterior.</p>
 including the random effect of <code>Annual</code> held constant.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">analysis</span>, new_data <span class="op">=</span> <span class="st">"Year"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `zero()` was deprecated in mcmcr 0.2.1.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `fill_all()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">purrr</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/tidyverse/purrr/issues&gt;</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
@@ -489,7 +503,7 @@ in sequences.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
