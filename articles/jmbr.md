@@ -221,14 +221,14 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   232  1.03 TRUE
+#> 1    40     6       3    500    10   202  1.02 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   232  1.03 TRUE
+#> 1    40     6       3    500    10   202  1.02 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 ```
@@ -264,48 +264,19 @@ Summary table of the posterior probability distribution.
 
 ``` r
 
-coef(analysis)
-#> Warning: The `simplify` argument of `coef()` must be TRUE as of mcmcr 0.4.1.
-#> ℹ The deprecated feature was likely used in the base package.
-#>   Please report the issue to the authors.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
-#> # A tibble: 6 × 7
-#>   term        estimate     sd  zscore   lower   upper   pvalue
-#>   <term>         <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#> 1 alpha         4.26   0.0403 106.     4.19    4.34   0.000666
-#> 2 beta1         1.20   0.0750  16.0    1.05    1.36   0.000666
-#> 3 beta2        -0.0190 0.0304  -0.650 -0.0799  0.0391 0.519   
-#> 4 beta3        -0.274  0.0388  -7.10  -0.356  -0.206  0.000666
-#> 5 log_sAnnual  -2.22   0.427   -5.36  -3.28   -1.72   0.000666
-#> 6 sAnnual       0.109  0.0344   3.17   0.0376  0.179  0.000666
-```
-
-The estimate is the **median** by default.
-
-The zscore is mean / sd.
-
-``` r
-
-coef(analysis, simplify = TRUE)
-#> Warning: The `directional_information` argument of `coef()` should be explicitly set as
-#> of embr 1.1.0.
-#> ℹ The default value of `directional_information` will change from `FALSE` to
-#>   `TRUE` in a future release.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
+coef(analysis, directional_information = FALSE)
 #> # A tibble: 6 × 5
 #>   term        estimate   lower   upper svalue
 #>   <term>         <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.26    4.19    4.34   10.6  
-#> 2 beta1         1.20    1.05    1.36   10.6  
-#> 3 beta2        -0.0190 -0.0799  0.0391  0.947
-#> 4 beta3        -0.274  -0.356  -0.206  10.6  
-#> 5 log_sAnnual  -2.22   -3.28   -1.72   10.6  
-#> 6 sAnnual       0.109   0.0376  0.179  10.6
+#> 1 alpha         4.26    4.18    4.34   10.6  
+#> 2 beta1         1.20    1.06    1.36   10.6  
+#> 3 beta2        -0.0190 -0.0787  0.0454  0.861
+#> 4 beta3        -0.275  -0.357  -0.202  10.6  
+#> 5 log_sAnnual  -2.22   -2.97   -1.73   10.6  
+#> 6 sAnnual       0.109   0.0511  0.178  10.6
 ```
+
+The estimate is the **median** by default.
 
 The s-value is the **suprisal** value, which is a measure of
 directionality with respect to zero.
@@ -347,7 +318,7 @@ ggplot(data = year, aes(x = Year, y = estimate)) +
   expand_limits(y = 0)
 ```
 
-![](jmbr_files/figure-html/unnamed-chunk-14-1.png)
+![](jmbr_files/figure-html/unnamed-chunk-13-1.png)
 
 ### Predict
 
