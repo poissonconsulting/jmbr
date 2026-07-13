@@ -223,18 +223,12 @@ __Coefficient Table__
 
 Summary table of the posterior probability distribution.
 ```{r, message = FALSE}
-coef(analysis)
+coef(analysis, directional_information = FALSE)
 ```
 
 The estimate is the __median__ by default.
 
-The zscore is $mean / sd$.
-
-```{r}
-coef(analysis, simplify = TRUE)
-```
-
-The s-value is the __suprisal__ value, which is a measure of directionality with respect to zero. 
+The s-value is the __suprisal__ value, which is a measure of directionality with respect to zero.
 
 The s-value is zero (unsurprising) when _p-value_ = 1.0 and increases exponentially as _p_ approaches zero.  
 
