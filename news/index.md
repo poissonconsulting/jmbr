@@ -1,5 +1,9 @@
 # Changelog
 
+## jmbr 0.0.0.9156 (2026-07-15)
+
+- Same as previous version.
+
 ## jmbr 0.0.0.9155 (2026-07-14)
 
 - Same as previous version.
