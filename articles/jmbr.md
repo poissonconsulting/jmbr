@@ -221,14 +221,14 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   180  1.01 TRUE
+#> 1    40     6       3    500    10   210  1.01 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   180  1.01 TRUE
+#> 1    40     6       3    500    10   210  1.01 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 ```
@@ -268,12 +268,12 @@ coef(analysis, directional_information = FALSE)
 #> # A tibble: 6 × 5
 #>   term        estimate   lower   upper svalue
 #>   <term>         <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.26    4.18    4.34   10.6  
-#> 2 beta1         1.20    1.06    1.36   10.6  
-#> 3 beta2        -0.0183 -0.0804  0.0403  0.889
-#> 4 beta3        -0.276  -0.355  -0.201  10.6  
-#> 5 log_sAnnual  -2.22   -2.90   -1.71   10.6  
-#> 6 sAnnual       0.109   0.0553  0.181  10.6
+#> 1 alpha         4.26    4.18    4.34    10.6 
+#> 2 beta1         1.19    1.05    1.35    10.6 
+#> 3 beta2        -0.0206 -0.0795  0.0403   1.01
+#> 4 beta3        -0.273  -0.354  -0.202   10.6 
+#> 5 log_sAnnual  -2.21   -2.91   -1.74    10.6 
+#> 6 sAnnual       0.110   0.0545  0.176   10.6
 ```
 
 The estimate is the **median** by default.

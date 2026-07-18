@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jmbr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9157</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9158</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -285,14 +285,14 @@ value and discarding all other values.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   180  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   210  1.01 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/embr/man/reanalyse.html" class="external-link">reanalyse</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span></span>
 <span><span class="co">#&gt;       n     K nchains niters nthin   ess  rhat converged</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   180  1.01 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    40     6       3    500    10   210  1.01 TRUE</span></span>
 <span><span class="co">#&gt; Warning in value[[3L]](cond): beep() could not play the sound due to the following error:</span></span>
 <span><span class="co">#&gt; Error in play.default(x, rate, ...): no audio drivers are available</span></span></code></pre></div>
 <p><strong>Analysis Table:</strong></p>
@@ -336,12 +336,12 @@ between- and within-chain estimates for model parameters.
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   term        estimate   lower   upper svalue</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;term&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.18    4.34   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.20    1.06    1.36   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.080</span><span style="color: #BB0000; text-decoration: underline;">4</span>  0.040<span style="text-decoration: underline;">3</span>  0.889</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.276</span>  -<span style="color: #BB0000;">0.355</span>  -<span style="color: #BB0000;">0.201</span>  10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.22</span>   -<span style="color: #BB0000;">2.90</span>   -<span style="color: #BB0000;">1.71</span>   10.6  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.109   0.055<span style="text-decoration: underline;">3</span>  0.181  10.6</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alpha         4.26    4.18    4.34    10.6 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> beta1         1.19    1.05    1.35    10.6 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> beta2        -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.079</span><span style="color: #BB0000; text-decoration: underline;">5</span>  0.040<span style="text-decoration: underline;">3</span>   1.01</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> beta3        -<span style="color: #BB0000;">0.273</span>  -<span style="color: #BB0000;">0.354</span>  -<span style="color: #BB0000;">0.202</span>   10.6 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> log_sAnnual  -<span style="color: #BB0000;">2.21</span>   -<span style="color: #BB0000;">2.91</span>   -<span style="color: #BB0000;">1.74</span>    10.6 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sAnnual       0.110   0.054<span style="text-decoration: underline;">5</span>  0.176   10.6</span></span></code></pre></div>
 <p>The estimate is the <strong>median</strong> by default.</p>
 <p>The s-value is the <strong>suprisal</strong> value, which is a
 measure of directionality with respect to zero.</p>
