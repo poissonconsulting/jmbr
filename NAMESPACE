@@ -14,7 +14,9 @@ import(nlist)
 import(term)
 import(universals)
 importFrom(plyr,llply)
-importFrom(stats,coef)
-importFrom(stats,predict)
-importFrom(stats,update)
+importFrom(stats,
+  coef,
+  predict,
+  update
+)
 importFrom(utils,capture.output)
