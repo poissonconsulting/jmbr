@@ -32,7 +32,7 @@ library(jmbr)
 library(embr)
 ```
 ```{r, eval = FALSE}
-model <- model("model {
+model <- model(code = "model {
 # Priors
   alpha ~ dnorm(0, 10^-2) T(0,)
   beta1 ~ dnorm(0, 10^-2)
@@ -130,7 +130,7 @@ Setting `nthin = 100` would result in keeping every 100th value and discarding a
 
 ## Full Model
 ```{r}
-model <- model("model {
+model <- model(code = "model {
   alpha ~ dnorm(0, 10^-2) 
   beta1 ~ dnorm(0, 10^-2)
   beta2 ~ dnorm(0, 10^-2)
