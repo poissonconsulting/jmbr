@@ -23,7 +23,7 @@ library(embr)
 
 ``` r
 
-model <- model("model {
+model <- model(code = "model {
 # Priors
   alpha ~ dnorm(0, 10^-2) T(0,)
   beta1 ~ dnorm(0, 10^-2)
@@ -138,7 +138,7 @@ discarding all other values.
 
 ``` r
 
-model <- model("model {
+model <- model(code = "model {
   alpha ~ dnorm(0, 10^-2) 
   beta1 ~ dnorm(0, 10^-2)
   beta2 ~ dnorm(0, 10^-2)
@@ -176,13 +176,6 @@ select_data = list("Pairs" = c(15L, 200L),
 random_effects = list(bAnnual = "Annual"),
 
 nthin = 10L)
-#> Warning: The `x` argument of `model()` character() as of embr 0.0.1.9036.
-#> ℹ Please use the `code` argument instead.
-#> ℹ Passing a string to model() is deprecated. Use model(code = ...) or
-#>   model(mb_code("..."), ...) instead.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 
 data <- bauw::peregrine
 data$Annual <- factor(data$Year)
@@ -221,14 +214,14 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   210  1.01 TRUE
+#> 1    40     6       3    500    10   273  1.01 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     6       3    500    10   210  1.01 TRUE
+#> 1    40     6       3    500    10   273  1.01 TRUE
 #> Warning in value[[3L]](cond): beep() could not play the sound due to the following error:
 #> Error in play.default(x, rate, ...): no audio drivers are available
 ```
@@ -268,12 +261,12 @@ coef(analysis, directional_information = FALSE)
 #> # A tibble: 6 × 5
 #>   term        estimate   lower   upper svalue
 #>   <term>         <dbl>   <dbl>   <dbl>  <dbl>
-#> 1 alpha         4.26    4.18    4.34    10.6 
-#> 2 beta1         1.19    1.05    1.35    10.6 
-#> 3 beta2        -0.0206 -0.0795  0.0403   1.01
-#> 4 beta3        -0.273  -0.354  -0.202   10.6 
-#> 5 log_sAnnual  -2.21   -2.91   -1.74    10.6 
-#> 6 sAnnual       0.110   0.0545  0.176   10.6
+#> 1 alpha         4.26    4.19    4.34   10.6  
+#> 2 beta1         1.19    1.07    1.35   10.6  
+#> 3 beta2        -0.0178 -0.0797  0.0397  0.907
+#> 4 beta3        -0.271  -0.349  -0.206  10.6  
+#> 5 log_sAnnual  -2.22   -2.85   -1.71   10.6  
+#> 6 sAnnual       0.109   0.0578  0.181  10.6
 ```
 
 The estimate is the **median** by default.
@@ -300,13 +293,6 @@ random effect of `Annual` held constant.
 ``` r
 
 year <- predict(analysis, new_data = "Year")
-#> Warning: `zero()` was deprecated in mcmcr 0.2.1.
-#> ℹ Please use `fill_all()` instead.
-#> ℹ The deprecated feature was likely used in the purrr package.
-#>   Please report the issue at <https://github.com/tidyverse/purrr/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 
 library(ggplot2)
 

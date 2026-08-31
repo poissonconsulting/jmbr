@@ -19,7 +19,7 @@ library(mbr)
 ``` r
 
 # define model in JAGS language
-model <- model("model {
+model <- model(code = "model {
   alpha ~ dnorm(0, 10^-2)
   beta1 ~ dnorm(0, 10^-2)
   beta2 ~ dnorm(0, 10^-2)
