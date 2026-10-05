@@ -6,8 +6,14 @@ jmb_analyse_chain <- function(
   niters,
   ngens,
   nthin,
+  modules,
   quiet
 ) {
+  # parallel workers that are not forked do not inherit loaded modules
+  for (module in setdiff(modules, rjags::list.modules())) {
+    rjags::load.module(module, quiet = quiet)
+  }
+
   capture_output <- if (quiet) {
     function(x) suppressWarnings(capture.output(x))
   } else {
@@ -85,6 +91,7 @@ analyse1.jmb_model <- function(
     monitor = monitor,
     niters = niters,
     nthin = nthin,
+    modules = rjags::list.modules(),
     quiet = quiet
   )
 
