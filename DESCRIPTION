@@ -28,18 +28,22 @@ Imports:
     utils
 Suggests:
     bauw,
-    ggplot2,
-    testthat (>= 3.0.0),
     covr,
+    doFuture,
+    foreach,
+    future,
+    ggplot2,
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Remotes:
-    poissonconsulting/timer,
     poissonconsulting/bauw,
-    poissonconsulting/embr
-Encoding: UTF-8
-LazyData: true
-VignetteBuilder: knitr
-Config/testthat/edition: 3
+    poissonconsulting/embr,
+    poissonconsulting/timer
 Config/Needs/website: poissonconsulting/poissontemplate
 Config/roxygen2/version: 8.0.0.9000
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true

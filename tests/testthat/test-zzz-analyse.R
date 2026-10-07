@@ -1161,3 +1161,46 @@ test_that("analyse full nimble notation vectorized embedded nested expression", 
     )
   )
 })
+
+test_that("analyse loads main session modules in multisession workers", {
+  skip_if_not_installed("doFuture")
+
+  if (!"mix" %in% rjags::list.modules()) {
+    rjags::load.module("mix", quiet = TRUE)
+    on.exit(rjags::unload.module("mix", quiet = TRUE), add = TRUE)
+  }
+
+  doFuture::registerDoFuture()
+  old_plan <- future::plan(future::multisession, workers = 2)
+  on.exit(future::plan(old_plan), add = TRUE)
+  on.exit(foreach::registerDoSEQ(), add = TRUE)
+
+  set_analysis_mode("quick")
+
+  set.seed(101)
+  data <- data.frame(y = c(stats::rnorm(50, -2), stats::rnorm(50, 2)))
+
+  code <- "model{
+  bMu[1] ~ dnorm(-2, 1)
+  bMu[2] ~ dnorm(2, 1)
+  for(k in 1:2) {
+    tau[k] <- 1
+    p[k] <- 0.5
+  }
+  for(i in 1:length(y)) {
+    y[i] ~ dnormmix(bMu, tau, p)
+  }
+}"
+
+  model <- model(
+    code = code,
+    select_data = list(y = numeric()),
+    new_expr = "for(i in 1:length(y)) { prediction[i] <- bMu[1] }"
+  )
+
+  analysis <- suppressWarnings(
+    analyse(model, data = data, parallel = TRUE, glance = FALSE, quiet = TRUE)
+  )
+
+  expect_s3_class(analysis, "jmb_analysis")
+})
