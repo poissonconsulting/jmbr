@@ -9,6 +9,10 @@ jmb_analyse_chain <- function(
   modules,
   quiet
 ) {
+  # rjags partially matches arguments such as seq(along = )
+  old_options <- options(warnPartialMatchArgs = FALSE)
+  on.exit(options(old_options), add = TRUE)
+
   # parallel workers that are not forked do not inherit loaded modules
   for (module in setdiff(modules, rjags::list.modules())) {
     rjags::load.module(module, quiet = quiet)
@@ -70,6 +74,10 @@ analyse1.jmb_model <- function(
   parallel,
   ...
 ) {
+  # rjags partially matches arguments such as seq(along = )
+  old_options <- options(warnPartialMatchArgs = FALSE)
+  on.exit(options(old_options), add = TRUE)
+
   timer <- timer::Timer$new()
   timer$start()
 
