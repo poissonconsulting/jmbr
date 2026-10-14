@@ -25,13 +25,13 @@ knitr::opts_chunk$set(
 
 `jmbr` (pronounced jimber) is an R package to facilitate analyses using Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
 
-It is part of the [mbr](https://github.com/poissonconsulting/mbr) family of packages.
+It is part of the [embr](https://github.com/poissonconsulting/embr) family of packages.
 
 ## Demonstration
 
 ```{r, message = FALSE}
 library(jmbr)
-library(mbr)
+library(embr)
 ```
 
 ```{r}
@@ -77,7 +77,7 @@ set_analysis_mode("report")
 analysis <- analyse(model, data = data)
 analysis <- reanalyse(analysis)
 
-coef(analysis, simplify = TRUE)
+coef(analysis, directional_information = FALSE)
 
 plot(analysis)
 ```
