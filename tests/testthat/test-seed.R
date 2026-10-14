@@ -65,3 +65,31 @@ test_that("analyse seed does not change global rng state", {
 
   expect_identical(actual, expected)
 })
+
+test_that("analyse with seed gives same results in parallel", {
+  skip_on_cran()
+  skip_if_not_installed("doFuture")
+  skip_if_not_installed("future")
+
+  model <- seed_model(gen_inits = function(data) list(bMu = stats::rnorm(1)))
+
+  sequential <- seed_analyse(model, seed = 1L)
+
+  doFuture::registerDoFuture()
+  withr::defer(foreach::registerDoSEQ())
+  old_plan <- future::plan(future::multisession, workers = 2)
+  withr::defer(future::plan(old_plan))
+
+  parallel <- suppressWarnings(analyse(
+    model,
+    data = data.frame(y = c(9, 10, 11, 12, 8)),
+    nchains = 2L,
+    niters = 10L,
+    glance = FALSE,
+    beep = FALSE,
+    seed = 1L,
+    parallel = TRUE
+  ))
+
+  expect_identical(as.mcmcr(parallel), as.mcmcr(sequential))
+})
