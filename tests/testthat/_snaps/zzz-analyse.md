@@ -10,7 +10,7 @@
         bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)
       }
     
-      log_sSiteYear ~ dlnorm(0, (5 * 10)^-2)
+      log_sSiteYear ~ dnorm(0, (5 * 10)^-2)
       log_sDensity ~ dt(0, (5 * 10)^-2, 4.5)
     
       log(sSiteYear) <- log_sSiteYear
@@ -40,7 +40,7 @@
         bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)
       }
     
-      log_sSiteYear ~ dlnorm(0, (5 * 10)^-2)
+      log_sSiteYear ~ dnorm(0, (5 * 10)^-2)
       log_sDensity ~ dt(0, (5 * 10)^-2, 4.5)
     
       log(sSiteYear) <- log_sSiteYear
@@ -70,7 +70,7 @@
         bHabitatQuality[i] ~ dnorm(0, (5. * 10)^-2) T(0,)
       }
     
-      log_sSiteYear ~ dlnorm(0, (5 * 10)^-2)
+      log_sSiteYear ~ dnorm(0, (5 * 10)^-2)
       log_sDensity ~ dt(0, (5 * 10)^-2, 4.5)
     
       log(sSiteYear) <- log_sSiteYear
@@ -97,7 +97,7 @@
       for (i in 2 : nHabitatQuality) {
         bHabitatQuality[i] ~ dnorm(0, (5) ^ -2) T(0, )
       }
-      log_sSiteYear ~ dlnorm(0, (5) ^ -2)
+      log_sSiteYear ~ dnorm(0, (5) ^ -2)
       log_sDensity ~ dt(0, (5) ^ -2, 4.5)
       log(sSiteYear) <- log_sSiteYear
       log(sDensity) <- log_sDensity
