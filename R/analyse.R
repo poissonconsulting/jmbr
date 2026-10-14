@@ -72,6 +72,7 @@ analyse1.jmb_model <- function(
   quiet,
   glance,
   parallel,
+  seed = sample.int(.Machine$integer.max, 1),
   ...
 ) {
   # rjags partially matches arguments such as seq(along = )
@@ -85,7 +86,7 @@ analyse1.jmb_model <- function(
 
   data <- embr::modify_data(data, model = model)
 
-  inits <- inits(data, model$gen_inits, nchains = nchains)
+  inits <- inits(data, model$gen_inits, nchains = nchains, seed = seed)
 
   monitor <- embr::monitor(model)
   monitor <- monitor[!monitor %in% names(data)]

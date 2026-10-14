@@ -1,14 +1,26 @@
-inits <- function(data, gen_inits, nchains) {
-  rngs <- rjags::parallel.seeds("base::BaseRNG", nchains)
+inits <- function(data, gen_inits, nchains, seed) {
+  rng_names <- paste0(
+    "base::",
+    c(
+      "Wichmann-Hill",
+      "Marsaglia-Multicarry",
+      "Super-Duper",
+      "Mersenne-Twister"
+    )
+  )
 
-  if (identical(gen_inits(data), list())) {
-    return(rngs)
-  }
+  withr::with_seed(seed, {
+    rng_seeds <- sample.int(.Machine$integer.max, nchains)
 
-  inits <- list()
-  for (i in 1:nchains) {
-    inits[[i]] <- c(gen_inits(data), rngs[[i]])
-  }
+    inits <- list()
+    for (i in 1:nchains) {
+      rng <- list(
+        .RNG.name = rng_names[(i - 1) %% length(rng_names) + 1],
+        .RNG.seed = rng_seeds[i]
+      )
+      inits[[i]] <- c(gen_inits(data), rng)
+    }
+  })
 
   inits
 }

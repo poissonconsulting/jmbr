@@ -25,7 +25,8 @@ Imports:
     term,
     timer,
     universals,
-    utils
+    utils,
+    withr
 Suggests:
     bauw,
     covr,
