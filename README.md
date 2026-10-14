@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![Lifecycle:
@@ -8,7 +9,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/jmbr/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/jmbr?branch=master)
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 <!-- badges: end -->
 
 # jmbr
@@ -18,14 +19,14 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 `jmbr` (pronounced jimber) is an R package to facilitate analyses using
 Just Another Gibbs Sampler ([`JAGS`](http://mcmc-jags.sourceforge.net)).
 
-It is part of the [mbr](https://github.com/poissonconsulting/mbr) family
-of packages.
+It is part of the [embr](https://github.com/poissonconsulting/embr)
+family of packages.
 
 ## Demonstration
 
 ``` r
 library(jmbr)
-library(mbr)
+library(embr)
 ```
 
 ``` r
@@ -56,10 +57,11 @@ for (i in 1:length(Pairs)) {
 }")
 
 # define data types and center year
-model <- update_model(model, 
+model <- update_model(model,
   select_data = list("Pairs" = integer(), "Year*" = integer(), Annual = factor()),
   derived = "sAnnual",
-  random_effects = list(bAnnual = "Annual"))
+  random_effects = list(bAnnual = "Annual")
+)
 
 data <- bauw::peregrine
 data$Annual <- factor(data$Year)
@@ -74,22 +76,22 @@ analysis <- analyse(model, data = data)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     1     9  5.11 FALSE
+#> 1    40     5       3    500     1    10  7.16 FALSE
 analysis <- reanalyse(analysis)
 #> # A tibble: 1 × 8
 #>       n     K nchains niters nthin   ess  rhat converged
 #>   <int> <int>   <int>  <int> <int> <int> <dbl> <lgl>    
-#> 1    40     5       3    500     2    44  3.47 FALSE
+#> 1    40     5       3    500     2    33   1.4 FALSE
 
-coef(analysis, simplify = TRUE)
+coef(analysis, directional_information = FALSE)
 #> # A tibble: 5 × 5
-#>   term        estimate  lower upper svalue
-#>   <term>         <dbl>  <dbl> <dbl>  <dbl>
-#> 1 alpha         4.25    3.05  4.35  10.6  
-#> 2 beta1         1.16   -1.13  1.33   1.55 
-#> 3 beta2        -0.0160 -0.205 0.419  0.520
-#> 4 beta3        -0.254  -0.338 0.768  1.35 
-#> 5 log_sAnnual  -2.10   -2.82  0.366  1.78
+#>   term        estimate   lower  upper svalue
+#>   <term>         <dbl>   <dbl>  <dbl>  <dbl>
+#> 1 alpha         4.25    4.01    4.34  10.6  
+#> 2 beta1         1.18   -0.117   1.36   3.74 
+#> 3 beta2        -0.0159 -0.0916  0.131  0.614
+#> 4 beta3        -0.266  -0.355   0.265  2.13 
+#> 5 log_sAnnual  -2.13   -2.79   -0.506 10.6
 
 plot(analysis)
 ```
